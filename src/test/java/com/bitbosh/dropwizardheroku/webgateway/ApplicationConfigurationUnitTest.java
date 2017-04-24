@@ -1,4 +1,4 @@
-package com.bitbosh.DropwizardHeroku;
+package com.bitbosh.dropwizardheroku.webgateway;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,12 +6,14 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
+import com.bitbosh.dropwizardheroku.webgateway.ApplicationConfiguration;
+
 import io.dropwizard.db.DataSourceFactory;
 import mockit.Expectations;
 import mockit.Mocked;
 
-public class DropwizardHerokuConfigurationUnitTest {
-  DropwizardHerokuConfiguration dropwizardConfig = new DropwizardHerokuConfiguration();
+public class ApplicationConfigurationUnitTest {
+  ApplicationConfiguration applicationConfig = new ApplicationConfiguration();
 
   @Test
   public void getDataSourceFactory_returnsCorrectDataSourceFactory_IfCorrectDataSupplied(@Mocked final System unused)
@@ -33,7 +35,7 @@ public class DropwizardHerokuConfigurationUnitTest {
       }
     };
 
-    DataSourceFactory returnedDataSourceFactory = dropwizardConfig.getDataSourceFactory();
+    DataSourceFactory returnedDataSourceFactory = applicationConfig.getDataSourceFactory();
     String actualUser = returnedDataSourceFactory.getUser();
     String actualPassword = returnedDataSourceFactory.getPassword();
     String actualDbUrl = returnedDataSourceFactory.getUrl();
@@ -61,7 +63,7 @@ public class DropwizardHerokuConfigurationUnitTest {
     };
 
     // Uri creation fails when parsing db url
-    DataSourceFactory returnedDataSourceFactory = dropwizardConfig.getDataSourceFactory();
+    DataSourceFactory returnedDataSourceFactory = applicationConfig.getDataSourceFactory();
   }
 
   @Test
@@ -79,9 +81,9 @@ public class DropwizardHerokuConfigurationUnitTest {
     };
 
     dataSourceFactory.setUser(expectedUser);
-    dropwizardConfig.setDataSourceFactory(dataSourceFactory);
+    applicationConfig.setDataSourceFactory(dataSourceFactory);
 
-    DataSourceFactory returnedDataSourceFactory = dropwizardConfig.getDataSourceFactory();
+    DataSourceFactory returnedDataSourceFactory = applicationConfig.getDataSourceFactory();
     String actualUser = returnedDataSourceFactory.getUser();
 
     assertEquals(expectedUser, actualUser);

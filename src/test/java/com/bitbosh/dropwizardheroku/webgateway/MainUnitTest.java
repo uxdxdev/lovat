@@ -1,11 +1,11 @@
-package com.bitbosh.DropwizardHeroku;
+package com.bitbosh.dropwizardheroku.webgateway;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.skife.jdbi.v2.DBI;
 
-import com.bitbosh.DropwizardHeroku.api.EventResource;
+import com.bitbosh.dropwizardheroku.webgateway.api.WebGatewayResource;
 
 import io.dropwizard.Application;
 import io.dropwizard.db.PooledDataSourceFactory;
@@ -16,14 +16,14 @@ import mockit.Mock;
 import mockit.MockUp;
 import mockit.Mocked;
 
-public class DropwizardHerokuApplicationUnitTest {
+public class MainUnitTest {
 
   @Test
   public void main_verifyMainCall_IfApplicationStarted() throws Exception {
     String expected = "test";
 
     // Mock the ctor for DropwizardHerokuApplication super class Application<DropwizardHerokuConfiguration>
-    new MockUp<Application<DropwizardHerokuConfiguration>>() {
+    new MockUp<Application<ApplicationConfiguration>>() {
 
       @Mock
       public void $init() {
@@ -32,7 +32,7 @@ public class DropwizardHerokuApplicationUnitTest {
     };
 
     // Mock the ctor for DropwizardHerokuApplication
-    new MockUp<DropwizardHerokuApplication>() {
+    new MockUp<Main>() {
 
       @Mock
       public void run(String... args) {
@@ -44,15 +44,15 @@ public class DropwizardHerokuApplicationUnitTest {
 
     };
 
-    DropwizardHerokuApplication.main(new String[] { expected });
+    Main.main(new String[] { expected });
   }
 
   @Test
-  public void run_verifyRunCall_IfApplicationStarted(@Mocked DropwizardHerokuConfiguration configuration,
+  public void run_verifyRunCall_IfApplicationStarted(@Mocked ApplicationConfiguration configuration,
       @Mocked Environment environment, @Mocked JerseyEnvironment jerseyEnv) throws Exception {
 
     // Mock the ctor for DropwizardHerokuApplication super class Application<DropwizardHerokuConfiguration>
-    new MockUp<Application<DropwizardHerokuConfiguration>>() {
+    new MockUp<Application<ApplicationConfiguration>>() {
 
       @Mock
       public void $init() {
@@ -81,13 +81,13 @@ public class DropwizardHerokuApplicationUnitTest {
       }
     };
 
-    new MockUp<EventResource>() {
+    new MockUp<WebGatewayResource>() {
       @Mock
       public void $init(DBI jdbi) {
       }
     };
 
-    DropwizardHerokuApplication app = new DropwizardHerokuApplication();
+    Main app = new Main();
     app.run(configuration, environment);
   }
 }

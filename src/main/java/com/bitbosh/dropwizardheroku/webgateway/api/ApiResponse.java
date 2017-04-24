@@ -1,4 +1,4 @@
-package com.bitbosh.DropwizardHeroku.api;
+package com.bitbosh.dropwizardheroku.webgateway.api;
 
 import java.util.List;
 

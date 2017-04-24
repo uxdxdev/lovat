@@ -1,4 +1,4 @@
-package com.bitbosh.DropwizardHeroku;
+package com.bitbosh.dropwizardheroku.webgateway;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.db.DataSourceFactory;
 
-public class DropwizardHerokuConfiguration extends Configuration {
+public class ApplicationConfiguration extends Configuration {
 
   @Valid
   @NotNull
