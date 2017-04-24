@@ -1,0 +1,14 @@
+database:
+  driverClass: org.postgresql.Driver
+  user: unused-user
+  password: unused-pw
+  url: unused-url
+  
+server:
+  rootPath: /v1/api/*
+  type: simple
+  applicationContextPath: /
+  adminContextPath: /admin
+  connector:
+    type: http
+    port: 8080

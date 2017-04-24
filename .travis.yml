@@ -1,0 +1,12 @@
+language: java
+jdk:
+- oraclejdk8
+after_success:
+  - mvn clean test jacoco:report coveralls:report
+deploy:
+  provider: heroku
+  api_key:
+    secure: Gjss5GUHymqXWCARDHF0IQLosVzOv86Qtc92im8/GP9YqPoSu6A4yz3Cqtccmsr+vGQ8iVtCANqrkJkY76OyA9NyEf2074D09EZxU6wa+uaBI5uhXCo2U7g4YfKJpvTmN9FjBIf9pw+/9bow+cCqfMT5B2A1YrJl7tbBL6dFuL0d4cb7/IQ3naa6IQmJsaZPxUZJN87e2LwMdSjt/8i8xlZ5ffAiSiTsVfbZZ0a3h3+WoqtKznTb+9mu+UDxim9D0IH7fDikrcDZ2/PvKxsHmMrPtuLJ1dyCRpBvi4tQ7pxZ6VERtyW8+jyO4vVEbbuLQRGRgTzCYtc3NxGcKnwPeyMkAL8A2i51ywcVZdqeHWD+lmM5ghmiVaeTMXOWtic9fr7v9OCQw/SlmSIlyPLrr8+06aunNk1Eb2b3CzQ3hQzaocD/iUL70VIY3lD4xUKO8cyXuD/fmwleIX3K3VgdfoPtcyBy/WgdZJPmiv0gFy5zLVrtBv20yP10T2MwMYE3dMLjn4bQOtURcmjnk8Apkg8TEt9MhKcExNuk5aa3obATJJWzRDywuDO4Zv9xF2UgUI2AcwbTdmkiUAOzwkDLoI6CtoC6qZkgtjvZO3Xyu+Ch9pDmYIYZgyeYI0DoZ6TmiEgI2bCLdTpKnB1XfNZsiQegCumj8oYCHRDcUQAaUvE=
+  app: protected-garden-89563
+  on:
+    repo: damorton/dropwizardheroku-event-service
