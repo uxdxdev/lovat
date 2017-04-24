@@ -1,11 +1,10 @@
-package com.bitbosh.DropwizardHeroku;
+package com.bitbosh.dropwizardheroku.webgateway;
 
 import java.net.URISyntaxException;
 
 import org.skife.jdbi.v2.DBI;
 
-import com.bitbosh.DropwizardHeroku.api.EventResource;
-import com.bitbosh.DropwizardHeroku.api.ExampleResource;
+import com.bitbosh.dropwizardheroku.webgateway.api.WebGatewayResource;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -14,14 +13,14 @@ import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
-public class DropwizardHerokuApplication extends Application<DropwizardHerokuConfiguration> {
+public class Main extends Application<ApplicationConfiguration> {
 
   public static void main(String[] args) throws Exception {
-    new DropwizardHerokuApplication().run(args);
+    new Main().run(args);
   }
 
   @Override
-  public void run(DropwizardHerokuConfiguration configuration, Environment environment) throws URISyntaxException {
+  public void run(ApplicationConfiguration configuration, Environment environment) throws URISyntaxException {
 
     // Create a DBIFactory to build instances of Dao classes for each Resource
     // in the application.
@@ -35,8 +34,7 @@ public class DropwizardHerokuApplication extends Application<DropwizardHerokuCon
     // Register each Resource with jersey and pass in the Dao so that it can
     // interact with the database.
     JerseyEnvironment jerseyEnvironment = environment.jersey();
-    jerseyEnvironment.register(new ExampleResource());
-    jerseyEnvironment.register(new EventResource(jdbi));
+    jerseyEnvironment.register(new WebGatewayResource(jdbi));
   }
 
   private DBIFactory createDbiFactory() {
@@ -44,7 +42,7 @@ public class DropwizardHerokuApplication extends Application<DropwizardHerokuCon
   }
 
   @Override
-  public void initialize(Bootstrap<DropwizardHerokuConfiguration> configuration) {
-    configuration.addBundle(new AssetsBundle("/assets", "/"));
+  public void initialize(Bootstrap<ApplicationConfiguration> configuration) {
+    configuration.addBundle(new AssetsBundle("/assets", "/", "index.html"));
   }
 }

@@ -4,15 +4,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.bitbosh</groupId>
-	<artifactId>dropwizardheroku-event-service</artifactId>
-	<name>Dropwizard Heroku Event Service</name>
-	<version>1.2</version>
+	<artifactId>dropwizardheroku-webgateway</artifactId>
+	<name>Dropwizard Heroku Web API Gateway</name>
+	<version>1.0</version>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<dropwizard.version>1.0.7</dropwizard.version>
-		<mainClass>com.bitbosh.DropwizardHeroku.DropwizardHerokuApplication</mainClass>
+		<mainClass>com.bitbosh.dropwizardHeroku.webgateway.Main</mainClass>
 	</properties>
 
 	<dependencies>
