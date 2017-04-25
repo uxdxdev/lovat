@@ -9,9 +9,7 @@ A Dropwizard Heroku Web API Gateway Microservice deployed to Heroku.
 ## API Endpoints for Web API Gateway
 
 ```
-curl https://dropwizardheroku-webgateway.herokuapp.com//v1/api/events
-curl https://dropwizardheroku-webgateway.herokuapp.com//v1/api/events/{name}
-curl -H "Content-Type: application/json" -X POST -d '{"name":"Sesh","description":"Drinkys","location":"Toms","date":"2017-04-11"}' https://dropwizardheroku-webgateway.herokuapp.com//v1/api/events
+curl https://dropwizardheroku-webgateway.herokuapp.com/
 ```
 
 ## Project Structure
