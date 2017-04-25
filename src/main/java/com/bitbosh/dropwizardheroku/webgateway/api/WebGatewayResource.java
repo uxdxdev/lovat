@@ -6,10 +6,15 @@ import javax.ws.rs.core.MediaType;
 
 import org.skife.jdbi.v2.DBI;
 
+import com.bitbosh.dropwizardheroku.webgateway.repository.WebGatewayDao;
+
 @Path("/webgateway")
 @Produces(MediaType.APPLICATION_JSON)
 public class WebGatewayResource {
 
-  public WebGatewayResource(DBI jdbi) {
-  }
+	private final WebGatewayDao webGatewayDao;
+
+	public WebGatewayResource(DBI jdbi) {
+		webGatewayDao = jdbi.onDemand(WebGatewayDao.class);
+	}
 }

@@ -1,6 +1,6 @@
 package com.bitbosh.dropwizardheroku.webgateway;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.skife.jdbi.v2.DBI;
@@ -8,10 +8,14 @@ import org.skife.jdbi.v2.DBI;
 import com.bitbosh.dropwizardheroku.webgateway.api.WebGatewayResource;
 
 import io.dropwizard.Application;
+import io.dropwizard.Bundle;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.PooledDataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
+import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import mockit.Expectations;
 import mockit.Mock;
 import mockit.MockUp;
 import mockit.Mocked;
@@ -39,7 +43,7 @@ public class MainUnitTest {
         String actual = args[0];
 
         // Assert args contains expected when called from main()
-        assertTrue(expected.equals(actual));
+        assertEquals(expected, actual);
       }
 
     };
@@ -89,5 +93,25 @@ public class MainUnitTest {
 
     Main app = new Main();
     app.run(configuration, environment);
+  }
+  
+  @Test
+  public void initialize_(@Mocked Bootstrap<ApplicationConfiguration> configuration){
+	  
+	  AssetsBundle expectedBundle = new AssetsBundle("/test", "/");
+	  new MockUp<Bootstrap<ApplicationConfiguration>>(){		 		 
+		  
+		  @Mock
+		  public void addBundle(Bundle bundle){
+		  }
+	  };
+	  
+	  // test if the addBundle method is called in the initialize function
+	  new Expectations(){{
+		 configuration.addBundle(expectedBundle);		 
+	  }};
+	  
+	  Main app = new Main();
+	  app.initialize(configuration);
   }
 }
