@@ -90,7 +90,7 @@
   </build>
   <properties>
     <dropwizard.version>1.0.7</dropwizard.version>
-    <mainClass>com.bitbosh.dropwizardHeroku.webgateway.Main</mainClass>
+    <mainClass>com.bitbosh.dropwizardheroku.webgateway.Main</mainClass>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
