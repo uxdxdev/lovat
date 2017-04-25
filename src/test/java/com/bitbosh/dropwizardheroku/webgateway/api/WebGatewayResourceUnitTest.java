@@ -1,5 +1,7 @@
 package com.bitbosh.dropwizardheroku.webgateway.api;
 
+import javax.ws.rs.client.Client;
+
 import org.junit.Test;
 import org.skife.jdbi.v2.DBI;
 
@@ -11,7 +13,7 @@ import mockit.Mocked;
 public class WebGatewayResourceUnitTest {
 	@Test
 	public void EventResource_constructsSuccessfully_IfEventDaoNotNull(@Mocked DBI jdbi,
-			@Mocked WebGatewayDao eventDao) {
+			@Mocked WebGatewayDao eventDao, @Mocked Client client) {
 
 		new Expectations() {
 			{
@@ -20,6 +22,6 @@ public class WebGatewayResourceUnitTest {
 			}
 		};
 
-		WebGatewayResource eventResource = new WebGatewayResource(jdbi);
+		WebGatewayResource eventResource = new WebGatewayResource(jdbi, client);
 	}
 }

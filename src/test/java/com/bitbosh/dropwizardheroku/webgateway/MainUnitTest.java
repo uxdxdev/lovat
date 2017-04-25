@@ -2,6 +2,8 @@ package com.bitbosh.dropwizardheroku.webgateway;
 
 import static org.junit.Assert.assertEquals;
 
+import javax.ws.rs.client.Client;
+
 import org.junit.Test;
 import org.skife.jdbi.v2.DBI;
 
@@ -10,6 +12,8 @@ import com.bitbosh.dropwizardheroku.webgateway.api.WebGatewayResource;
 import io.dropwizard.Application;
 import io.dropwizard.Bundle;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.client.JerseyClientBuilder;
+import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.db.PooledDataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
@@ -53,7 +57,7 @@ public class MainUnitTest {
 
   @Test
   public void run_verifyRunCall_IfApplicationStarted(@Mocked ApplicationConfiguration configuration,
-      @Mocked Environment environment, @Mocked JerseyEnvironment jerseyEnv) throws Exception {
+      @Mocked Environment environment, @Mocked JerseyEnvironment jerseyEnv, @Mocked JerseyClientBuilder clientBuilder, @Mocked Client client) throws Exception {
 
     // Mock the ctor for DropwizardHerokuApplication super class Application<DropwizardHerokuConfiguration>
     new MockUp<Application<ApplicationConfiguration>>() {
@@ -87,8 +91,30 @@ public class MainUnitTest {
 
     new MockUp<WebGatewayResource>() {
       @Mock
-      public void $init(DBI jdbi) {
+      public void $init(DBI jdbi, Client client) {
       }
+    };
+    
+    new MockUp<JerseyClientBuilder>(){
+    	
+    	@Mock
+        public void $init(Environment environment) {
+        } 
+    	
+    	@Mock
+        public JerseyClientBuilder using(JerseyClientConfiguration configuration) {
+    		return clientBuilder;
+        }
+    	
+    	@Mock
+        public JerseyClientBuilder using(Environment environment) {
+			return clientBuilder;        
+        }
+    	
+    	@Mock
+        public Client build(String name) {
+			return client;
+        }
     };
 
     Main app = new Main();
