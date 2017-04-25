@@ -10,3 +10,7 @@ deploy:
   app: dropwizardheroku-webgateway
   on:
     repo: damorton/dropwizardheroku-webgateway
+notifications:
+  email:
+    on_success: never 
+    on_failure: always
