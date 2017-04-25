@@ -3,7 +3,7 @@ database:
   user: unused-user
   password: unused-pw
   url: unused-url
-  
+
 server:
   rootPath: /v1/api/*
   type: simple
