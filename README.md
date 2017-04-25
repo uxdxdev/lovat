@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/damorton/dropwizardheroku-webgateway.svg?branch=master)](https://travis-ci.org/damorton/dropwizardheroku-webgateway) [![Coverage Status](https://coveralls.io/repos/github/damorton/dropwizardheroku-webgateway/badge.svg?branch=master)](https://coveralls.io/github/damorton/dropwizardheroku-webgateway?branch=master)
 
-https://dropwizardheroku-webgateway.herokuapp.com//
+https://dropwizardheroku-webgateway.herokuapp.com/
 
 A Dropwizard Heroku Web API Gateway Microservice deployed to Heroku.
 
