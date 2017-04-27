@@ -29,7 +29,7 @@ public class WebGatewayResource {
 	@Path("/events")
 	public ApiResponse getEvents() {
 		//WebTarget webTarget = client.target("https://dropwizardheroku-event-service.herokuapp.com/v1/api/events");
-		WebTarget webTarget = client.target("http://localhost:8081/v1/api/events");
+		WebTarget webTarget = this.client.target("http://localhost:8081/v1/api/events");
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
         Response response = invocationBuilder.get();
         ApiResponse apiResponse = response.readEntity(ApiResponse.class);
