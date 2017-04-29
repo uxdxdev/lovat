@@ -17,12 +17,15 @@ public class React {
 	public React(NashornScriptEngine nashorn){
 		this.nashorn = nashorn;
 		try {
+			// remote js file loading
         	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react.js')");
         	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react-dom.js')");
         	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js')");
-        	nashorn.eval(read("assets/js/axios.js"));
+        	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.1/axios.js')");        	        	
+        	nashorn.eval("load('http://localhost:8081/js/events.js')");
+        	
+        	// local js file loading
         	nashorn.eval(read("assets/js/nashorn-polyfill.js"));
-        	nashorn.eval(read("assets/js/events.js"));
         } catch (ScriptException e) {
             throw new RuntimeException(e);
         }
