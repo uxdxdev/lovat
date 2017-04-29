@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import org.skife.jdbi.v2.DBI;
 
+import com.bitbosh.dropwizardheroku.webgateway.core.Microservice;
 import com.bitbosh.dropwizardheroku.webgateway.repository.WebGatewayDao;
 
 @Path("/")
@@ -31,16 +32,17 @@ public class WebGatewayResource {
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public String index() {
-		// Get events from Events microservice
+		
+		// Get events json data from Events microservice
 		String eventsMicroserviceURL = "http://localhost:8081/v1/api/events";
 		WebTarget webTarget = this.client.target(eventsMicroserviceURL);
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);		
         Response response = invocationBuilder.get();
         ApiResponse events = response.readEntity(ApiResponse.class);
         
-        // Render the Events component
-        List <Object> data = (List<Object>) events.getList();
-        String webApplicationHtml = this.react.renderComponent(data);
+        // Render the Events component and pass in props
+        List <Object> eventsProps = (List<Object>) events.getList();
+        String webApplicationHtml = this.react.renderComponent(Microservice.kEventsComponent, eventsProps);
         
         // Return the full application index.html after templating
         return webApplicationHtml;

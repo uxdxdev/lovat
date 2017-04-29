@@ -5,8 +5,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+
+import com.bitbosh.dropwizardheroku.webgateway.core.Microservice;
 
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 
@@ -22,7 +23,7 @@ public class React {
         	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react-dom.js')");
         	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js')");
         	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.1/axios.js')");        	        	
-        	nashorn.eval("load('http://localhost:8081/js/events.js')");
+        	nashorn.eval("load('" + Microservice.kEventsUrl + "')");
         	
         	// local js file loading
         	nashorn.eval(read("assets/js/nashorn-polyfill.js"));
@@ -31,10 +32,9 @@ public class React {
         }
 	}
 
-    public String renderComponent(List<Object> events) {
-        try {
-            //Object html = engineHolder.get().invokeFunction("renderEventsComponentServer", events);
-        	Object html = nashorn.invokeFunction("renderEventsComponentServer", events);
+    public String renderComponent(String component, List<Object> props) {
+        try {            
+        	Object html = nashorn.invokeFunction(component, props);
             return String.valueOf(html);
         }
         catch (Exception e) {
