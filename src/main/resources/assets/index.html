@@ -13,7 +13,7 @@
   <!--<script type="text/babel" src="https://dropwizardheroku-event-service.herokuapp.com/component/Events.jsx"></script>-->
   <script type="text/babel" src="http://localhost:8081/component/Events.jsx"></script>
   <script type="text/babel">
-    ReactDOM.render(<Events/>, document.getElementById('root'));
+    ReactDOM.render(<Events pollInterval={5000} />, document.getElementById('root'));
   </script>
 </body>
 </html>
