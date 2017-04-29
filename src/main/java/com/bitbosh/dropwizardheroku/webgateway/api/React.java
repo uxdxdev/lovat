@@ -19,7 +19,7 @@ public class React {
 		try {
         	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react.js')");
         	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react-dom.js')");
-        	nashorn.eval(read("assets/js/babel.min.js"));
+        	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js')");
         	nashorn.eval(read("assets/js/axios.js"));
         	nashorn.eval(read("assets/js/nashorn-polyfill.js"));
         	nashorn.eval(read("assets/js/events.js"));
