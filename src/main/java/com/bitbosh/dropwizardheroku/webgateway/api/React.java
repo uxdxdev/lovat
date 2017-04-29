@@ -13,25 +13,9 @@ import jdk.nashorn.api.scripting.NashornScriptEngine;
 public class React {
               
 	private final NashornScriptEngine nashorn;
-//    private ThreadLocal<NashornScriptEngine> engineHolder = new ThreadLocal<NashornScriptEngine>() {
-//        @Override
-//        protected NashornScriptEngine initialValue() {
-//            NashornScriptEngine nashorn = (NashornScriptEngine) new ScriptEngineManager().getEngineByName("nashorn");
-//            try {
-//            	nashorn.eval(read("assets/js/react.js"));
-//            	nashorn.eval(read("assets/js/babel.min.js"));
-//            	nashorn.eval(read("assets/js/axios.js"));
-//            	nashorn.eval(read("assets/js/nashorn-polyfill.js"));
-//            	nashorn.eval(read("assets/js/events.js"));
-//            } catch (ScriptException e) {
-//                throw new RuntimeException(e);
-//            }
-//            return nashorn;
-//        }
-//    };
 	
-	public React(){
-        nashorn = (NashornScriptEngine) new ScriptEngineManager().getEngineByName("nashorn");
+	public React(NashornScriptEngine nashorn){
+		this.nashorn = nashorn;
 		try {
         	nashorn.eval(read("assets/js/react.js"));
         	nashorn.eval(read("assets/js/react-dom.js"));
