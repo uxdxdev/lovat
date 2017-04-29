@@ -6,6 +6,7 @@ import javax.ws.rs.client.Client;
 
 import org.skife.jdbi.v2.DBI;
 
+import com.bitbosh.dropwizardheroku.webgateway.api.React;
 import com.bitbosh.dropwizardheroku.webgateway.api.WebGatewayResource;
 
 import io.dropwizard.Application;
@@ -35,12 +36,12 @@ public class Main extends Application<ApplicationConfiguration> {
 		// MainConfiguration class.
 		final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
 		final Client client = new JerseyClientBuilder(environment).using(configuration.getJerseyClientConfiguration()).using(environment).build("client");
-
+		final React react = new React();
+		
 		// Register each Resource with jersey and pass in the Dao so that it can
 		// interact with the database.
 		JerseyEnvironment jerseyEnvironment = environment.jersey();
-		jerseyEnvironment.register(new WebGatewayResource(jdbi, client));
-
+		jerseyEnvironment.register(new WebGatewayResource(jdbi, client, react));
 	}
 
 	private DBIFactory createDbiFactory() {
@@ -49,6 +50,6 @@ public class Main extends Application<ApplicationConfiguration> {
 
 	@Override
 	public void initialize(Bootstrap<ApplicationConfiguration> configuration) {
-		configuration.addBundle(new AssetsBundle("/assets", "/", "index.html"));
+		configuration.addBundle(new AssetsBundle("/assets", "/assets"));
 	}
 }

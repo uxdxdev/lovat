@@ -3,17 +3,27 @@
 <head>
 <meta charset="UTF-8" />
 <title>Dropwizard Heroku Event Service</title>
-<script src="https://unpkg.com/react@latest/dist/react.js"></script>
-<script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
-<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.1/axios.js"></script>
+<script type="text/javascript" src="https://unpkg.com/react@latest/dist/react.js"></script>
+<script type="text/javascript" src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+<script type="text/javascript" src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.1/axios.js"></script>
+
 </head>
 <body>
   <div id="root"></div>
-  <!--<script type="text/babel" src="https://dropwizardheroku-event-service.herokuapp.com/component/Events.jsx"></script>-->
-  <script type="text/babel" src="http://localhost:8081/component/Events.jsx"></script>
+  
+  <!--<script type="text/babel" src="https://dropwizardheroku-event-service.herokuapp.com/component/Events.jsx"></script>
+  <script type="text/babel" src="http://localhost:8081/component/Events.jsx"></script>-->
+  <script type="text/jsx" src="js/events.js"></script>
+  
+  <!-- Render the Events component passing in the Web API Gateway endpoint for events -->
+  <!--    
+  		<Events url='https://dropwizardheroku-webgateway.herokuapp.com/v1/api/events' pollInterval={5000} />,   
+   -->
   <script type="text/babel">
-    ReactDOM.render(<Events/>, document.getElementById('root'));
+    ReactDOM.render(
+		<Events pollInterval={5000} />, 
+		document.getElementById('root'));
   </script>
 </body>
 </html>

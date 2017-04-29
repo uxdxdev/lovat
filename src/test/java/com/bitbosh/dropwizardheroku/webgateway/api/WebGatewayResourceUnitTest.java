@@ -21,7 +21,7 @@ public class WebGatewayResourceUnitTest {
 		
 	@Test
 	public void EventResource_constructsSuccessfully_IfEventDaoNotNull(@Mocked DBI jdbi,
-			@Mocked WebGatewayDao eventDao, @Mocked Client client) {
+			@Mocked WebGatewayDao eventDao, @Mocked Client client, @Mocked React react) {
 
 		new Expectations() {
 			{
@@ -30,11 +30,11 @@ public class WebGatewayResourceUnitTest {
 			}
 		};
 
-		WebGatewayResource eventResource = new WebGatewayResource(jdbi, client);
+		WebGatewayResource eventResource = new WebGatewayResource(jdbi, client, react);
 	}
 	
 	@Test
-	  public void getEvents_returnsCorrectApiResponce_IfEventsListRequested(@Mocked DBI jdbi, @Mocked Client client, @Mocked WebTarget webTarget, @Mocked Invocation.Builder invocationBuilder, @Mocked  Response response, @Mocked ApiResponse apiResponse) {	    
+	  public void getEvents_returnsCorrectApiResponce_IfEventsListRequested(@Mocked DBI jdbi, @Mocked Client client, @Mocked WebTarget webTarget, @Mocked Invocation.Builder invocationBuilder, @Mocked  Response response, @Mocked ApiResponse apiResponse, @Mocked React react) {	    
 
 	    new Expectations() {
 	      {
@@ -52,7 +52,7 @@ public class WebGatewayResourceUnitTest {
 	      }
 	    };
 	    
-		WebGatewayResource webGatewayResource = new WebGatewayResource(jdbi, client);
+		WebGatewayResource webGatewayResource = new WebGatewayResource(jdbi, client, react);
 	    ApiResponse actualResponse = webGatewayResource.getEvents();
 	    assertEquals(apiResponse, actualResponse);
 	  }
