@@ -29,7 +29,6 @@ import mockit.MockUp;
 import mockit.Mocked;
 import mockit.integration.junit4.JMockit;
 
-@RunWith(JMockit.class)
 public class MainUnitTest {
 
   @Test
