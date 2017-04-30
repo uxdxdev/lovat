@@ -3,7 +3,6 @@ package com.bitbosh.dropwizardheroku.webgateway;
 import static org.junit.Assert.assertEquals;
 
 import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.ws.rs.client.Client;
 
 import org.junit.Test;
