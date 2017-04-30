@@ -19,7 +19,7 @@ repositories {
 }
 
 group = 'com.bitbosh'
-version = '1.1'
+version = '1.2'
 
 description = """Dropwizard Heroku Web API Gateway"""
 
