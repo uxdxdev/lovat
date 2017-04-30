@@ -1,7 +1,6 @@
 package com.bitbosh.dropwizardheroku.webgateway;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import javax.script.ScriptEngine;
 import javax.ws.rs.client.Client;
@@ -137,8 +136,7 @@ public class MainUnitTest {
   }
   
   @Test
-  public void initialize_bundleAdded_IfInitialised(@Mocked Bootstrap<ApplicationConfiguration> configuration){
-	  fail();
+  public void initialize_bundleAdded_IfInitialised(@Mocked Bootstrap<ApplicationConfiguration> configuration){	 
 	  AssetsBundle expectedBundle = new AssetsBundle("/test", "/");
 	  new MockUp<Bootstrap<ApplicationConfiguration>>(){		 		 
 		  
