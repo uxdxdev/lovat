@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import org.junit.Test;
 import org.skife.jdbi.v2.DBI;
 
+import com.bitbosh.dropwizardheroku.webgateway.core.Microservice;
 import com.bitbosh.dropwizardheroku.webgateway.repository.WebGatewayDao;
 
 import mockit.Expectations;
@@ -42,7 +43,7 @@ public class WebGatewayResourceUnitTest {
 
 		new Expectations() {
 			{
-				client.target("http://localhost:8081/v1/api/events");
+				client.target(Microservice.kEventsApiEndpointEvents);
 				result = webTarget;
 
 				webTarget.request(MediaType.APPLICATION_JSON);
@@ -70,7 +71,7 @@ public class WebGatewayResourceUnitTest {
 			List<Object> eventsProps;
 			ApiResponse apiResponse = new ApiResponse();
 			{
-				client.target("http://localhost:8081/v1/api/events");
+				client.target(Microservice.kEventsApiEndpointEvents);
 				result = webTarget;
 
 				webTarget.request(MediaType.APPLICATION_JSON);

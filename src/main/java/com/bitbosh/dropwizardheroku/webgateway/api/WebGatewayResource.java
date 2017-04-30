@@ -54,10 +54,8 @@ public class WebGatewayResource {
 	@GET
 	@Path("/events")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ApiResponse getEvents() {		
-		//WebTarget webTarget = client.target("https://dropwizardheroku-event-service.herokuapp.com/v1/api/events");
-		String eventsMicroserviceURL = "http://localhost:8081/v1/api/events";
-		WebTarget webTarget = this.client.target(eventsMicroserviceURL);
+	public ApiResponse getEvents() {				
+		WebTarget webTarget = this.client.target(Microservice.kEventsApiEndpointEvents);
         Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);		
         Response response = invocationBuilder.get();
         ApiResponse apiResponse = response.readEntity(ApiResponse.class);
