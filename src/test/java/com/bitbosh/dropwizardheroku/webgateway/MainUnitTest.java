@@ -1,12 +1,12 @@
 package com.bitbosh.dropwizardheroku.webgateway;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import javax.script.ScriptEngine;
 import javax.ws.rs.client.Client;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.skife.jdbi.v2.DBI;
 
 import com.bitbosh.dropwizardheroku.webgateway.api.React;
@@ -27,7 +27,6 @@ import mockit.Expectations;
 import mockit.Mock;
 import mockit.MockUp;
 import mockit.Mocked;
-import mockit.integration.junit4.JMockit;
 
 public class MainUnitTest {
 
@@ -139,7 +138,7 @@ public class MainUnitTest {
   
   @Test
   public void initialize_bundleAdded_IfInitialised(@Mocked Bootstrap<ApplicationConfiguration> configuration){
-	  
+	  fail();
 	  AssetsBundle expectedBundle = new AssetsBundle("/test", "/");
 	  new MockUp<Bootstrap<ApplicationConfiguration>>(){		 		 
 		  

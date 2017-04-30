@@ -3,7 +3,7 @@ jdk:
 - oraclejdk8
 after_success:
 #- mvn clean test jacoco:report coveralls:report
-- ./gradlew test jacocoTestReport coveralls
+- ./gradlew test jacocoTestReport coveralls --debug
 deploy:
   provider: heroku
   api_key:
