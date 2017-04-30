@@ -6,14 +6,14 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 
-import com.bitbosh.dropwizardheroku.webgateway.ApplicationConfiguration;
-
 import io.dropwizard.db.DataSourceFactory;
 import mockit.Expectations;
 import mockit.Mocked;
+import mockit.Tested;
 
 public class ApplicationConfigurationUnitTest {
-  ApplicationConfiguration applicationConfig = new ApplicationConfiguration();
+
+  @Tested ApplicationConfiguration applicationConfig;
 
   @Test
   public void getDataSourceFactory_returnsCorrectDataSourceFactory_IfCorrectDataSupplied(@Mocked final System unused)
