@@ -6,6 +6,7 @@ import javax.script.ScriptEngine;
 import javax.ws.rs.client.Client;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.skife.jdbi.v2.DBI;
 
 import com.bitbosh.dropwizardheroku.webgateway.api.React;
@@ -26,7 +27,9 @@ import mockit.Expectations;
 import mockit.Mock;
 import mockit.MockUp;
 import mockit.Mocked;
+import mockit.integration.junit4.JMockit;
 
+@RunWith(JMockit.class)
 public class MainUnitTest {
 
   @Test
