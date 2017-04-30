@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>org.jmockit</groupId>
 			<artifactId>jmockit</artifactId>
-			<version>1.8</version>
+			<version>1.31</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard</groupId>
@@ -144,7 +144,7 @@
 					<!-- Excludes integration tests when unit tests are run. -->
 					<excludes>
 						<exclude>**/*IT.java</exclude>
-					</excludes>
+					</excludes>					
 				</configuration>
 			</plugin>
 		</plugins>
