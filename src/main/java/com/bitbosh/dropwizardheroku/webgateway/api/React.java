@@ -23,8 +23,8 @@ public class React {
         	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/react/0.14.1/react-dom.js')");
         	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js')");
         	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.1/axios.js')");        	        	
-        	nashorn.eval("load('" + Microservice.kEventsUrl + "')");
-        	
+        	nashorn.eval("load('" + Microservice.kEventsUiComponentUrl + "')");
+     
         	// local js file loading
         	nashorn.eval(read("assets/js/nashorn-polyfill.js"));
         } catch (ScriptException e) {

@@ -33,19 +33,22 @@ public class WebGatewayResource {
 	@Produces(MediaType.TEXT_HTML)
 	public String index() {
 		
-		// Get events json data from Events microservice
-		String eventsMicroserviceURL = "http://localhost:8081/v1/api/events";
-		WebTarget webTarget = this.client.target(eventsMicroserviceURL);
-        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);		
-        Response response = invocationBuilder.get();
-        ApiResponse events = response.readEntity(ApiResponse.class);
+		// Get events json data from Events microservice	
+        ApiResponse events = getEventsJsonData();
         
         // Render the Events component and pass in props
         List <Object> eventsProps = (List<Object>) events.getList();
-        String webApplicationHtml = this.react.renderComponent(Microservice.kEventsComponent, eventsProps);
+        String webApplicationHtml = this.react.renderComponent(Microservice.kEventsUiComponentRenderServerFunction, eventsProps);
         
         // Return the full application index.html after templating
         return webApplicationHtml;
+	}
+
+	private ApiResponse getEventsJsonData() {
+		WebTarget webTarget = this.client.target(Microservice.kEventsApiEndpointEvents);
+        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);		
+        Response response = invocationBuilder.get();
+        return response.readEntity(ApiResponse.class);		
 	}
 
 	@GET
