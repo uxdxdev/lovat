@@ -2,11 +2,14 @@ package com.bitbosh.dropwizardheroku.webgateway;
 
 import static org.junit.Assert.assertEquals;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.ws.rs.client.Client;
 
 import org.junit.Test;
 import org.skife.jdbi.v2.DBI;
 
+import com.bitbosh.dropwizardheroku.webgateway.api.React;
 import com.bitbosh.dropwizardheroku.webgateway.api.WebGatewayResource;
 
 import io.dropwizard.Application;
@@ -19,6 +22,7 @@ import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import jdk.nashorn.api.scripting.NashornScriptEngine;
 import mockit.Expectations;
 import mockit.Mock;
 import mockit.MockUp;
@@ -57,7 +61,11 @@ public class MainUnitTest {
 
   @Test
   public void run_verifyRunCall_IfApplicationStarted(@Mocked ApplicationConfiguration configuration,
-      @Mocked Environment environment, @Mocked JerseyEnvironment jerseyEnv, @Mocked JerseyClientBuilder clientBuilder, @Mocked Client client) throws Exception {
+      @Mocked Environment environment, 
+      @Mocked JerseyEnvironment jerseyEnv, 
+      @Mocked JerseyClientBuilder clientBuilder, 
+      @Mocked Client client, 
+      @Mocked ScriptEngine engine) throws Exception {
 
     // Mock the ctor for DropwizardHerokuApplication super class Application<DropwizardHerokuConfiguration>
     new MockUp<Application<ApplicationConfiguration>>() {
@@ -91,7 +99,7 @@ public class MainUnitTest {
 
     new MockUp<WebGatewayResource>() {
       @Mock
-      public void $init(DBI jdbi, Client client) {
+      public void $init(DBI jdbi, Client client, React react) {
       }
     };
     
@@ -116,13 +124,20 @@ public class MainUnitTest {
 			return client;
         }
     };
+    
+    new MockUp<React>(){
+    	@Mock
+        public void $init(NashornScriptEngine engine) {
+    		
+        }  
+    };
 
     Main app = new Main();
     app.run(configuration, environment);
   }
   
   @Test
-  public void initialize_(@Mocked Bootstrap<ApplicationConfiguration> configuration){
+  public void initialize_bundleAdded_IfInitialised(@Mocked Bootstrap<ApplicationConfiguration> configuration){
 	  
 	  AssetsBundle expectedBundle = new AssetsBundle("/test", "/");
 	  new MockUp<Bootstrap<ApplicationConfiguration>>(){		 		 
