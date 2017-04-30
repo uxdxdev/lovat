@@ -1,0 +1,44 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'jacoco'
+apply plugin: "com.github.kt3k.coveralls"
+
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1"
+  }
+}
+
+repositories {
+     maven { url "https://plugins.gradle.org/m2/" }
+}
+
+group = 'com.bitbosh'
+version = '1.2'
+
+description = """Dropwizard Heroku Web API Gateway"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+dependencies {
+    compile group: 'org.jmockit', name: 'jmockit', version:'1.31'
+    compile group: 'io.dropwizard', name: 'dropwizard-core', version:'1.0.7'
+    compile group: 'io.dropwizard', name: 'dropwizard-jdbi', version:'1.0.7'
+    compile group: 'io.dropwizard', name: 'dropwizard-testing', version:'1.0.7'
+    compile group: 'io.dropwizard', name: 'dropwizard-assets', version:'1.0.7'
+    compile group: 'io.dropwizard', name: 'dropwizard-client', version:'1.0.7'
+    compile group: 'postgresql', name: 'postgresql', version:'9.1-901.jdbc4'
+}

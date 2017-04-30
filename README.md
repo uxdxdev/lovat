@@ -38,16 +38,16 @@ com.bitbosh.dropwizardheroku.webgateway.client (HTTP Client to communicate with 
     │   ├── java
     │   │   └── com
     │   │       └── dropwizardheroku
-	│   │	       	└── webgateway    
+    │   │	       	└── webgateway    
     │   │          		├── api
-    │   │           	├── service
-    │   │           	├── domain
-    │   │           	├── repositories
-    │   │           	├── gateways
-    │   │           	├── client
-    │   │           	├── Main.java
-    │   │           	├── ApplicationConfiguration.java
-    │   │           	├── ...
+    │   │           		├── service
+    │   │           		├── domain
+    │   │           		├── repositories
+    │   │           		├── gateways
+    │   │           		├── client
+    │   │           		├── Main.java
+    │   │           		├── ApplicationConfiguration.java
+    │   │           		├── ...
     │   └── resources
     │       ├── assets
     │       	└── index.html
@@ -57,14 +57,14 @@ com.bitbosh.dropwizardheroku.webgateway.client (HTTP Client to communicate with 
         │       └── dropwizardheroku
         │       	└── webgateway
         │	           	├── api
-        │   	       	├── service
+        │   	       		├── service
         │       	   	├── domain
         │         		├── repositories
         │	           	├── gateways
-        │   	        ├── client
-        │       	    ├── MainUnitTest.java
-        │           	├── ApplicationConfigurationUnitTest.java
-        │           	├── ...
+        │   	        	├── client
+        │       	    	├── MainUnitTest.java
+        │           		├── ApplicationConfigurationUnitTest.java
+        │           		├── ...
         └── resources
             └── fixtures
 ```

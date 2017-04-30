@@ -5,7 +5,7 @@ database:
   url: unused-url
 
 server:
-  rootPath: /v1/api/*
+  rootPath: /*
   type: simple
   applicationContextPath: /
   adminContextPath: /admin

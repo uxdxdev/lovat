@@ -6,6 +6,10 @@ public class ApiResponse {
 
   private List<?> list;
 
+  public ApiResponse() {
+	  
+  }
+  
   public ApiResponse(List<?> items) {
     list = items;
   }
