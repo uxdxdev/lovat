@@ -1,8 +1,8 @@
-function loadEventsFromServer(eventsUrl) {
+var loadEventsFromServer = function(eventsUrl) {
 	axios.get(eventsUrl).then(function(res) {
 		var data = res.data.list;		
 		renderClientEvents(data);
 	});
 }
 
-loadEventsFromServer('http://localhost:8080/events');
+loadEventsFromServer('https://dropwizardheroku-webgateway.herokuapp.com/events');
