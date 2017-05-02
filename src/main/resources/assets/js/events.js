@@ -1,22 +1,25 @@
-var Events = React.createClass({
-	getInitialState: function () {
-		return {events: this.props.events};
-	},
+class Events extends React.Component {
+	constructor(props){
+		super(props);
+		this.state = {
+				events: props.events
+		}
+	}
 
-  loadEventsFromServer: function(component, eventsUrl) {	  
+  loadEventsFromServer (component, eventsUrl) {	  
 	  axios.get(eventsUrl).then(function (res) {
 		  var eventList = res.data.list;		  
 		  component.setState({ events: eventList });
 	  });
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount () {
     this.eventsUrl = 'http://localhost:8080/events';
     this.loadEventsFromServer(this, this.eventsUrl);
     setInterval(this.loadEventsFromServer.bind(null, this, this.eventsUrl), this.props.pollInterval);
-  },
+  }
 
-  render: function() {
+  render () {
 	  return React.createElement(
 		          "ul",
 		          null,
@@ -29,7 +32,7 @@ var Events = React.createClass({
 		          })
 		        );
 	  }
-});
+}
 
 var renderClientEvents = function (eventList) {
     var data = eventList || [];
