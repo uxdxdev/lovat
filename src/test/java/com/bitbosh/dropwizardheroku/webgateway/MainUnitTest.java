@@ -136,8 +136,7 @@ public class MainUnitTest {
   }
   
   @Test
-  public void initialize_bundleAdded_IfInitialised(@Mocked Bootstrap<ApplicationConfiguration> configuration){
-	  
+  public void initialize_bundleAdded_IfInitialised(@Mocked Bootstrap<ApplicationConfiguration> configuration){	 
 	  AssetsBundle expectedBundle = new AssetsBundle("/test", "/");
 	  new MockUp<Bootstrap<ApplicationConfiguration>>(){		 		 
 		  

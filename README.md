@@ -6,6 +6,18 @@ https://dropwizardheroku-webgateway.herokuapp.com/
 
 A Dropwizard Heroku Web API Gateway Microservice deployed to Heroku.
 
+## Build
+
+- Clone repo
+```
+git clone https://github.com/damorton/dropwizardheroku-webgateway.git
+```
+- Build
+```
+cd dropwizardheroku-webgateway
+gradle build
+```
+
 ## API Endpoints for Web API Gateway
 
 ```

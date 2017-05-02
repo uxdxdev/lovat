@@ -1,10 +1,14 @@
 package com.bitbosh.dropwizardheroku.webgateway;
 
 import java.net.URISyntaxException;
+import java.util.EnumSet;
 
 import javax.script.ScriptEngineManager;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 import javax.ws.rs.client.Client;
 
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.skife.jdbi.v2.DBI;
 
 import com.bitbosh.dropwizardheroku.webgateway.api.React;
@@ -17,6 +21,7 @@ import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 
 public class Main extends Application<ApplicationConfiguration> {
@@ -54,5 +59,6 @@ public class Main extends Application<ApplicationConfiguration> {
 	@Override
 	public void initialize(Bootstrap<ApplicationConfiguration> configuration) {
 		configuration.addBundle(new AssetsBundle("/assets", "/assets"));
+		configuration.addBundle(new ViewBundle());		
 	}
 }

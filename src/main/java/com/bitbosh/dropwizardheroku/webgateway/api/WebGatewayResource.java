@@ -1,5 +1,6 @@
 package com.bitbosh.dropwizardheroku.webgateway.api;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -15,6 +16,7 @@ import org.skife.jdbi.v2.DBI;
 
 import com.bitbosh.dropwizardheroku.webgateway.core.Microservice;
 import com.bitbosh.dropwizardheroku.webgateway.repository.WebGatewayDao;
+import com.bitbosh.dropwizardheroku.webgateway.views.IndexView;
 
 @Path("/")
 public class WebGatewayResource {
@@ -31,17 +33,18 @@ public class WebGatewayResource {
 	
 	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public String index() {
+	public IndexView index() throws IOException {
 		
 		// Get events json data from Events microservice	
         ApiResponse events = getEventsJsonData();
         
         // Render the Events component and pass in props
-        List <Object> eventsProps = (List<Object>) events.getList();
-        String webApplicationHtml = this.react.renderComponent(Microservice.kEventsUiComponentRenderServerFunction, eventsProps);
-        
-        // Return the full application index.html after templating
-        return webApplicationHtml;
+        @SuppressWarnings("unchecked")
+		List <Object> eventsProps = (List<Object>) events.getList();
+        String eventsComponent = this.react.renderComponent(Microservice.kEventsUiComponentRenderServerFunction, eventsProps);
+                
+        IndexView index = new IndexView(eventsComponent, eventsProps);         
+        return index;
 	}
 
 	private ApiResponse getEventsJsonData() {
