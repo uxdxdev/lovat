@@ -1,1 +1,1 @@
-web: ./build/install/dropwizardheroku-event-service/bin/dropwizardheroku-webgateway-1.2.jar server config.yml
+web: ./build/install/dropwizardheroku-event-service/bin/dropwizardheroku-webgateway server config.yml
