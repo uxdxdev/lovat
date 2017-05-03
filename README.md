@@ -2,11 +2,21 @@
 
 [![Build Status](https://travis-ci.org/damorton/dropwizardheroku-webgateway.svg?branch=master)](https://travis-ci.org/damorton/dropwizardheroku-webgateway) [![Coverage Status](https://coveralls.io/repos/github/damorton/dropwizardheroku-webgateway/badge.svg?branch=master)](https://coveralls.io/github/damorton/dropwizardheroku-webgateway?branch=master)
 
+##Browser client API 
 https://dropwizardheroku-webgateway.herokuapp.com/
+
+##Event Microservice
+https://dropwizardheroku-event-service.herokuapp.com/
 
 A Dropwizard Heroku Web API Gateway Microservice deployed to Heroku.
 
 ## Build
+
+- Heroku config
+
+```
+heroku config:set WEB_OPTS='-Ddw.server.connector.port=$PORT'
+```
 
 - Clone repo
 ```
@@ -15,7 +25,11 @@ git clone https://github.com/damorton/dropwizardheroku-webgateway.git
 - Build
 ```
 cd dropwizardheroku-webgateway
-gradle build
+./gradlew stage
+```
+- Run
+```
+heroku local
 ```
 
 ## API Endpoints for Web API Gateway
