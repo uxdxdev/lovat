@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 
 import org.skife.jdbi.v2.DBI;
 
-import com.bitbosh.dropwizardheroku.webgateway.core.Microservice;
 import com.bitbosh.dropwizardheroku.webgateway.repository.WebGatewayDao;
 import com.bitbosh.dropwizardheroku.webgateway.views.IndexView;
 
@@ -23,45 +22,48 @@ public class WebGatewayResource {
 
 	private final WebGatewayDao webGatewayDao;
 	private final Client client;
-	private React react;
+	private NashornController nashornController;
+	static final String kEventsServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";
+	static final String kEventsApiEndpointEvents = kEventsServiceUrl + "/v1/api/events";
+	static final String kEventsUiComponentRenderServerFunction = "renderServerEvents";
 
-	public WebGatewayResource(DBI jdbi, Client client, React react) {
+	public WebGatewayResource(DBI jdbi, Client client, NashornController nashornController) {
 		this.webGatewayDao = jdbi.onDemand(WebGatewayDao.class);
 		this.client = client;
-		this.react = react;
+		this.nashornController = nashornController;
 	}
-	
+
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public IndexView index() throws IOException {
-		
-		// Get events json data from Events microservice	
-        ApiResponse events = getEventsJsonData();
-        
-        // Render the Events component and pass in props
-        @SuppressWarnings("unchecked")
-		List <Object> eventsProps = (List<Object>) events.getList();
-        String eventsComponent = this.react.renderComponent(Microservice.kEventsUiComponentRenderServerFunction, eventsProps);
-                
-        IndexView index = new IndexView(eventsComponent, eventsProps);         
-        return index;
+
+		// Get events json data from Events microservice
+		ApiResponse events = getEventsJsonData();
+
+		// Render the Events component and pass in props
+		@SuppressWarnings("unchecked")
+		List<Object> eventsProps = (List<Object>) events.getList();
+		String eventsComponent = this.nashornController.renderReactJsComponent(kEventsUiComponentRenderServerFunction, eventsProps);
+
+		IndexView index = new IndexView(eventsComponent, eventsProps);
+		return index;
 	}
 
 	private ApiResponse getEventsJsonData() {
-		WebTarget webTarget = this.client.target(Microservice.kEventsApiEndpointEvents);
-        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);		
-        Response response = invocationBuilder.get();
-        return response.readEntity(ApiResponse.class);		
+		WebTarget webTarget = this.client.target(kEventsApiEndpointEvents);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+		Response response = invocationBuilder.get();
+		return response.readEntity(ApiResponse.class);
 	}
 
 	@GET
 	@Path("/events")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ApiResponse getEvents() {				
-		WebTarget webTarget = this.client.target(Microservice.kEventsApiEndpointEvents);
-        Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);		
-        Response response = invocationBuilder.get();
-        ApiResponse apiResponse = response.readEntity(ApiResponse.class);
-        return apiResponse;
+	public ApiResponse getEvents() {
+		WebTarget webTarget = this.client.target(kEventsApiEndpointEvents);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+		Response response = invocationBuilder.get();
+		ApiResponse apiResponse = response.readEntity(ApiResponse.class);
+		return apiResponse;
 	}
 }

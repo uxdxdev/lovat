@@ -9,15 +9,13 @@ import java.util.List;
 
 import javax.script.ScriptException;
 
-import com.bitbosh.dropwizardheroku.webgateway.core.Microservice;
-
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 
-public class React {
+public class NashornController {
               
 	private final NashornScriptEngine nashorn;
 	
-	public React(NashornScriptEngine nashorn){
+	public NashornController(NashornScriptEngine nashorn){
 		this.nashorn = nashorn;
 		try {
 			nashorn.eval(read("assets/js/react.min.js"));
@@ -32,7 +30,7 @@ public class React {
         }
 	}
 
-    public String renderComponent(String functionName, List<Object> props) {
+    public String renderReactJsComponent(String functionName, List<Object> props) {
         try {            
         	Object html = nashorn.invokeFunction(functionName, props);
             return String.valueOf(html);
@@ -42,13 +40,8 @@ public class React {
         }
     }
 
-    public Reader read(String path) {
+    private Reader read(String path) {
         InputStream in = getClass().getClassLoader().getResourceAsStream(path);
         return new InputStreamReader(in);
-    }
-    
-    String convertReaderToString(Reader reader) throws IOException {
-    	BufferedReader str = new BufferedReader(reader);
-        return str.toString();
     }
 }
