@@ -23,7 +23,8 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js?$/,  // Notice the regex here. We're matching on js and jsx files.
+        test: /\.js?$/,
+        exclude: /node_modules/,
         loaders: 'babel-loader',
         include: SRC,
         query: {
