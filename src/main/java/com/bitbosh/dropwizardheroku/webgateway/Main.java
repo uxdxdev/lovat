@@ -1,14 +1,10 @@
 package com.bitbosh.dropwizardheroku.webgateway;
 
 import java.net.URISyntaxException;
-import java.util.EnumSet;
 
 import javax.script.ScriptEngineManager;
-import javax.servlet.DispatcherType;
-import javax.servlet.FilterRegistration;
 import javax.ws.rs.client.Client;
 
-import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.skife.jdbi.v2.DBI;
 
 import com.bitbosh.dropwizardheroku.webgateway.api.React;
