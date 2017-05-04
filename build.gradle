@@ -52,4 +52,8 @@ task webpack(type: NpmTask){
   args = ['run', 'build']
 }
 
+node {
+  download = true
+}
+
 task stage(dependsOn: ['clean', 'npmInstall', 'webpack', 'installDist'])
