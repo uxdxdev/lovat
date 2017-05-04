@@ -4,7 +4,10 @@ jdk:
 after_success:
   - ./gradlew test jacocoTestReport coveralls
 before_deploy:
-  - ls -al $TRAVIS_BUILD_DIR/src/main/resources/assets/js
+  - ls -al $TRAVIS_BUILD_DIR
+  && ls -al $TRAVIS_BUILD_DIR/build/resources/main/assets/js
+  && ls -al $TRAVIS_BUILD_DIR/src/main/resources/assets/js
+  && cp $TRAVIS_BUILD_DIR/build/resources/main/assets/js/bundle.js* $TRAVIS_BUILD_DIR/src/main/resources/assets/js
 deploy:
   skip_cleanup: true
   provider: heroku
