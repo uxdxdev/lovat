@@ -1,11 +1,7 @@
 {
   "name": "webpack-gradle",
   "version": "0.0.1",
-  "description": "Example project using webpack and gradle",
-  "engines": {
-    "npm": "3.10.9",
-    "node": "6.9.1"
-  },
+  "description": "Example project using webpack and gradle",  
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p"

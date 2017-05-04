@@ -53,6 +53,8 @@ task webpack(type: NpmTask){
 }
 
 node {
+  version = '6.9.1'
+  npmVersion = '3.10.9'
   download = true
 }
 
