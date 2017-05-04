@@ -5,4 +5,4 @@ var loadEventsFromServer = function(eventsUrl) {
 	});
 }
 
-loadEventsFromServer('http://localhost:8080/events');
+loadEventsFromServer('https://dropwizardheroku-webgateway.herokuapp.com/events');
