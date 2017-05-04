@@ -3,8 +3,6 @@ jdk:
 - oraclejdk8
 after_success:
 - ./gradlew test jacocoTestReport coveralls
-before_deploy:
-- ls -lR $TRAVIS_BUILD_DIR
 deploy:
   skip_cleanup: true
   provider: heroku
