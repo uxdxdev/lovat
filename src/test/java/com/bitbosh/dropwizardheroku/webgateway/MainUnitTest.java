@@ -8,7 +8,7 @@ import javax.ws.rs.client.Client;
 import org.junit.Test;
 import org.skife.jdbi.v2.DBI;
 
-import com.bitbosh.dropwizardheroku.webgateway.api.React;
+import com.bitbosh.dropwizardheroku.webgateway.api.NashornController;
 import com.bitbosh.dropwizardheroku.webgateway.api.WebGatewayResource;
 
 import io.dropwizard.Application;
@@ -59,7 +59,7 @@ public class MainUnitTest {
   }
 
   @Test
-  public void run_verifyRunCall_IfApplicationStarted(@Mocked ApplicationConfiguration configuration,
+  public void run_verifyRunCall_IfApplicationStarted(
       @Mocked Environment environment, 
       @Mocked JerseyEnvironment jerseyEnv, 
       @Mocked JerseyClientBuilder clientBuilder, 
@@ -98,7 +98,7 @@ public class MainUnitTest {
 
     new MockUp<WebGatewayResource>() {
       @Mock
-      public void $init(DBI jdbi, Client client, React react) {
+      public void $init(DBI jdbi, Client client, NashornController react) {
       }
     };
     
@@ -124,7 +124,7 @@ public class MainUnitTest {
         }
     };
     
-    new MockUp<React>(){
+    new MockUp<NashornController>(){
     	@Mock
         public void $init(NashornScriptEngine engine) {
     		
@@ -132,6 +132,7 @@ public class MainUnitTest {
     };
 
     Main app = new Main();
+    ApplicationConfiguration configuration = new ApplicationConfiguration();
     app.run(configuration, environment);
   }
   

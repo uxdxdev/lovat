@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 import org.junit.Test;
 import org.skife.jdbi.v2.DBI;
 
-import com.bitbosh.dropwizardheroku.webgateway.core.Microservice;
 import com.bitbosh.dropwizardheroku.webgateway.repository.WebGatewayDao;
 import com.bitbosh.dropwizardheroku.webgateway.views.IndexView;
 
@@ -25,7 +24,7 @@ public class WebGatewayResourceUnitTest {
 
 	@Test
 	public void EventResource_constructsSuccessfully_IfEventDaoNotNull(@Mocked DBI jdbi, @Mocked WebGatewayDao eventDao,
-			@Mocked Client client, @Mocked React react) {
+			@Mocked Client client, @Mocked NashornController react) {
 
 		new Expectations() {
 			{
@@ -40,11 +39,11 @@ public class WebGatewayResourceUnitTest {
 	@Test
 	public void getEvents_returnsCorrectApiResponce_IfEventsListRequested(@Mocked DBI jdbi, @Mocked Client client,
 			@Mocked WebTarget webTarget, @Mocked Invocation.Builder invocationBuilder, @Mocked Response response,
-			@Mocked ApiResponse apiResponse, @Mocked React react) {
+			@Mocked ApiResponse apiResponse, @Mocked NashornController react) {
 
 		new Expectations() {
 			{
-				client.target(Microservice.kEventsApiEndpointEvents);
+				client.target(WebGatewayResource.kEventsApiEndpointEvents);
 				result = webTarget;
 
 				webTarget.request(MediaType.APPLICATION_JSON);
@@ -65,14 +64,14 @@ public class WebGatewayResourceUnitTest {
 
 	@Test
 	public void index_returnsCorrectHtml_IfInvokedWithValidDependencies(@Mocked DBI jdbi, @Mocked Client client, @Mocked WebTarget webTarget,
-			@Mocked Invocation.Builder invocationBuilder, @Mocked Response response, @Mocked React react) throws IOException {
+			@Mocked Invocation.Builder invocationBuilder, @Mocked Response response, @Mocked NashornController react) throws IOException {
 
 		String expectedHtml = "<div>test</div>";
 		new Expectations() {
 			List<Object> eventsProps;
 			ApiResponse apiResponse = new ApiResponse();
 			{
-				client.target(Microservice.kEventsApiEndpointEvents);
+				client.target(WebGatewayResource.kEventsApiEndpointEvents);
 				result = webTarget;
 
 				webTarget.request(MediaType.APPLICATION_JSON);
@@ -84,7 +83,7 @@ public class WebGatewayResourceUnitTest {
 				response.readEntity(withAny(ApiResponse.class));
 				result = apiResponse;
 
-				react.renderComponent(anyString, eventsProps);
+				react.renderReactJsComponent(anyString, eventsProps);
 				result = expectedHtml;
 			}
 		};

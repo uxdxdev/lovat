@@ -7,7 +7,7 @@ import javax.ws.rs.client.Client;
 
 import org.skife.jdbi.v2.DBI;
 
-import com.bitbosh.dropwizardheroku.webgateway.api.React;
+import com.bitbosh.dropwizardheroku.webgateway.api.NashornController;
 import com.bitbosh.dropwizardheroku.webgateway.api.WebGatewayResource;
 
 import io.dropwizard.Application;
@@ -40,7 +40,7 @@ public class Main extends Application<ApplicationConfiguration> {
 		final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
 		final Client client = new JerseyClientBuilder(environment).using(configuration.getJerseyClientConfiguration()).using(environment).build("client");
 		final NashornScriptEngine nashorn = (NashornScriptEngine) new ScriptEngineManager().getEngineByName("nashorn");
-		final React react = new React(nashorn);
+		final NashornController react = new NashornController(nashorn);
 		
 		// Register each Resource with jersey and pass in the Dao so that it can
 		// interact with the database.
