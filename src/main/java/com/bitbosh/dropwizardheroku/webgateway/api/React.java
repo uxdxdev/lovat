@@ -20,15 +20,11 @@ public class React {
 	public React(NashornScriptEngine nashorn){
 		this.nashorn = nashorn;
 		try {
-			// remote js file loading
-        	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.js')");
-        	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom.js')");
-        	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom-server.js')");
-        	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js')");
-        	nashorn.eval("load('https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.1/axios.js')");        	        	        	
-        	
-        	
-        	// local js file loading
+			nashorn.eval(read("assets/js/react.min.js"));
+			nashorn.eval(read("assets/js/react-dom.min.js"));
+			nashorn.eval(read("assets/js/react-dom-server.min.js"));
+			nashorn.eval(read("assets/js/babel.min.js"));
+			nashorn.eval(read("assets/js/axios.min.js"));        	        	        	        	        	 
         	nashorn.eval(read(Microservice.kEventsUiComponentUrl));
         	nashorn.eval(read("assets/js/nashorn-polyfill.js"));
         } catch (ScriptException e) {

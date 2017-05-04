@@ -1,25 +1,22 @@
-class Events extends React.Component {
-	constructor(props){
-		super(props);
-		this.state = {
-				events: props.events
-		}
-	}
+var Events = React.createClass({
+	getInitialState: function () {
+		return {events: this.props.events};
+	},
 
-  loadEventsFromServer (component, eventsUrl) {	  
+  loadEventsFromServer: function(component, eventsUrl) {	  
 	  axios.get(eventsUrl).then(function (res) {
 		  var eventList = res.data.list;		  
 		  component.setState({ events: eventList });
 	  });
-  }
+  },
 
-  componentDidMount () {
-    this.eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
+  componentDidMount: function() {
+    this.eventsUrl = 'http://localhost:8080/events';
     this.loadEventsFromServer(this, this.eventsUrl);
     setInterval(this.loadEventsFromServer.bind(null, this, this.eventsUrl), this.props.pollInterval);
-  }
+  },
 
-  render () {
+  render: function() {
 	  return React.createElement(
 		          "ul",
 		          null,
@@ -32,7 +29,7 @@ class Events extends React.Component {
 		          })
 		        );
 	  }
-}
+});
 
 var renderClientEvents = function (eventList) {
     var data = eventList || [];
