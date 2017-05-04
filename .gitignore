@@ -6,3 +6,5 @@ target
 dependency-reduced-pom.xml
 .gradle
 /build/
+node_modules
+bundle.js*

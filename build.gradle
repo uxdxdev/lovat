@@ -2,6 +2,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'jacoco'
 apply plugin: "com.github.kt3k.coveralls"
+apply plugin: "com.moowork.node"
 
 repositories {
      maven { url "https://plugins.gradle.org/m2/" }
@@ -43,7 +44,12 @@ buildscript {
   }
   dependencies {
     classpath "org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1"
+    classpath "com.moowork.gradle:gradle-node-plugin:1.1.1"
   }
 }
 
-task stage(dependsOn: ['clean', 'installDist'])
+task webpack(type: NpmTask){
+  args = ['run', 'build']
+}
+
+task stage(dependsOn: ['clean', 'npmInstall', 'webpack', 'installDist'])

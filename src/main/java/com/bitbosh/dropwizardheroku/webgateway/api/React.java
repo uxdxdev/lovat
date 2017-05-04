@@ -24,17 +24,17 @@ public class React {
 			nashorn.eval(read("assets/js/react-dom.min.js"));
 			nashorn.eval(read("assets/js/react-dom-server.min.js"));
 			nashorn.eval(read("assets/js/babel.min.js"));
-			nashorn.eval(read("assets/js/axios.min.js"));        	        	        	        	        	 
-        	nashorn.eval(read(Microservice.kEventsUiComponentUrl));
-        	nashorn.eval(read("assets/js/nashorn-polyfill.js"));
+			nashorn.eval(read("assets/js/axios.min.js"));
+			nashorn.eval(read("assets/js/nashorn-polyfill.js"));
+        	nashorn.eval(read("assets/js/bundle.js"));        	
         } catch (ScriptException e) {
             throw new RuntimeException(e);
         }
 	}
 
-    public String renderComponent(String component, List<Object> props) {
+    public String renderComponent(String functionName, List<Object> props) {
         try {            
-        	Object html = nashorn.invokeFunction(component, props);
+        	Object html = nashorn.invokeFunction(functionName, props);
             return String.valueOf(html);
         }
         catch (Exception e) {
