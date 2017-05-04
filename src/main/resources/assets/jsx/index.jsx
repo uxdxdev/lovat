@@ -11,7 +11,7 @@ var Events = React.createClass({
   },
 
   componentDidMount: function() {
-    this.eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
+    this.eventsUrl = 'http://localhost:8080/events';
     this.loadEventsFromServer(this, this.eventsUrl);
     setInterval(this.loadEventsFromServer.bind(null, this, this.eventsUrl), this.props.pollInterval);
   },
@@ -31,17 +31,17 @@ var Events = React.createClass({
 	  }
 });
 
-var renderClientEvents = function (eventList) {
+global.renderServerEvents = function (eventList) {
+  var data = Java.from(eventList);  
+  return ReactDOMServer.renderToString(
+	        React.createElement(Events, {events: data, pollInterval: 5000})
+	    );
+};
+
+global.renderClientEvents = function (eventList) {
     var data = eventList || [];
     ReactDOM.render(
         React.createElement(Events, {events: data, pollInterval: 5000}),
         document.getElementById("events")
     );
-};
-
-var renderServerEvents = function (eventList) {
-  var data = Java.from(eventList);  
-  return ReactDOMServer.renderToString(
-	        React.createElement(Events, {events: data, pollInterval: 5000})
-	    );
 };
