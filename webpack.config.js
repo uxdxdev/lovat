@@ -11,15 +11,14 @@ module.exports = {
   },
   resolve: {
     modules: [
-      path.resolve(ROOT, 'jsx'),
-      path.resolve(ROOT, 'js')
+      path.resolve(ROOT, 'jsx')
     ],
     extensions: ['*', '.js', '.jsx']    
   },
   output: {
     path: DEST,
     filename: 'bundle.js',
-    publicPath: 'js'
+    publicPath: '/js/'
   },
   module: {
     loaders: [
@@ -32,7 +31,5 @@ module.exports = {
         }
       }
     ]
-  },
-  plugins: [
-           ]
+  }
 }
