@@ -21,8 +21,7 @@ import mockit.MockUp;
 public class NashornControllerUnitTest {
 
 	@Test
-	public void nashornInvokeFunctionMethodCalledDuringReactJsComponentRendering()
-			throws NoSuchMethodException, ScriptException {
+	public void nashornInvokeFunctionMethodCalledDuringReactJsComponentRendering() {
 		String expectedHtml = "<div>test</div>";
 		List<Object> props = new ArrayList<Object>();
 
@@ -120,7 +119,7 @@ public class NashornControllerUnitTest {
 		NashornScriptEngine engine = (NashornScriptEngine) new ScriptEngineManager().getEngineByName("nashorn");
 		NashornController react = new NashornController(engine);
 		List<Object> props = new ArrayList<Object>();
-		react.renderReactJsComponent(null, props);
+		react.renderReactJsComponent("testFunction", null);
 	}
 
 	@Test(expected = RuntimeException.class)

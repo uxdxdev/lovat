@@ -36,6 +36,7 @@ public class NashornController {
             return String.valueOf(html);
         }
         catch (Exception e) {
+        	e.printStackTrace();
             throw new IllegalStateException("failed to render react component", e);
         }
     }
