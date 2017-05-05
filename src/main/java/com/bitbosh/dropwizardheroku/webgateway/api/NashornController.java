@@ -42,7 +42,7 @@ public class NashornController {
 
     private Reader read(String path) {
         InputStream in = getClass().getClassLoader().getResourceAsStream(path);
-        if(in == null) System.out.println("InpurString in is null");
+        if(in == null) System.out.println("InputString in is null with path " + path);
         return new InputStreamReader(in);
     }
 }
