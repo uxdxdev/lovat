@@ -58,9 +58,8 @@ node {
   download = true
 }
 
-task copyTask(type: Copy) {
-        from 'build/resources/main/assets/js/bundle.js'
-        into 'src/main/resources/assets/js/bundle.js'
+jar {
+	from 'build/resources/main/assets/js/bundle.js'
 }
 
-task stage(dependsOn: ['clean', 'npmInstall', 'webpack', 'copyTask', 'installDist'])
+task stage(dependsOn: ['clean', 'npmInstall', 'webpack', 'installDist'])
