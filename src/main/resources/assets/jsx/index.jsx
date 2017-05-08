@@ -11,7 +11,7 @@ var Events = React.createClass({
   },
 
   componentDidMount: function() {
-    this.eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
+    this.eventsUrl = 'https://dropwizardheroku-webapigateway.com/events';
     this.loadEventsFromServer(this, this.eventsUrl);
     setInterval(this.loadEventsFromServer.bind(null, this, this.eventsUrl), this.props.pollInterval);
   },
@@ -45,3 +45,10 @@ global.renderClientEvents = function (eventList) {
         document.getElementById("events")
     );
 };
+
+global.loadEvents = function (eventsUrl) {
+	axios.get(eventsUrl).then(function(res) {
+		var data = res.data.list;		
+		renderClientEvents(data);
+	});
+};	
