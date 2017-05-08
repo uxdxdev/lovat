@@ -4,7 +4,7 @@
   "description": "Example project using webpack and gradle",  
   "scripts": {
     "dev": "webpack -d --watch",
-    "build": "webpack"
+    "build": "webpack -p"
   },
   "devDependencies": {
     "axios": "^0.16.1",    

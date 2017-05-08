@@ -58,11 +58,4 @@ node {
   download = true
 }
 
-jar {
-	from ('build/resources/main/assets/js/'){
-		include 'bundle.js'
-		into 'src/main/resources/assets/js/bundle.js'
-	}
-}
-
-task stage(dependsOn: ['clean', 'npmInstall', 'webpack', 'installDist'])
+task stage(dependsOn: ['installDist', 'webpack', 'npmInstall', 'clean'])

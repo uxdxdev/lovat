@@ -6,8 +6,7 @@ var DEST = path.resolve(ROOT, 'js');
 var BUILD_ROOT = path.resolve(__dirname, 'build/resources/main/assets');
 var BUILD_DEST = path.resolve(BUILD_ROOT, 'js');
 
-module.exports = {
-	devtool : 'source-map',	
+module.exports = {	
 	resolve : {
 		modules : [ path.resolve(ROOT, 'jsx') ],
 		extensions : [ '*', '.js', '.jsx' ]
@@ -27,6 +26,7 @@ module.exports = {
 
 module.exports = [
                   {
+                	  devtool : 'source-map',	                  
                 	  entry : {
                 			app : SRC + '/index.jsx',
                 		},
@@ -36,7 +36,8 @@ module.exports = [
                 			publicPath : '/js/'
                 		},
                   },
-                  {
+                  {                	 
+                	  devtool : 'source-map',	
                 	  entry : {
                 			app : SRC + '/index.jsx',
                 		},
