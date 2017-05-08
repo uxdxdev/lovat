@@ -2,20 +2,23 @@
 
 [![Build Status](https://travis-ci.org/damorton/dropwizardheroku-webgateway.svg?branch=master)](https://travis-ci.org/damorton/dropwizardheroku-webgateway) [![Coverage Status](https://coveralls.io/repos/github/damorton/dropwizardheroku-webgateway/badge.svg?branch=master)](https://coveralls.io/github/damorton/dropwizardheroku-webgateway?branch=master)
 
+## Event Microservice (Build and Run First)
+https://dropwizardheroku-event-service.herokuapp.com/
+
 ## Browser client API 
 https://dropwizardheroku-webgateway.herokuapp.com/
-
-## Event Microservice
-https://dropwizardheroku-event-service.herokuapp.com/
 
 A Dropwizard Heroku Web API Gateway Microservice deployed to Heroku.
 
 ## Build
 
+### (Important: Update the Events microservice local port number in index.jsx and client.js)
+
 - Heroku config
 
 ```
-heroku config:set WEB_OPTS='-Ddw.server.connector.port=$PORT'
+heroku config:set DROPWIZARDHEROKU_WEBGATEWAY_OPTS='-Ddw.server.connector.port=$PORT'
+heroku config:set DATABASE_URL='postgres://<database-url>'
 ```
 
 - Clone repo
@@ -27,7 +30,7 @@ git clone https://github.com/damorton/dropwizardheroku-webgateway.git
 cd dropwizardheroku-webgateway
 ./gradlew stage
 ```
-- Run
+- Run (Make sure the Events microservice is running https://github.com/damorton/dropwizardheroku-event-service)
 ```
 heroku local
 ```
