@@ -11,7 +11,7 @@ var Events = React.createClass({
   },
 
   componentDidMount: function() {
-    this.eventsUrl = 'https://dropwizardheroku-webgateway.com/events';
+    this.eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
     this.loadEventsFromServer(this, this.eventsUrl);
     setInterval(this.loadEventsFromServer.bind(null, this, this.eventsUrl), this.props.pollInterval);
   },
