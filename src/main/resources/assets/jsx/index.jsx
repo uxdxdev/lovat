@@ -45,7 +45,7 @@ global.renderServerEvents = function (eventList) {
 //
 // Called from index, request the json data for events from the gateway
 // and attach the React component event handlers.
-global.loadEvents = function (eventsUrl) {
+global.init = function (eventsUrl) {
 	axios.get(eventsUrl).then(function(res) {
 		var data = res.data.list;		
 		renderClientEvents(data);
