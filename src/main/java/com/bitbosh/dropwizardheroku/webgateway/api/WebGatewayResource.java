@@ -45,7 +45,7 @@ public class WebGatewayResource {
 		List<Object> eventsProps = (List<Object>) events.getList();
 		String eventsComponent = this.nashornController.renderReactJsComponent(kEventsUiComponentRenderServerFunction, eventsProps);
 
-		IndexView index = new IndexView(eventsComponent, eventsProps);
+		IndexView index = new IndexView(eventsComponent);
 		return index;
 	}
 
