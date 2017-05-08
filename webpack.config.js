@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack')
 var ROOT = path.resolve(__dirname, 'src/main/resources/assets');
 var SRC = path.resolve(ROOT, 'jsx');
-var DEST = path.resolve(__dirname, 'src/main/resources/assets/js');
+var DEST = path.resolve(ROOT, 'js');
 
 module.exports = {
   devtool: 'source-map',
