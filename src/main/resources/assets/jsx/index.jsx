@@ -31,6 +31,9 @@ var Events = React.createClass({
 	  }
 });
 
+// Server Side
+//
+// Render the React components on the server.
 global.renderServerEvents = function (eventList) {
   var data = Java.from(eventList);  
   return ReactDOMServer.renderToString(
@@ -38,6 +41,18 @@ global.renderServerEvents = function (eventList) {
 	    );
 };
 
+// Client Side
+//
+// Called from index, request the json data for events from the gateway
+// and attach the React component event handlers.
+global.loadEvents = function (eventsUrl) {
+	axios.get(eventsUrl).then(function(res) {
+		var data = res.data.list;		
+		renderClientEvents(data);
+	});
+};	
+
+// Attach the React event handlers on the client.
 global.renderClientEvents = function (eventList) {
     var data = eventList || [];
     ReactDOM.render(
@@ -45,10 +60,3 @@ global.renderClientEvents = function (eventList) {
         document.getElementById("events")
     );
 };
-
-global.loadEvents = function (eventsUrl) {
-	axios.get(eventsUrl).then(function(res) {
-		var data = res.data.list;		
-		renderClientEvents(data);
-	});
-};	
