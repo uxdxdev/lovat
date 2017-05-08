@@ -45,14 +45,3 @@ global.renderClientEvents = function (eventList) {
         document.getElementById("events")
     );
 };
-
-global.loadEvents = function (eventsUrl) {
-	axios.get(eventsUrl).then(function(res) {
-		var data = res.data.list;		
-		renderClientEvents(data);
-	});
-};
-
-window.onload = function() {
-	loadEventsFromServer('https://dropwizardheroku-webgateway.herokuapp.com/events');
-};
