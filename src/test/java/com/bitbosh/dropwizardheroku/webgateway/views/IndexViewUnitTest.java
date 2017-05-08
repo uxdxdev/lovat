@@ -12,18 +12,8 @@ public class IndexViewUnitTest {
 	@Test
 	public void viewReturnsCorrectComponentAfterConstruction() {
 		String expectedComponent = "testComponent";
-		List<Object> props = new ArrayList<Object>();
-		IndexView view = new IndexView(expectedComponent, props);
+		IndexView view = new IndexView(expectedComponent);
 		String actualComponent = view.getEventsComponent();
 		assertEquals(expectedComponent, actualComponent);
-	}
-	
-	@Test
-	public void viewReturnsCorrectPropsAfterConstruction() {
-		String testComponent = "testComponent";
-		List<Object> expectedProps = new ArrayList<Object>();		
-		IndexView view = new IndexView(testComponent, expectedProps);
-		List<Object> actualProps = view.getEventsList();
-		assertEquals(expectedProps, actualProps);
 	}
 }
