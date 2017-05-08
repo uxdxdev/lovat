@@ -59,3 +59,6 @@ node {
 }
 
 task stage(dependsOn: ['installDist', 'webpack', 'npmInstall', 'clean'])
+npmInstall.mustRunAfter clean
+webpack.mustRunAfter npmInstall
+installDist.mustRunAfter webpack
