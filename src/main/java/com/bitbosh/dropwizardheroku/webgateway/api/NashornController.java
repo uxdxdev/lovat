@@ -35,13 +35,14 @@ public class NashornController {
         	Object html = nashorn.invokeFunction(functionName, props);
             return String.valueOf(html);
         }
-        catch (Exception e) {
+        catch (Exception e) {        	
             throw new IllegalStateException("failed to render react component", e);
         }
     }
 
     private Reader read(String path) {
         InputStream in = getClass().getClassLoader().getResourceAsStream(path);
+        if(in == null) System.out.println("InputString in is null with path " + path);
         return new InputStreamReader(in);
     }
 }

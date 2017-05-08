@@ -52,4 +52,13 @@ task webpack(type: NpmTask){
   args = ['run', 'build']
 }
 
-task stage(dependsOn: ['clean', 'npmInstall', 'webpack', 'installDist'])
+node {
+  version = '6.9.1'
+  npmVersion = '3.10.9'
+  download = true
+}
+
+task stage(dependsOn: ['installDist', 'webpack', 'npmInstall', 'clean'])
+npmInstall.mustRunAfter clean
+webpack.mustRunAfter npmInstall
+installDist.mustRunAfter webpack
