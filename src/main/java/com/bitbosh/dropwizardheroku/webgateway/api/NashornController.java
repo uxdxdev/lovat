@@ -29,7 +29,17 @@ public class NashornController {
             throw new RuntimeException(e);
         }
 	}
-
+	
+	public String renderReactJsComponent(String functionName) {
+        try {            
+        	Object html = nashorn.invokeFunction(functionName);
+            return String.valueOf(html);
+        }
+        catch (Exception e) {        	
+            throw new IllegalStateException("failed to render react component", e);
+        }
+    }
+	
     public String renderReactJsComponent(String functionName, List<Object> props) {
         try {            
         	Object html = nashorn.invokeFunction(functionName, props);

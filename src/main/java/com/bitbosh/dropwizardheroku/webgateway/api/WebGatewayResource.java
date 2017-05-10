@@ -25,7 +25,8 @@ public class WebGatewayResource {
 	private NashornController nashornController;
 	static final String kEventsServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";
 	static final String kEventsApiEndpointEvents = kEventsServiceUrl + "/v1/api/events";
-	static final String kEventsUiComponentRenderServerFunction = "renderServerEvents";
+	static final String kRenderServerFunctionCreateEventFormUiComponent = "renderServerCreateEventForm";
+	static final String kRenderServerFunctionEventsListUiComponent = "renderServerEventsList";
 
 	public WebGatewayResource(DBI jdbi, Client client, NashornController nashornController) {
 		this.webGatewayDao = jdbi.onDemand(WebGatewayDao.class);
@@ -40,12 +41,15 @@ public class WebGatewayResource {
 		// Get events json data from Events microservice
 		ApiResponse events = getEventsJsonData();
 
-		// Render the Events component and pass in props
+		@SuppressWarnings("unused")
+		String createEventFormComponent = this.nashornController.renderReactJsComponent(kRenderServerFunctionCreateEventFormUiComponent);
+		
+		// Render the Events List component and pass in props
 		@SuppressWarnings("unchecked")
 		List<Object> eventsProps = (List<Object>) events.getList();
-		String eventsComponent = this.nashornController.renderReactJsComponent(kEventsUiComponentRenderServerFunction, eventsProps);
+		String eventsListComponent = this.nashornController.renderReactJsComponent(kRenderServerFunctionEventsListUiComponent, eventsProps);
 
-		IndexView index = new IndexView(eventsComponent);
+		IndexView index = new IndexView(createEventFormComponent, eventsListComponent);
 		return index;
 	}
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-var Events = React.createClass({
+var EventsList = React.createClass({
 	getInitialState : function() {
 		return {
 			events : this.props.events
@@ -25,13 +25,13 @@ var Events = React.createClass({
 	},
 
 	render : function() {
-		return React.createElement("ul", null, this.state.events.map(function(
-				event, index) {
-			return React.createElement("li", {
-				key : index
-			}, event.name);
-		}));
+		return React.createElement('div', null, 
+					React.createElement('h2', null, 'Events List'), 
+					React.createElement("ul", null, this.state.events.map(function(event, index) {
+						return React.createElement("li", {key : index}, event.name);
+					}))
+				);				
 	}
 });
 
-export default Events;
+export default EventsList;

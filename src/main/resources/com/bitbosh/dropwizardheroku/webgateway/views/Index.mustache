@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8" />
-<title>Dropwizard Heroku Event Service</title>
-</head>
-<body>
-  <h1>Events</h1>
-  <div id="events">{{{eventsComponent}}}</div>
-  <script type="text/javascript" src="assets/bundle.js"></script>
-  <script>  	
-  	init('https://dropwizardheroku-webgateway.herokuapp.com/events');
-  </script>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Dropwizard Heroku Event Service</title>
+		<script type="text/javascript" src="assets/bundle.js"></script>
+		<script>  	
+		  init('https://dropwizardheroku-webgateway.herokuapp.com/events');
+		</script>
+		<link rel="stylesheet" href="assets/styles.css">		
+	</head>
+	<body>	  		  	
+		<div id="createEventForm">{{{createEventFormComponent}}}</div>		
+		<div id="eventsList">{{{eventsListComponent}}}</div>	
+	</body>
 </html>
