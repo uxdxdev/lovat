@@ -1,8 +1,8 @@
 var path = require('path');
 var webpack = require('webpack')
-var ROOT = path.resolve(__dirname, 'src/main/resources/assets');
-var SRC = path.resolve(ROOT, 'js');
-var DEST = path.resolve(ROOT, 'js');
+var ROOT = path.resolve(__dirname, 'src/main/resources');
+var SRC = path.resolve(ROOT, 'webapp/js');
+var DEST = path.resolve(ROOT, 'assets/');
 
 var config = {
 	devtool : 'source-map',
