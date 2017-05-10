@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import CreateEventForm from '../js/CreateEventForm';
 import EventsList from '../js/EventsList';
 
 // Server Side
@@ -19,18 +20,28 @@ global.renderServerEventsList = function (eventsListData) {
 	    );
 };
 
+// Build the React components.
+function buildCreateEventFormComponent(){
+	return React.createElement(CreateEventForm);
+}
+
+function buildEventsListComponent(eventsList){
+	return React.createElement(EventsList, {events: eventsList, pollInterval: 5000});
+}
+
 // Client Side
-//
-// Called from index, request the json data for events from the gateway
-// and attach the React component event handlers.
-global.init = function (eventsUrl) {
+global.init = function () {
+	
+	// Called from index, request the json data for events from the gateway
+	// and attach the React component event handlers.
+	const eventsUrl = 'http://localhost:8080/events';
 	axios.get(eventsUrl).then(function(res) {
 		var data = res.data.list;		
 		renderClient(data);
 	});
 };	
 
-// Attach the React event handlers on the client.
+// Attach the React event handlers to the client application.
 global.renderClient = function (eventsListData) {
 	ReactDOM.render(
 			buildCreateEventFormComponent(),
@@ -43,12 +54,3 @@ global.renderClient = function (eventsListData) {
     		document.getElementById("eventsList")
     );
 };
-
-// Build the React components
-function buildCreateEventFormComponent(){
-	return React.createElement('div', null, 'Create Events Form');
-}
-
-function buildEventsListComponent(eventsList){
-	return React.createElement(EventsList, {events: eventsList, pollInterval: 5000});
-}

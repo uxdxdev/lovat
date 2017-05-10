@@ -18,14 +18,14 @@ var EventsList = React.createClass({
 	},
 
 	componentDidMount : function() {
-		this.eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
-		this.loadEventsFromServer(this, this.eventsUrl);
-		setInterval(this.loadEventsFromServer.bind(null, this, this.eventsUrl),
+		const eventsUrl = 'http://localhost:8080/events';
+		this.loadEventsFromServer(this, eventsUrl);
+		setInterval(this.loadEventsFromServer.bind(null, this, eventsUrl),
 				this.props.pollInterval);
 	},
 
 	render : function() {
-		return React.createElement('div', null, 
+		return React.createElement('div', {id:'eventsList'}, 
 					React.createElement('h2', null, 'Events List'), 
 					React.createElement("ul", null, this.state.events.map(function(event, index) {
 						return React.createElement("li", {key : index}, event.name);
