@@ -1,22 +1,22 @@
 {
   "name": "webpack-gradle",
   "version": "0.0.1",
-  "description": "Example project using webpack and gradle",  
+  "description": "Example project using webpack and gradle",
   "scripts": {
     "dev": "webpack -d --watch",
     "build": "webpack -p"
   },
   "devDependencies": {
-    "axios": "^0.16.1",    
+    "axios": "^0.16.1",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "material-ui": "^0.18.0",
     "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-tap-event-plugin": "^2.0.1",
     "webpack": "^2.5.0"
-  },
-  "dependencies": {
-    "react": "^15.5.4"
   },
   "repository": {
     "type": "git",
