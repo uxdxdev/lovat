@@ -12,7 +12,6 @@ h2 {
 
 .CreateEventForm {
 	padding: 8px 24px;
-	width: 50%;
 	margin: 10px auto;
 	text-align: center;
 }
@@ -20,7 +19,7 @@ h2 {
 .CreateEventForm input, .CreateEventForm textarea {
 	display: block;
 	margin: 0px auto;
-	width: 50%;
+	width: 90%;
 	padding: 4px 8px;
 	margin-bottom: 8px;
 	border-radius: 3px;
