@@ -96,4 +96,29 @@ public class WebGatewayResourceUnitTest {
 		//assertEquals(expectedHtml, actualHtml);
 	}
 
+	@Test
+	public void successfulPostToEventsService(@Mocked DBI jdbi, @Mocked Client client,
+			@Mocked WebTarget webTarget, @Mocked Invocation.Builder invocationBuilder, @Mocked Response response,
+			@Mocked ApiResponse apiResponse, @Mocked NashornController react) {
+
+		new Expectations() {
+			{
+				client.target(WebGatewayResource.kEventsApiEndpointEvents);
+				result = webTarget;
+
+				webTarget.request(MediaType.APPLICATION_JSON);
+				result = invocationBuilder;
+
+				invocationBuilder.get();
+				result = response;
+
+				response.readEntity(withAny(ApiResponse.class));
+				result = apiResponse;
+			}
+		};
+
+		WebGatewayResource webGatewayResource = new WebGatewayResource(jdbi, client, react);
+		ApiResponse actualResponse = webGatewayResource.getEvents();
+		assertEquals(apiResponse, actualResponse);
+	}
 }
