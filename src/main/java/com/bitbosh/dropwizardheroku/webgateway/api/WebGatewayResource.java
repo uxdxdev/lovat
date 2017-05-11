@@ -3,10 +3,13 @@ package com.bitbosh.dropwizardheroku.webgateway.api;
 import java.io.IOException;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
@@ -25,7 +28,8 @@ public class WebGatewayResource {
 	private NashornController nashornController;
 	static final String kEventsServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";
 	static final String kEventsApiEndpointEvents = kEventsServiceUrl + "/v1/api/events";
-	static final String kEventsUiComponentRenderServerFunction = "renderServerEvents";
+	static final String kRenderServerFunctionCreateEventFormUiComponent = "renderServerCreateEventForm";
+	static final String kRenderServerFunctionEventsListUiComponent = "renderServerEventsList";
 
 	public WebGatewayResource(DBI jdbi, Client client, NashornController nashornController) {
 		this.webGatewayDao = jdbi.onDemand(WebGatewayDao.class);
@@ -40,12 +44,15 @@ public class WebGatewayResource {
 		// Get events json data from Events microservice
 		ApiResponse events = getEventsJsonData();
 
-		// Render the Events component and pass in props
+		@SuppressWarnings("unused")
+		String createEventFormComponent = this.nashornController.renderReactJsComponent(kRenderServerFunctionCreateEventFormUiComponent);
+		
+		// Render the Events List component and pass in props
 		@SuppressWarnings("unchecked")
 		List<Object> eventsProps = (List<Object>) events.getList();
-		String eventsComponent = this.nashornController.renderReactJsComponent(kEventsUiComponentRenderServerFunction, eventsProps);
+		String eventsListComponent = this.nashornController.renderReactJsComponent(kRenderServerFunctionEventsListUiComponent, eventsProps);
 
-		IndexView index = new IndexView(eventsComponent);
+		IndexView index = new IndexView(createEventFormComponent, eventsListComponent);
 		return index;
 	}
 
@@ -65,5 +72,14 @@ public class WebGatewayResource {
 		Response response = invocationBuilder.get();
 		ApiResponse apiResponse = response.readEntity(ApiResponse.class);
 		return apiResponse;
+	}
+	
+	@POST
+	@Path("/events")	
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void createEvent(String jsonObject) {
+		WebTarget webTarget = this.client.target(kEventsApiEndpointEvents);
+		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+		Response post = invocationBuilder.post(Entity.entity(jsonObject, MediaType.APPLICATION_JSON));		
 	}
 }
