@@ -21,7 +21,6 @@ var CreateEventForm = React.createClass({
 					date: this.state.eventDate 
 				})
 				.then(function(response){
-					console.log('event created successfully')
 				}); 
 		this.setState({
 		      eventName: '',
