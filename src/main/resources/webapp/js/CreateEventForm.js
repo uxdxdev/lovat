@@ -31,12 +31,12 @@ var CreateEventForm = React.createClass({
 	},
 	onNameChange: function(e){
 		this.setState({eventName:e.target.value});
+	},	
+	onLocationChange: function(e){
+		this.setState({eventLocation:e.target.value});
 	},
 	onDescriptionChange: function(e){
 		this.setState({eventDescription:e.target.value});
-	},
-	onLocationChange: function(e){
-		this.setState({eventLocation:e.target.value});
 	},
 	onDateChange: function(e){
 		this.setState({eventDate:e.target.value});
