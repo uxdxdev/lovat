@@ -82,7 +82,10 @@ public class WebGatewayResourceUnitTest {
 
 				response.readEntity(withAny(ApiResponse.class));
 				result = apiResponse;
-
+				
+				react.renderReactJsComponent(anyString);
+				result = expectedHtml;
+				
 				react.renderReactJsComponent(anyString, eventsProps);
 				result = expectedHtml;
 			}

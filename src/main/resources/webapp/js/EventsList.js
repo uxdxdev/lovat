@@ -4,7 +4,8 @@ import axios from 'axios';
 var EventsList = React.createClass({
 	getInitialState : function() {
 		return {
-			events : this.props.events
+			events : this.props.events,
+			url: this.props.url
 		};
 	},
 
@@ -18,7 +19,7 @@ var EventsList = React.createClass({
 	},
 
 	componentDidMount : function() {
-		const eventsUrl = 'http://localhost:8080/events';
+		const eventsUrl = this.state.url;
 		this.loadEventsFromServer(this, eventsUrl);
 		setInterval(this.loadEventsFromServer.bind(null, this, eventsUrl),
 				this.props.pollInterval);
