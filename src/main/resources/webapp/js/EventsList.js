@@ -25,10 +25,15 @@ var EventsList = React.createClass({
 	},
 
 	render : function() {
-		return React.createElement('div', {id:'eventsList'}, 
+		return React.createElement('div', {className: 'EventsList'}, 
 					React.createElement('h2', null, 'Events List'), 
-					React.createElement("ul", null, this.state.events.map(function(event, index) {
-						return React.createElement("li", {key : index}, event.name);
+					React.createElement('ul', {className: 'EventsList-list'}, this.state.events.map(function(event, index) {
+						return React.createElement('li', {className: 'EventsList-item', key : index},
+								React.createElement('h2', {className: 'EventsListItem-name'}, event.name),
+								React.createElement('div', null, event.description),
+								React.createElement('div', null, event.location),
+								React.createElement('div', null, event.date)
+								)
 					}))
 				);				
 	}
