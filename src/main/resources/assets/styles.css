@@ -50,3 +50,13 @@ h2 {
 	font-weight: bold;
 	margin: 0;
 }
+
+div#notification-bar {
+    width: 25%;
+    background-color: #2980B9;
+    padding: 2px;
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+    margin: 5px auto;
+}

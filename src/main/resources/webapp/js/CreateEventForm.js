@@ -12,7 +12,9 @@ var CreateEventForm = React.createClass({
 		};
 	},
 	onSubmit: function(e){
+		alert('test onSubmit()');
 		e.preventDefault();		
+		document.getElementById("notification-bar").innerHTML = 'onSubmit() called';
 		axios.post(this.state.url,
 				{ 
 					name: this.state.eventName, 
@@ -21,6 +23,10 @@ var CreateEventForm = React.createClass({
 					date: this.state.eventDate 
 				})
 				.then(function(response){
+					document.getElementById("notification-bar").innerHTML = 'Create event successful';
+				})
+				.catch(function (error) {
+					document.getElementById("notification-bar").innerHTML = 'Error creating event';
 				}); 
 		this.setState({
 		      eventName: '',
@@ -71,7 +77,8 @@ var CreateEventForm = React.createClass({
 							    value: this.state.eventDate,
 							    onChange: this.onDateChange
 						    }),
-					        React.createElement('button', {type: 'submit'}, "Create Event")
+					        React.createElement('button', {type: 'submit'}, 'Create Event'),
+							React.createElement('div', {id:'notification-bar'}, 'notifications')
 					      )
 		);
 	}

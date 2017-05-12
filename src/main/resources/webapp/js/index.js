@@ -5,14 +5,13 @@ import CreateEventForm from '../js/CreateEventForm';
 import EventsList from '../js/EventsList';
 
 const eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
+//const eventsUrl = 'http://192.168.1.5:8080/events';
 
 // Server Side
 //
 // Render the React components on the server.
 global.renderServerCreateEventForm = function () {
-  return ReactDOMServer.renderToString(		  
-		  buildCreateEventFormComponent()
-	    );
+  return ReactDOMServer.renderToString(buildCreateEventFormComponent());
 };
 
 global.renderServerEventsList = function (eventsListData) {
