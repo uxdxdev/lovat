@@ -12,9 +12,7 @@ var CreateEventForm = React.createClass({
 		};
 	},
 	onSubmit: function(e){
-		alert('test onSubmit()');
 		e.preventDefault();		
-		document.getElementById("notification-bar").innerHTML = 'onSubmit() called';
 		axios.post(this.state.url,
 				{ 
 					name: this.state.eventName, 
