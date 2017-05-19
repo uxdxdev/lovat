@@ -1,54 +1,61 @@
 import React from 'react';
 import axios from 'axios';
 
-var Buttons = React.createClass({
-	edit() {
-		alert('Editing event');
-	},
-	remove(){
-		alert('Removing event');
-	},
-	render(){
-		return (
-			<span>
-				<button onClick={this.edit}>EDIT</button>
-				<button onClick={this.remove}>X</button>
-			</span>
-		)
-	}
-})
-
-var Event = React.createClass({
-	getInitialState() {
-		return {
-			data : this.props.data,
-			index: this.props.index
+class Event extends React.Component {
+	constructor(props){
+  	super(props);
+  	this.state = {
+			data : props.data,
+			key: props.key,
+			url: props.url
 		};
-	},
+
+		this.edit = this.edit.bind(this)
+		this.remove = this.remove.bind(this)
+	}
+
+	edit(){
+		alert('Editing event ' + this.state.data.id);
+	}
+
+	remove(){
+		const requestUrlWithParam = this.state.url + '/' + this.state.data.id;
+		axios.delete(requestUrlWithParam).then(function(res) {
+			alert('Event deleted ' + requestUrlWithParam);
+		});
+	}
+
 	render(){
 		return (
-			<li className='EventsList-item' key={this.state.index}>
+			<li className='EventsList-item' key={this.state.data.id}>
 				<h2 className='EventsListItem-name'>{this.state.data.name}</h2>
 				<div>{this.state.data.description}</div>
 				<div>{this.state.data.location}</div>
 				<div>{this.state.data.date}</div>
-				<Buttons/>
+				<span>
+					<button onClick={this.edit}>EDIT</button>
+					<button onClick={this.remove}>X</button>
+				</span>
 			</li>
 		)
 	}
-})
+}
 
-var EventsList = React.createClass({
+class EventsList extends React.Component {
 	propTypes: {
     events: React.PropTypes.array.isRequired
-  },
-	getInitialState() {
-		return {
+  }
+
+	constructor(props) {
+  	super(props);
+  	this.state = {
 			events : this.props.events,
 			url: this.props.url,
 			pollInterval: this.props.pollInterval
 		};
-	},
+
+		this.loadEventsFromServer = this.loadEventsFromServer.bind(this)
+	}
 
 	loadEventsFromServer(component, eventsUrl) {
 		axios.get(eventsUrl).then(function(res) {
@@ -57,15 +64,17 @@ var EventsList = React.createClass({
 				events : eventList
 			});
 		});
-	},
+	}
 
 	componentDidMount() {
 		this.loadEventsFromServer(this, this.state.url);
 		setInterval(this.loadEventsFromServer.bind(null, this, this.state.url), this.state.pollInterval);
-	},
+	}
+
 	render(){
-		const events = this.state.events.map(function(event, index) {
-			return <Event data={event} index={index}/>
+		const eventsUrlEndpoint = this.state.url;
+		const events = this.state.events.map(function(event) {
+			return <Event data={event} key={event.id} url={eventsUrlEndpoint}/>
 		});
 		return (
 			<div className='EventsList'>
@@ -76,6 +85,6 @@ var EventsList = React.createClass({
 			</div>
 		)
 	}
-})
+}
 
 export default EventsList;

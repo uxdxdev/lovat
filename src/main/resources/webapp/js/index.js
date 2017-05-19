@@ -4,8 +4,8 @@ import axios from 'axios';
 import CreateEventForm from '../js/CreateEventForm';
 import EventsList from '../js/EventsList';
 
-//const eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
-const eventsUrl = 'http://localhost:8080/events';
+const eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
+//const eventsUrl = 'http://localhost:8080/events';
 
 // Server Side
 //

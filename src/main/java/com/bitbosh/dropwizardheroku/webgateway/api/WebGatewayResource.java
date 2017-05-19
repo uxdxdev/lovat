@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
@@ -20,13 +22,15 @@ import org.skife.jdbi.v2.DBI;
 import com.bitbosh.dropwizardheroku.webgateway.repository.WebGatewayDao;
 import com.bitbosh.dropwizardheroku.webgateway.views.IndexView;
 
+import io.dropwizard.jersey.params.LongParam;
+
 @Path("/")
 public class WebGatewayResource {
 
 	private final WebGatewayDao webGatewayDao;
 	private final Client client;
 	private NashornController nashornController;
-	static final String kEventsServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";
+	static final String kEventsServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";	
 	static final String kEventsApiEndpointEvents = kEventsServiceUrl + "/v1/api/events";
 	static final String kRenderServerFunctionCreateEventFormUiComponent = "renderServerCreateEventForm";
 	static final String kRenderServerFunctionEventsListUiComponent = "renderServerEventsList";
@@ -77,9 +81,18 @@ public class WebGatewayResource {
 	@POST
 	@Path("/events")	
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void createEvent(String jsonObject) {
+	public ApiResponse createEvent(String jsonObject) {
 		WebTarget webTarget = this.client.target(kEventsApiEndpointEvents);
 		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-		Response post = invocationBuilder.post(Entity.entity(jsonObject, MediaType.APPLICATION_JSON));		
+		Response response = invocationBuilder.post(Entity.entity(jsonObject, MediaType.APPLICATION_JSON));
+		return response.readEntity(ApiResponse.class);		
+	}
+	
+	@DELETE
+	@Path("/events/{id}")		
+	public ApiResponse deleteEventById(@PathParam("id") LongParam id) {
+		WebTarget webTarget = this.client.target(kEventsApiEndpointEvents + "/" + id);		
+		Response response = webTarget.request().delete();
+		return response.readEntity(ApiResponse.class); 
 	}
 }

@@ -1,17 +1,26 @@
 import React from 'react';
 import axios from 'axios';
 
-var CreateEventForm = React.createClass({
-	getInitialState : function() {
-		return {
+class CreateEventForm extends React.Component {
+	constructor(props) {
+  	super(props);
+  	this.state = {
 			eventName: '',
-		    eventLocation: '',
-		    eventDescription: '',
-		    eventDate: '',
-		    url: this.props.url
+			eventLocation: '',
+			eventDescription: '',
+			eventDate: '',
+			url: props.url
 		};
-	},
-	onSubmit: function(e){
+
+		// allow access to 'this' from within defined functions
+		this.onSubmit = this.onSubmit.bind(this)
+		this.onNameChange = this.onNameChange.bind(this)
+		this.onLocationChange = this.onLocationChange.bind(this)
+		this.onDescriptionChange = this.onDescriptionChange.bind(this)
+		this.onDateChange = this.onDateChange.bind(this)
+	}
+
+	onSubmit(e){
 		e.preventDefault();
 		axios.post(this.state.url,
 				{
@@ -22,64 +31,52 @@ var CreateEventForm = React.createClass({
 				})
 				.then(function(response){
 					document.getElementById("notification-bar").innerHTML = 'Create event successful';
+					// refresh the events list
 				})
 				.catch(function (error) {
 					document.getElementById("notification-bar").innerHTML = 'Error creating event';
 				});
+
+		// reset the values in the form
 		this.setState({
 		      eventName: '',
 		      eventLocation: '',
 		      eventDescription: '',
 		      eventDate: ''
-		    });
-	},
-	onNameChange: function(e){
-		this.setState({eventName:e.target.value});
-	},
-	onLocationChange: function(e){
-		this.setState({eventLocation:e.target.value});
-	},
-	onDescriptionChange: function(e){
-		this.setState({eventDescription:e.target.value});
-	},
-	onDateChange: function(e){
-		this.setState({eventDate:e.target.value});
-	},
-	render : function() {
-		return React.createElement('div', {className: 'CreateEventForm'},
-					React.createElement('h2', null, 'Create Event'),
-					React.createElement('form', {onSubmit: this.onSubmit},
-					        React.createElement('input', {
-					        	type: 'text',
-					        	placeholder: 'Event Name (required)',
-								    required: 'true',
-								    value: this.state.eventName,
-								    onChange: this.onNameChange
-					        }),
-					        React.createElement('textarea', {
-					        	placeholder: 'Description',
-					        	value: this.state.eventDescription,
-					        	onChange: this.onDescriptionChange
-					        }),
-					        React.createElement('input', {
-					        	type: 'text',
-					        	placeholder: 'Location (required)',
-							    	required: 'true',
-							    	value: this.state.eventLocation,
-							    	onChange: this.onLocationChange
-					        }),
-					        React.createElement('input', {
-								    type: 'date',
-								    placeholder: 'Date (required)',
-								    required: 'true',
-								    value: this.state.eventDate,
-								    onChange: this.onDateChange
-						    }),
-					        React.createElement('button', {type: 'submit'}, 'Create Event'),
-									React.createElement('div', {id:'notification-bar'}, 'notifications')
-					      )
-		);
+				});
 	}
-});
+
+	onNameChange(e){
+		this.setState({eventName: e.target.value})
+	}
+
+	onLocationChange(e){
+		this.setState({eventLocation: e.target.value})
+	}
+
+	onDescriptionChange(e){
+		this.setState({eventDescription: e.target.value})
+	}
+
+	onDateChange(e){
+		this.setState({eventDate: e.target.value});
+	}
+
+	render() {
+		return (
+			<div className='CreateEventForm'>
+			<h2>Create Event</h2>
+			<form onSubmit={this.onSubmit}>
+				<input type='text' placeholder='Event Name (required)' required='true' value={this.state.eventName} onChange={this.onNameChange} />
+				<textarea placeholder='Description' required='true' value={this.state.eventDescription} onChange={this.onDescriptionChange} />
+				<input type='text' placeholder='Location (required)' required='true' value={this.state.eventLocation} onChange={this.onLocationChange} />
+				<input type='date' placeholder='Date (required)' required='true' value={this.state.eventDate} onChange={this.onDateChange} />
+				<button type='submit'>Create Event</button>
+				<div id='notification-bar'>Notifications</div>
+				</form>
+			</div>
+		)
+	}
+}
 
 export default CreateEventForm;
