@@ -4,20 +4,14 @@ import io.dropwizard.views.View;
 
 public class IndexView extends View {
 	
-	private final String createEventFormComponent;
-	private final String eventsListComponent;
+	private final String indexViewHtml;	
 	
-	public IndexView(String createEventFormComponent, String eventsListComponent) {
+	public IndexView(String indexViewHtml) {
 		super("Index.mustache");
-		this.createEventFormComponent = createEventFormComponent;
-		this.eventsListComponent = eventsListComponent;
-	}	
+		this.indexViewHtml = indexViewHtml;
+	}
 
-	public String getCreateEventFormComponent() {
-		return createEventFormComponent;
-	}
-	
-	public String getEventsListComponent() {
-		return eventsListComponent;
-	}
+	public String getIndexViewHtml() {
+		return indexViewHtml;
+	}		
 }

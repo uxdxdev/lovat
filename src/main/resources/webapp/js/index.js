@@ -1,33 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import CreateEventForm from '../js/CreateEventForm';
-import EventsList from '../js/EventsList';
+import App from '../js/App';
 
-const eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
-//const eventsUrl = 'http://localhost:8080/events';
+//const eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
+const eventsUrl = 'http://localhost:8080/events';
 
-// Server Side
-//
-// Render the React components on the server.
-global.renderServerCreateEventForm = function () {
-  return ReactDOMServer.renderToString(buildCreateEventFormComponent());
-};
-
-global.renderServerEventsList = function (eventsListData) {
+global.renderServer = function (eventsListData) {
   var eventsList = Java.from(eventsListData);
-  return ReactDOMServer.renderToString(
-		  buildEventsListComponent(eventsList)
-	    );
+  return ReactDOMServer.renderToString(buildApplication(eventsList));
 };
 
-// Build the React components.
-function buildCreateEventFormComponent(){
-	return React.createElement(CreateEventForm, {url: eventsUrl});
-}
-
-function buildEventsListComponent(eventsList){
-	return React.createElement(EventsList, {events: eventsList, pollInterval: 2000, url: eventsUrl});
+function buildApplication(eventsList){
+	return React.createElement(App, {events: eventsList, pollInterval: 2000, url: eventsUrl});
 }
 
 // Client Side
@@ -43,14 +28,9 @@ global.init = function () {
 
 // Attach the React event handlers to the client application.
 global.renderClient = function (eventsListData) {
-	ReactDOM.render(
-			buildCreateEventFormComponent(),
-			document.getElementById("createEventForm")
-    );
-
     var eventsList = eventsListData || [];
     ReactDOM.render(
-    		buildEventsListComponent(eventsList),
-    		document.getElementById("eventsList")
+    		buildApplication(eventsList),
+    		document.getElementById("react-root")
     );
 };

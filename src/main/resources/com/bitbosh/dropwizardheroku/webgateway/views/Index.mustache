@@ -4,15 +4,14 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1">
 		<title>Dropwizard Heroku Event Service</title>
+		<link rel="stylesheet" href="assets/styles.css">
+	</head>
+	<body>
+		<img src="https://travis-ci.org/damorton/dropwizardheroku-webgateway.svg?branch=master" alt="Travis build status">
+		<div id="react-root">{{{indexViewHtml}}}</div>
 		<script type="text/javascript" src="assets/bundle.js"></script>
-		<script>  	
+		<script>
 		  init();
 		</script>
-		<link rel="stylesheet" href="assets/styles.css">		
-	</head>
-	<body>	  
-		<img src="https://travis-ci.org/damorton/dropwizardheroku-webgateway.svg?branch=master" alt="Travis build status">		  	
-		<div id="createEventForm">{{{createEventFormComponent}}}</div>
-		<div id="eventsList">{{{eventsListComponent}}}</div>		
 	</body>
 </html>

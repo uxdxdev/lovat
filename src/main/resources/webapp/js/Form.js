@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-class CreateEventForm extends React.Component {
+class Form extends React.Component {
 	constructor(props) {
   	super(props);
   	this.state = {
@@ -62,7 +62,7 @@ class CreateEventForm extends React.Component {
 		this.setState({eventDate: e.target.value});
 	}
 
-	render() {
+	render(){
 		return (
 			<div className='CreateEventForm'>
 			<h2>Create Event</h2>
@@ -79,4 +79,4 @@ class CreateEventForm extends React.Component {
 	}
 }
 
-export default CreateEventForm;
+export default Form;
