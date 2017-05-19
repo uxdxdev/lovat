@@ -14,12 +14,11 @@ class ActionControl extends React.Component {
 	}
 
 	edit(){
-		alert('Editing event')
+
 	}
 
 	remove(){
 		const requestUrlWithParam = this.state.url + '/' + this.state.id;
-		alert('Delete event using url ' + requestUrlWithParam)
 		axios.delete(requestUrlWithParam).then(function(res) {
 
 		});
@@ -46,8 +45,6 @@ class Event extends React.Component {
 	}
 
 	render(){
-		const requestUrlWithParam = this.state.url + '/' + this.state.id;
-
 		return (
 			<li className='EventList-item' key={this.state.data.id}>
 				<h2 className='EventListItem-name'>{this.state.data.name}</h2>
@@ -55,7 +52,6 @@ class Event extends React.Component {
 				<div>{this.state.data.location}</div>
 				<div>{this.state.data.date}</div>
 				<ActionControl url={this.state.url} id={this.state.data.id}/>
-				<span>{requestUrlWithParam}</span>
 			</li>
 		)
 	}
