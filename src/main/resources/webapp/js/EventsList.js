@@ -15,13 +15,11 @@ class Event extends React.Component {
 	}
 
 	edit(){
-		alert('Editing event ' + this.state.data.id);
 	}
 
 	remove(){
 		const requestUrlWithParam = this.state.url + '/' + this.state.data.id;
 		axios.delete(requestUrlWithParam).then(function(res) {
-			alert('Event deleted ' + requestUrlWithParam);
 		});
 	}
 

@@ -10,6 +10,10 @@ h2 {
 	text-align: center;
 }
 
+button {
+  cursor: pointer;
+}
+
 .CreateEventForm {
 	padding: 8px 24px;
 	margin: 10px auto;
