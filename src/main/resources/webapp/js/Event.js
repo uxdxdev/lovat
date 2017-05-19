@@ -26,12 +26,10 @@ class ActionControls extends React.Component {
 	}
 
 	render(){
-		return (
-			<span>
-				<button onClick={this.edit}>EDIT</button>
-				<button onClick={this.remove}>X</button>
-			</span>
-		)
+		return React.createElement('span', null,
+							React.createElement('button', {onClick: this.edit}, 'EDIT'),
+							React.createElement('button', {onClick: this.remove}, 'X')
+						);
 	}
 }
 
