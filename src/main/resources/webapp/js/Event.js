@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-class ActionControls extends React.Component {
+class ActionControl extends React.Component {
 	constructor(props){
   	super(props);
   	this.state = {
@@ -26,10 +26,12 @@ class ActionControls extends React.Component {
 	}
 
 	render(){
-		return React.createElement('span', null,
-							React.createElement('button', {onClick: this.edit}, 'EDIT'),
-							React.createElement('button', {onClick: this.remove}, 'X')
-						);
+		return (
+			<span>
+				<button className='ActionControl-edit' onClick={this.edit}>EDIT</button>
+				<button className='ActionControl-remove' onClick={this.remove}>X</button>
+			</span>
+		)
 	}
 }
 
@@ -44,13 +46,16 @@ class Event extends React.Component {
 	}
 
 	render(){
+		const requestUrlWithParam = this.state.url + '/' + this.state.id;
+
 		return (
-			<li className='EventsList-item' key={this.state.data.id}>
-				<h2 className='EventsListItem-name'>{this.state.data.name}</h2>
+			<li className='EventList-item' key={this.state.data.id}>
+				<h2 className='EventListItem-name'>{this.state.data.name}</h2>
 				<div>{this.state.data.description}</div>
 				<div>{this.state.data.location}</div>
 				<div>{this.state.data.date}</div>
-				<ActionControls url={this.state.url} id={this.state.data.id}/>
+				<ActionControl url={this.state.url} id={this.state.data.id}/>
+				<span>{requestUrlWithParam}</span>
 			</li>
 		)
 	}

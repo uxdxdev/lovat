@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Event from '../js/Event'
 
-class EventsList extends React.Component {
+class EventList extends React.Component {
 	propTypes: {
     events: React.PropTypes.array.isRequired
   }
@@ -39,9 +39,9 @@ class EventsList extends React.Component {
 			return <Event data={event} key={event.id} url={eventsEndpointUrl}/>
 		});
 		return (
-			<div className='EventsList'>
+			<div className='EventList'>
 				<h2>Events List</h2>
-				<ul className='EventsList-list'>
+				<ul className='EventList-list'>
 					{events}
 				</ul>
 			</div>
@@ -49,4 +49,4 @@ class EventsList extends React.Component {
 	}
 }
 
-export default EventsList;
+export default EventList;

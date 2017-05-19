@@ -1,6 +1,6 @@
 import React from 'react';
 import Form from '../js/Form';
-import EventsList from '../js/EventsList';
+import EventList from '../js/EventList';
 
 class App extends React.Component {
 	constructor(props) {
@@ -16,7 +16,7 @@ class App extends React.Component {
 		return (
 			<div>
 			<Form url={this.state.webApiGatewayUrl} />
-			<EventsList events={this.state.data} pollInterval={this.state.pollInterval} url={this.state.webApiGatewayUrl}/>
+			<EventList events={this.state.data} pollInterval={this.state.pollInterval} url={this.state.webApiGatewayUrl}/>
 			</div>
 		)
 	}

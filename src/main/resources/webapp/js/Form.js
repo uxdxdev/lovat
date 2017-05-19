@@ -66,7 +66,7 @@ class Form extends React.Component {
 
 	render(){
 		return (
-			<div className='CreateEventForm'>
+			<div className='Form'>
 			<h2>Create Event</h2>
 			<form onSubmit={this.onSubmit}>
 				<input type='text' placeholder='Event Name (required)' required='true' value={this.state.eventName} onChange={this.onNameChange} />
