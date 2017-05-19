@@ -19,7 +19,9 @@ class Event extends React.Component {
 
 	remove(){
 		const requestUrlWithParam = this.state.url + '/' + this.state.data.id;
+		alert('Delete event using url ' + requestUrlWithParam)
 		axios.delete(requestUrlWithParam).then(function(res) {
+			alert('Event deleted')
 		});
 	}
 

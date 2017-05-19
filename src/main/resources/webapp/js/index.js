@@ -4,6 +4,7 @@ import axios from 'axios';
 import App from '../js/App';
 
 const webApiGatewayUrl = 'https://dropwizardheroku-webgateway.herokuapp.com';
+//const webApiGatewayUrl = 'http://192.168.1.5:8080';
 
 global.renderServer = function (propsFromServer) {
   var props = Java.from(propsFromServer);
