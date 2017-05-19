@@ -11,8 +11,9 @@ class EventsList extends React.Component {
   	super(props);
   	this.state = {
 			events : this.props.events,
-			url: this.props.url,
-			pollInterval: this.props.pollInterval
+			pollInterval: this.props.pollInterval,
+			webApiGatewayUrl: this.props.url,
+			eventsEndpointUrl: props.url + '/events'
 		};
 
 		this.loadEventsFromServer = this.loadEventsFromServer.bind(this)
@@ -28,14 +29,14 @@ class EventsList extends React.Component {
 	}
 
 	componentDidMount() {
-		this.loadEventsFromServer(this, this.state.url);
-		setInterval(this.loadEventsFromServer.bind(null, this, this.state.url), this.state.pollInterval);
+		this.loadEventsFromServer(this, this.state.eventsEndpointUrl);
+		setInterval(this.loadEventsFromServer.bind(null, this, this.state.eventsEndpointUrl), this.state.pollInterval);
 	}
 
 	render(){
-		const eventsUrlEndpoint = this.state.url;
+		const eventsEndpointUrl = this.state.eventsEndpointUrl
 		const events = this.state.events.map(function(event) {
-			return <Event data={event} key={event.id} url={eventsUrlEndpoint}/>
+			return <Event data={event} key={event.id} url={eventsEndpointUrl}/>
 		});
 		return (
 			<div className='EventsList'>

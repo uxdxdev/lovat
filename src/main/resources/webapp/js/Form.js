@@ -9,7 +9,8 @@ class Form extends React.Component {
 			eventLocation: '',
 			eventDescription: '',
 			eventDate: '',
-			url: props.url
+			webApiGatewayUrl: props.url,
+			eventsEndpointUrl: props.url + '/events'
 		};
 
 		// allow access to 'this' from within defined functions
@@ -22,7 +23,8 @@ class Form extends React.Component {
 
 	onSubmit(e){
 		e.preventDefault();
-		axios.post(this.state.url,
+		const eventsEndpointUrl = this.state.eventsEndpointUrl
+		axios.post(eventsEndpointUrl,
 				{
 					name: this.state.eventName,
 					location: this.state.eventLocation,

@@ -6,8 +6,8 @@ class App extends React.Component {
 	constructor(props) {
   	super(props);
   	this.state = {
-			events : props.events,
-			url: props.url,
+			data : props.data,
+			webApiGatewayUrl: props.url,
 			pollInterval: props.pollInterval
 		};
 	}
@@ -15,8 +15,8 @@ class App extends React.Component {
 	render() {
 		return (
 			<div>
-			<Form url={this.state.url} />
-			<EventsList events={this.state.events} pollInterval={this.state.pollInterval} url={this.state.url}/>
+			<Form url={this.state.webApiGatewayUrl} />
+			<EventsList events={this.state.data} pollInterval={this.state.pollInterval} url={this.state.webApiGatewayUrl}/>
 			</div>
 		)
 	}
