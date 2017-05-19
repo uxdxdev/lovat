@@ -43,7 +43,7 @@ public class WebGatewayResourceUnitTest {
 
 		new Expectations() {
 			{
-				client.target(WebGatewayResource.kEventsApiEndpointEvents);
+				client.target(WebGatewayResource.kEventServiceApiEndpointEvents);
 				result = webTarget;
 
 				webTarget.request(MediaType.APPLICATION_JSON);
@@ -63,47 +63,13 @@ public class WebGatewayResourceUnitTest {
 	}
 
 	@Test
-	public void index_returnsCorrectHtml_IfInvokedWithValidDependencies(@Mocked DBI jdbi, @Mocked Client client, @Mocked WebTarget webTarget,
-			@Mocked Invocation.Builder invocationBuilder, @Mocked Response response, @Mocked NashornController react) throws IOException {
-
-		String expectedHtml = "<div>test</div>";
-		new Expectations() {
-			List<Object> eventsProps;
-			ApiResponse apiResponse = new ApiResponse();
-			{
-				client.target(WebGatewayResource.kEventsApiEndpointEvents);
-				result = webTarget;
-
-				webTarget.request(MediaType.APPLICATION_JSON);
-				result = invocationBuilder;
-
-				invocationBuilder.get();
-				result = response;
-
-				response.readEntity(withAny(ApiResponse.class));
-				result = apiResponse;
-				
-				react.renderReactJsComponent(anyString);
-				result = expectedHtml;
-				
-				react.renderReactJsComponent(anyString, eventsProps);
-				result = expectedHtml;
-			}
-		};
-
-		WebGatewayResource webGatewayResource = new WebGatewayResource(jdbi, client, react);
-		IndexView actualHtml = webGatewayResource.index();
-		//assertEquals(expectedHtml, actualHtml);
-	}
-
-	@Test
 	public void successfulPostToEventsService(@Mocked DBI jdbi, @Mocked Client client,
 			@Mocked WebTarget webTarget, @Mocked Invocation.Builder invocationBuilder, @Mocked Response response,
 			@Mocked ApiResponse apiResponse, @Mocked NashornController react) {
 
 		new Expectations() {
 			{
-				client.target(WebGatewayResource.kEventsApiEndpointEvents);
+				client.target(WebGatewayResource.kEventServiceApiEndpointEvents);
 				result = webTarget;
 
 				webTarget.request(MediaType.APPLICATION_JSON);
