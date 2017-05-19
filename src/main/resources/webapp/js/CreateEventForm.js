@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-var CreateEventForm = React.createClass({	
+var CreateEventForm = React.createClass({
 	getInitialState : function() {
 		return {
 			eventName: '',
@@ -12,20 +12,20 @@ var CreateEventForm = React.createClass({
 		};
 	},
 	onSubmit: function(e){
-		e.preventDefault();		
+		e.preventDefault();
 		axios.post(this.state.url,
-				{ 
-					name: this.state.eventName, 
-					location: this.state.eventLocation, 
-					description: this.state.eventDescription, 
-					date: this.state.eventDate 
+				{
+					name: this.state.eventName,
+					location: this.state.eventLocation,
+					description: this.state.eventDescription,
+					date: this.state.eventDate
 				})
 				.then(function(response){
 					document.getElementById("notification-bar").innerHTML = 'Create event successful';
 				})
 				.catch(function (error) {
 					document.getElementById("notification-bar").innerHTML = 'Error creating event';
-				}); 
+				});
 		this.setState({
 		      eventName: '',
 		      eventLocation: '',
@@ -35,7 +35,7 @@ var CreateEventForm = React.createClass({
 	},
 	onNameChange: function(e){
 		this.setState({eventName:e.target.value});
-	},	
+	},
 	onLocationChange: function(e){
 		this.setState({eventLocation:e.target.value});
 	},
@@ -46,17 +46,17 @@ var CreateEventForm = React.createClass({
 		this.setState({eventDate:e.target.value});
 	},
 	render : function() {
-		return React.createElement('div', {className: 'CreateEventForm'}, 
+		return React.createElement('div', {className: 'CreateEventForm'},
 					React.createElement('h2', null, 'Create Event'),
 					React.createElement('form', {onSubmit: this.onSubmit},
 					        React.createElement('input', {
 					        	type: 'text',
 					        	placeholder: 'Event Name (required)',
-							    required: 'true',
-							    value: this.state.eventName,
-							    onChange: this.onNameChange
+								    required: 'true',
+								    value: this.state.eventName,
+								    onChange: this.onNameChange
 					        }),
-					        React.createElement('textarea', {					          
+					        React.createElement('textarea', {
 					        	placeholder: 'Description',
 					        	value: this.state.eventDescription,
 					        	onChange: this.onDescriptionChange
@@ -64,19 +64,19 @@ var CreateEventForm = React.createClass({
 					        React.createElement('input', {
 					        	type: 'text',
 					        	placeholder: 'Location (required)',
-							    required: 'true',
-							    value: this.state.eventLocation,
-							    onChange: this.onLocationChange
+							    	required: 'true',
+							    	value: this.state.eventLocation,
+							    	onChange: this.onLocationChange
 					        }),
 					        React.createElement('input', {
-							    type: 'date',
-							    placeholder: 'Date (required)',
-							    required: 'true',
-							    value: this.state.eventDate,
-							    onChange: this.onDateChange
+								    type: 'date',
+								    placeholder: 'Date (required)',
+								    required: 'true',
+								    value: this.state.eventDate,
+								    onChange: this.onDateChange
 						    }),
 					        React.createElement('button', {type: 'submit'}, 'Create Event'),
-							React.createElement('div', {id:'notification-bar'}, 'notifications')
+									React.createElement('div', {id:'notification-bar'}, 'notifications')
 					      )
 		);
 	}

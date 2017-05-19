@@ -4,8 +4,8 @@ import axios from 'axios';
 import CreateEventForm from '../js/CreateEventForm';
 import EventsList from '../js/EventsList';
 
-const eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
-//const eventsUrl = 'http://192.168.1.5:8080/events';
+//const eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
+const eventsUrl = 'http://localhost:8080/events';
 
 // Server Side
 //
@@ -15,8 +15,8 @@ global.renderServerCreateEventForm = function () {
 };
 
 global.renderServerEventsList = function (eventsListData) {
-  var eventsList = Java.from(eventsListData);  
-  return ReactDOMServer.renderToString(		  
+  var eventsList = Java.from(eventsListData);
+  return ReactDOMServer.renderToString(
 		  buildEventsListComponent(eventsList)
 	    );
 };
@@ -32,14 +32,14 @@ function buildEventsListComponent(eventsList){
 
 // Client Side
 global.init = function () {
-	
+
 	// Called from index, request the json data for events from the gateway
 	// and attach the React component event handlers.
 	axios.get(eventsUrl).then(function(res) {
-		var data = res.data.list;		
+		var data = res.data.list;
 		renderClient(data);
 	});
-};	
+};
 
 // Attach the React event handlers to the client application.
 global.renderClient = function (eventsListData) {
@@ -47,7 +47,7 @@ global.renderClient = function (eventsListData) {
 			buildCreateEventFormComponent(),
 			document.getElementById("createEventForm")
     );
-	
+
     var eventsList = eventsListData || [];
     ReactDOM.render(
     		buildEventsListComponent(eventsList),
