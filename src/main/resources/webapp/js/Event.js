@@ -1,30 +1,39 @@
 import React from 'react';
 import axios from 'axios';
 
-var Buttons = React.createClass({
-	getInitialState : function() {
-		return {
-			id : this.props.id,
-			url: this.props.url
+class ActionControls extends React.Component {
+	constructor(props){
+  	super(props);
+  	this.state = {
+			id : props.id,
+			url: props.url
 		};
-	},
+
+		this.edit = this.edit.bind(this)
+		this.remove = this.remove.bind(this)
+	}
+
 	edit(){
 		alert('Editing event')
-	},
+	}
+
 	remove(){
 		const requestUrlWithParam = this.state.url + '/' + this.state.id;
 		alert('Delete event using url ' + requestUrlWithParam)
 		axios.delete(requestUrlWithParam).then(function(res) {
-			alert('Event deleted')
+
 		});
-	},
-	render(){
-		return React.createElement('span', null,
-							React.createElement('button', {onClick: this.edit}, 'EDIT'),
-							React.createElement('button', {onClick: this.remove}, 'X')
-						);
 	}
-})
+
+	render(){
+		return (
+			<span>
+				<button onClick={this.edit}>EDIT</button>
+				<button onClick={this.remove}>X</button>
+			</span>
+		)
+	}
+}
 
 class Event extends React.Component {
 	constructor(props){
@@ -43,7 +52,7 @@ class Event extends React.Component {
 				<div>{this.state.data.description}</div>
 				<div>{this.state.data.location}</div>
 				<div>{this.state.data.date}</div>
-				<Buttons url={this.state.url} id={this.state.data.id}/>
+				<ActionControls url={this.state.url} id={this.state.data.id}/>
 			</li>
 		)
 	}
