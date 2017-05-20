@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import App from '../js/App';
 
-//const webApiGatewayUrl = 'https://dropwizardheroku-webgateway.herokuapp.com';
-const webApiGatewayUrl = 'http://localhost:8080';
+const webApiGatewayUrl = 'https://dropwizardheroku-webgateway.herokuapp.com';
+//const webApiGatewayUrl = 'http://localhost:8080';
 
 // Server side
 global.renderServer = function (propsFromServer) {
