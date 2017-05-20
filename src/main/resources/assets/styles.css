@@ -56,13 +56,13 @@ button {
 }
 
 div#notification-bar {
-    width: 50%;
-    background-color: #2980B9;
-    padding: 2px;
-    color: #fff;
-    font-size: 10px;
-    text-align: center;
-    margin: 5px auto;
+	width: 50%;
+	background-color: #2980B9;
+	padding: 2px;
+	color: #fff;
+	font-size: 10px;
+	text-align: center;
+	margin: 5px auto;
 }
 
 .ActionControl-edit {
@@ -71,4 +71,8 @@ div#notification-bar {
 
 .ActionControl-remove {
 	float: right;
+}
+
+.ActionControl {
+  height: 20px;
 }
