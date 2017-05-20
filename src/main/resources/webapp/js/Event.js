@@ -26,10 +26,10 @@ class ActionControl extends React.Component {
 
 	render(){
 		return (
-			<span>
+			<div className='ActionControl'>
 				<button className='ActionControl-edit' onClick={this.edit}>EDIT</button>
 				<button className='ActionControl-remove' onClick={this.remove}>X</button>
-			</span>
+			</div>
 		)
 	}
 }
@@ -46,12 +46,14 @@ class Event extends React.Component {
 
 	render(){
 		return (
-			<li className='EventList-item' key={this.state.data.id}>
-				<ActionControl url={this.state.url} id={this.state.data.id}/>
-				<h2 className='EventListItem-name'>{this.state.data.name}</h2>
-				<div>{this.state.data.description}</div>
-				<div>{this.state.data.location}</div>
-				<div>{this.state.data.date}</div>
+			<li key={this.state.data.id}>
+				<div className='EventList-item'>
+					<h2 className='EventListItem-name'>{this.state.data.name}</h2>
+					<div>{this.state.data.description}</div>
+					<div>{this.state.data.location}</div>
+					<div>{this.state.data.date}</div>
+					<ActionControl url={this.state.url} id={this.state.data.id}/>
+				</div>
 			</li>
 		)
 	}
