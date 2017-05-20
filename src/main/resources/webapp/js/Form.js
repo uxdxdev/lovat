@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-class CreateEventForm extends React.Component {
+class Form extends React.Component {
 	constructor(props) {
   	super(props);
   	this.state = {
@@ -9,7 +9,8 @@ class CreateEventForm extends React.Component {
 			eventLocation: '',
 			eventDescription: '',
 			eventDate: '',
-			url: props.url
+			webApiGatewayUrl: props.url,
+			eventsEndpointUrl: props.url + '/events'
 		};
 
 		// allow access to 'this' from within defined functions
@@ -22,7 +23,8 @@ class CreateEventForm extends React.Component {
 
 	onSubmit(e){
 		e.preventDefault();
-		axios.post(this.state.url,
+		const eventsEndpointUrl = this.state.eventsEndpointUrl
+		axios.post(eventsEndpointUrl,
 				{
 					name: this.state.eventName,
 					location: this.state.eventLocation,
@@ -62,9 +64,9 @@ class CreateEventForm extends React.Component {
 		this.setState({eventDate: e.target.value});
 	}
 
-	render() {
+	render(){
 		return (
-			<div className='CreateEventForm'>
+			<div className='Form'>
 			<h2>Create Event</h2>
 			<form onSubmit={this.onSubmit}>
 				<input type='text' placeholder='Event Name (required)' required='true' value={this.state.eventName} onChange={this.onNameChange} />
@@ -79,4 +81,4 @@ class CreateEventForm extends React.Component {
 	}
 }
 
-export default CreateEventForm;
+export default Form;

@@ -11,13 +11,10 @@ public class IndexViewUnitTest {
 
 	@Test
 	public void viewReturnsCorrectComponentAfterConstruction() {
-		String expectedCreateEventComponent = "testCreateEventComponent";
-		String expectedEventListComponent = "testEventsListComponent";
+		String expectedHtml = "<dev>testHtml</div>";
 		
-		IndexView view = new IndexView(expectedCreateEventComponent, expectedEventListComponent);
-		String actualCreateEventComponent = view.getCreateEventFormComponent();
-		String actualEventsListComponent = view.getEventsListComponent();
-		assertEquals(expectedCreateEventComponent, actualCreateEventComponent);
-		assertEquals(expectedEventListComponent, actualEventsListComponent);
+		IndexView view = new IndexView(expectedHtml);
+		String actualHtml = view.getIndexViewHtml();
+		assertEquals(expectedHtml, actualHtml);		
 	}
 }

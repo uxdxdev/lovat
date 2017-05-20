@@ -1,56 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import CreateEventForm from '../js/CreateEventForm';
-import EventsList from '../js/EventsList';
+import App from '../js/App';
 
-const eventsUrl = 'https://dropwizardheroku-webgateway.herokuapp.com/events';
-//const eventsUrl = 'http://localhost:8080/events';
+const webApiGatewayUrl = 'https://dropwizardheroku-webgateway.herokuapp.com';
+//const webApiGatewayUrl = 'http://localhost:8080';
 
-// Server Side
-//
-// Render the React components on the server.
-global.renderServerCreateEventForm = function () {
-  return ReactDOMServer.renderToString(buildCreateEventFormComponent());
+// Server side
+global.renderServer = function (propsFromServer) {
+  var props = Java.from(propsFromServer);
+  return ReactDOMServer.renderToString(buildApplication(props));
 };
 
-global.renderServerEventsList = function (eventsListData) {
-  var eventsList = Java.from(eventsListData);
-  return ReactDOMServer.renderToString(
-		  buildEventsListComponent(eventsList)
-	    );
-};
-
-// Build the React components.
-function buildCreateEventFormComponent(){
-	return React.createElement(CreateEventForm, {url: eventsUrl});
-}
-
-function buildEventsListComponent(eventsList){
-	return React.createElement(EventsList, {events: eventsList, pollInterval: 2000, url: eventsUrl});
+function buildApplication(props){
+	return React.createElement(App, {data: props, pollInterval: 2000, url: webApiGatewayUrl});
 }
 
 // Client Side
-global.init = function () {
-
-	// Called from index, request the json data for events from the gateway
-	// and attach the React component event handlers.
-	axios.get(eventsUrl).then(function(res) {
-		var data = res.data.list;
-		renderClient(data);
-	});
-};
+if(typeof window !== "undefined"){
+  window.onload = function () {
+    const eventsEndpointUrl = webApiGatewayUrl + '/events'
+  	axios.get(eventsEndpointUrl).then(function(res) {
+  		var events = res.data.list;
+  		renderClient(events);
+  	});
+  }
+}
 
 // Attach the React event handlers to the client application.
-global.renderClient = function (eventsListData) {
-	ReactDOM.render(
-			buildCreateEventFormComponent(),
-			document.getElementById("createEventForm")
-    );
-
-    var eventsList = eventsListData || [];
+global.renderClient = function (propsFromClient) {
+    var props = propsFromClient || [];
     ReactDOM.render(
-    		buildEventsListComponent(eventsList),
-    		document.getElementById("eventsList")
+    		buildApplication(props),
+    		document.getElementById("react-root")
     );
 };

@@ -3,6 +3,8 @@ package com.bitbosh.dropwizardheroku.webgateway;
 import static org.junit.Assert.assertEquals;
 
 import javax.script.ScriptEngine;
+import javax.servlet.Filter;
+import javax.servlet.FilterRegistration;
 import javax.ws.rs.client.Client;
 
 import org.junit.Test;
@@ -19,6 +21,7 @@ import io.dropwizard.client.JerseyClientConfiguration;
 import io.dropwizard.db.PooledDataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
+import io.dropwizard.jetty.setup.ServletEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
@@ -64,7 +67,9 @@ public class MainUnitTest {
       @Mocked JerseyEnvironment jerseyEnv, 
       @Mocked JerseyClientBuilder clientBuilder, 
       @Mocked Client client, 
-      @Mocked ScriptEngine engine) throws Exception {
+      @Mocked ScriptEngine engine,
+      @Mocked ServletEnvironment servletEnv, 
+      @Mocked FilterRegistration.Dynamic dynFilter) throws Exception {
 
     // Mock the ctor for DropwizardHerokuApplication super class Application<DropwizardHerokuConfiguration>
     new MockUp<Application<ApplicationConfiguration>>() {
@@ -82,11 +87,23 @@ public class MainUnitTest {
     };
 
     new MockUp<Environment>() {
-      @Mock
-      public JerseyEnvironment jersey() {
-        return jerseyEnv;
-      }
-    };
+        @Mock
+        public JerseyEnvironment jersey() {
+          return jerseyEnv;
+        }
+        
+        @Mock
+        public ServletEnvironment servlets() {
+      	  return servletEnv;
+        }
+      };
+      
+      new MockUp<ServletEnvironment>() {        
+          @Mock
+          public FilterRegistration.Dynamic addFilter(String name, Class<? extends Filter> klass) {
+  			return dynFilter;        
+          }
+        };
 
     new MockUp<DBIFactory>() {
 

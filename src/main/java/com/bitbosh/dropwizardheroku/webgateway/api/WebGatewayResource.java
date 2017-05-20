@@ -30,10 +30,9 @@ public class WebGatewayResource {
 	private final WebGatewayDao webGatewayDao;
 	private final Client client;
 	private NashornController nashornController;
-	static final String kEventsServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";	
-	static final String kEventsApiEndpointEvents = kEventsServiceUrl + "/v1/api/events";
-	static final String kRenderServerFunctionCreateEventFormUiComponent = "renderServerCreateEventForm";
-	static final String kRenderServerFunctionEventsListUiComponent = "renderServerEventsList";
+	static final String kEventServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";	
+	static final String kEventServiceApiEndpointEvents = kEventServiceUrl + "/v1/api/events";
+	static final String kServerRenderFunction = "renderServer";
 
 	public WebGatewayResource(DBI jdbi, Client client, NashornController nashornController) {
 		this.webGatewayDao = jdbi.onDemand(WebGatewayDao.class);
@@ -47,21 +46,17 @@ public class WebGatewayResource {
 
 		// Get events json data from Events microservice
 		ApiResponse events = getEventsJsonData();
-
-		@SuppressWarnings("unused")
-		String createEventFormComponent = this.nashornController.renderReactJsComponent(kRenderServerFunctionCreateEventFormUiComponent);
 		
-		// Render the Events List component and pass in props
 		@SuppressWarnings("unchecked")
-		List<Object> eventsProps = (List<Object>) events.getList();
-		String eventsListComponent = this.nashornController.renderReactJsComponent(kRenderServerFunctionEventsListUiComponent, eventsProps);
+		List<Object> props = (List<Object>) events.getList();
+		String indexViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunction, props);
 
-		IndexView index = new IndexView(createEventFormComponent, eventsListComponent);
+		IndexView index = new IndexView(indexViewHtml);
 		return index;
 	}
 
 	private ApiResponse getEventsJsonData() {
-		WebTarget webTarget = this.client.target(kEventsApiEndpointEvents);
+		WebTarget webTarget = this.client.target(kEventServiceApiEndpointEvents);
 		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.get();
 		return response.readEntity(ApiResponse.class);
@@ -71,7 +66,7 @@ public class WebGatewayResource {
 	@Path("/events")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ApiResponse getEvents() {
-		WebTarget webTarget = this.client.target(kEventsApiEndpointEvents);
+		WebTarget webTarget = this.client.target(kEventServiceApiEndpointEvents);
 		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.get();
 		ApiResponse apiResponse = response.readEntity(ApiResponse.class);
@@ -82,7 +77,7 @@ public class WebGatewayResource {
 	@Path("/events")	
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ApiResponse createEvent(String jsonObject) {
-		WebTarget webTarget = this.client.target(kEventsApiEndpointEvents);
+		WebTarget webTarget = this.client.target(kEventServiceApiEndpointEvents);
 		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.post(Entity.entity(jsonObject, MediaType.APPLICATION_JSON));
 		return response.readEntity(ApiResponse.class);		
@@ -91,7 +86,7 @@ public class WebGatewayResource {
 	@DELETE
 	@Path("/events/{id}")		
 	public ApiResponse deleteEventById(@PathParam("id") LongParam id) {
-		WebTarget webTarget = this.client.target(kEventsApiEndpointEvents + "/" + id);		
+		WebTarget webTarget = this.client.target(kEventServiceApiEndpointEvents + "/" + id);		
 		Response response = webTarget.request().delete();
 		return response.readEntity(ApiResponse.class); 
 	}

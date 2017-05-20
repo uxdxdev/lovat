@@ -1,10 +1,14 @@
 package com.bitbosh.dropwizardheroku.webgateway;
 
 import java.net.URISyntaxException;
+import java.util.EnumSet;
 
 import javax.script.ScriptEngineManager;
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 import javax.ws.rs.client.Client;
 
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.skife.jdbi.v2.DBI;
 
 import com.bitbosh.dropwizardheroku.webgateway.api.NashornController;
@@ -46,6 +50,17 @@ public class Main extends Application<ApplicationConfiguration> {
 		// interact with the database.
 		JerseyEnvironment jerseyEnvironment = environment.jersey();
 		jerseyEnvironment.register(new WebGatewayResource(jdbi, client, react));
+		
+		// Enable CORS headers
+	    final FilterRegistration.Dynamic cors = environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+
+	    // Configure CORS parameters
+	    cors.setInitParameter("allowedOrigins", "*");
+	    cors.setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin");
+	    cors.setInitParameter("allowedMethods", "OPTIONS,GET,PUT,POST,DELETE,HEAD");
+
+	    // Add URL mapping
+	    cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 	}
 
 	private DBIFactory createDbiFactory() {
