@@ -47,11 +47,11 @@ class Event extends React.Component {
 	render(){
 		return (
 			<li className='EventList-item' key={this.state.data.id}>
+				<ActionControl url={this.state.url} id={this.state.data.id}/>
 				<h2 className='EventListItem-name'>{this.state.data.name}</h2>
 				<div>{this.state.data.description}</div>
 				<div>{this.state.data.location}</div>
 				<div>{this.state.data.date}</div>
-				<ActionControl url={this.state.url} id={this.state.data.id}/>
 			</li>
 		)
 	}
