@@ -70,7 +70,7 @@ class Form extends React.Component {
 			<h2>Create Event</h2>
 			<form onSubmit={this.onSubmit}>
 				<input type='text' placeholder='Event Name (required)' required='true' value={this.state.eventName} onChange={this.onNameChange} />
-				<textarea placeholder='Description' required='true' value={this.state.eventDescription} onChange={this.onDescriptionChange} />
+				<textarea placeholder='Description' required='false' value={this.state.eventDescription} onChange={this.onDescriptionChange} />
 				<input type='text' placeholder='Location (required)' required='true' value={this.state.eventLocation} onChange={this.onLocationChange} />
 				<input type='date' placeholder='Date (required)' required='true' value={this.state.eventDate} onChange={this.onDateChange} />
 				<button type='submit'>Create Event</button>
