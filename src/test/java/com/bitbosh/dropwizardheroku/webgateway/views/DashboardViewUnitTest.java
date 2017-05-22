@@ -7,14 +7,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class IndexViewUnitTest {
+public class DashboardViewUnitTest {
 
 	@Test
 	public void viewReturnsCorrectComponentAfterConstruction() {
 		String expectedHtml = "<dev>testHtml</div>";
 		
-		IndexView view = new IndexView(expectedHtml);
-		String actualHtml = view.getIndexViewHtml();
+		DashboardView view = new DashboardView(expectedHtml);
+		String actualHtml = view.getDashbaordViewHtml();
 		assertEquals(expectedHtml, actualHtml);		
 	}
 }

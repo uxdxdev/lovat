@@ -2,9 +2,6 @@ package com.bitbosh.dropwizardheroku.webgateway.api;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-import java.util.List;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
@@ -14,9 +11,10 @@ import javax.ws.rs.core.Response;
 import org.junit.Test;
 import org.skife.jdbi.v2.DBI;
 
+import com.bitbosh.dropwizardheroku.webgateway.core.User;
 import com.bitbosh.dropwizardheroku.webgateway.repository.WebGatewayDao;
-import com.bitbosh.dropwizardheroku.webgateway.views.IndexView;
 
+import io.dropwizard.auth.Auth;
 import mockit.Expectations;
 import mockit.Mocked;
 
@@ -39,7 +37,7 @@ public class WebGatewayResourceUnitTest {
 	@Test
 	public void getEvents_returnsCorrectApiResponce_IfEventsListRequested(@Mocked DBI jdbi, @Mocked Client client,
 			@Mocked WebTarget webTarget, @Mocked Invocation.Builder invocationBuilder, @Mocked Response response,
-			@Mocked ApiResponse apiResponse, @Mocked NashornController react) {
+			@Mocked ApiResponse apiResponse, @Mocked NashornController react, @Auth User user) {
 
 		new Expectations() {
 			{
@@ -65,7 +63,7 @@ public class WebGatewayResourceUnitTest {
 	@Test
 	public void successfulPostToEventsService(@Mocked DBI jdbi, @Mocked Client client,
 			@Mocked WebTarget webTarget, @Mocked Invocation.Builder invocationBuilder, @Mocked Response response,
-			@Mocked ApiResponse apiResponse, @Mocked NashornController react) {
+			@Mocked ApiResponse apiResponse, @Mocked NashornController react, @Auth User user) {
 
 		new Expectations() {
 			{

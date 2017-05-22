@@ -66,8 +66,7 @@ class Form extends React.Component {
 
 	render(){
 		return (
-			<div className='Form'>
-			<h2>Create Event</h2>
+			<div className='CreateEventForm'>
 			<form onSubmit={this.onSubmit}>
 				<input type='text' placeholder='Event Name (required)' required='true' value={this.state.eventName} onChange={this.onNameChange} />
 				<textarea placeholder='Description' required='false' value={this.state.eventDescription} onChange={this.onDescriptionChange} />
@@ -75,7 +74,7 @@ class Form extends React.Component {
 				<input type='date' placeholder='Date (required)' required='true' value={this.state.eventDate} onChange={this.onDateChange} />
 				<button type='submit'>Create Event</button>
 				<div id='notification-bar'>Notifications</div>
-				</form>
+			</form>
 			</div>
 		)
 	}

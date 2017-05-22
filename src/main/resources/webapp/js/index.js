@@ -2,36 +2,63 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import App from '../js/App';
+import Login from '../js/Login';
 
-const webApiGatewayUrl = 'https://dropwizardheroku-webgateway.herokuapp.com';
-//const webApiGatewayUrl = 'http://localhost:8080';
+//const webApiGatewayUrl = 'https://dropwizardheroku-webgateway.herokuapp.com';
+const webApiGatewayUrl = 'http://localhost:8080';
 
 // Server side
-global.renderServer = function (propsFromServer) {
-  var props = Java.from(propsFromServer);
-  return ReactDOMServer.renderToString(buildApplication(props));
+
+// Login
+global.renderServerLogin = function () {
+  return ReactDOMServer.renderToString(buildLogin());
 };
 
-function buildApplication(props){
+// Dashboard
+global.renderServerDashboard = function (propsFromServer) {
+  var props = Java.from(propsFromServer);
+  return ReactDOMServer.renderToString(buildDashboard(props));
+};
+
+function buildLogin(){
+	return React.createElement(Login, {url: webApiGatewayUrl});
+}
+
+function buildDashboard(props){
 	return React.createElement(App, {data: props, pollInterval: 2000, url: webApiGatewayUrl});
 }
 
 // Client Side
 if(typeof window !== "undefined"){
   window.onload = function () {
-    const eventsEndpointUrl = webApiGatewayUrl + '/events'
-  	axios.get(eventsEndpointUrl).then(function(res) {
-  		var events = res.data.list;
-  		renderClient(events);
-  	});
+    // Login
+    if(document.getElementById('react-root-login')) {
+      renderClientLogin();
+    }
+
+    // Dashboard
+    if(document.getElementById('react-root-dashboard')) {
+      const eventsEndpointUrl = webApiGatewayUrl + '/events'
+    	axios.get(eventsEndpointUrl).then(function(res) {
+    		var events = res.data.list;
+    		renderClientDashbaord(events);
+    	});
+    }
   }
 }
 
 // Attach the React event handlers to the client application.
-global.renderClient = function (propsFromClient) {
+global.renderClientLogin = function () {
+    ReactDOM.render(
+    		buildLogin(),
+    		document.getElementById("react-root-login")
+    );
+};
+
+global.renderClientDashbaord = function (propsFromClient) {
     var props = propsFromClient || [];
     ReactDOM.render(
-    		buildApplication(props),
-    		document.getElementById("react-root")
+    		buildDashboard(props),
+    		document.getElementById("react-root-dashboard")
     );
 };

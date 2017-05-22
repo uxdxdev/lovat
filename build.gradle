@@ -21,6 +21,7 @@ targetCompatibility = 1.8
 dependencies {
     compile group: 'org.jmockit', name: 'jmockit', version:'1.8'
     compile group: 'io.dropwizard', name: 'dropwizard-core', version:'1.0.7'
+    compile group: 'io.dropwizard', name: 'dropwizard-auth', version:'1.0.7'
     compile group: 'io.dropwizard', name: 'dropwizard-jdbi', version:'1.0.7'
     compile group: 'io.dropwizard', name: 'dropwizard-testing', version:'1.0.7'
     compile group: 'io.dropwizard', name: 'dropwizard-assets', version:'1.0.7'

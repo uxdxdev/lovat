@@ -13,9 +13,14 @@ import org.skife.jdbi.v2.DBI;
 
 import com.bitbosh.dropwizardheroku.webgateway.api.NashornController;
 import com.bitbosh.dropwizardheroku.webgateway.api.WebGatewayResource;
+import com.bitbosh.dropwizardheroku.webgateway.auth.CustomAuthenticator;
+import com.bitbosh.dropwizardheroku.webgateway.core.NotAuthorizedExceptionHandler;
+import com.bitbosh.dropwizardheroku.webgateway.core.User;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.jersey.setup.JerseyEnvironment;
@@ -50,6 +55,14 @@ public class Main extends Application<ApplicationConfiguration> {
 		// interact with the database.
 		JerseyEnvironment jerseyEnvironment = environment.jersey();
 		jerseyEnvironment.register(new WebGatewayResource(jdbi, client, react));
+		jerseyEnvironment.register(NotAuthorizedExceptionHandler.class);
+
+		// Authenticator
+		jerseyEnvironment.register(new AuthDynamicFeature(
+				new BasicCredentialAuthFilter.Builder<User>()
+                .setAuthenticator(new CustomAuthenticator())
+                .setRealm("SECURITY REALM")
+                .buildAuthFilter()));
 		
 		// Enable CORS headers
 	    final FilterRegistration.Dynamic cors = environment.servlets().addFilter("CORS", CrossOriginFilter.class);

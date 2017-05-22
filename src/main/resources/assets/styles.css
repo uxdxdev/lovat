@@ -14,17 +14,16 @@ button {
   cursor: pointer;
 }
 
-.Form {
+form {
 	padding: 10px 10px;
 	margin: 10px auto;
 	text-align: center;
-	width: 70%;
 }
 
-.Form input, .Form textarea {
+form input, form textarea {
 	display: block;
 	margin: 0px auto;
-	width: 70%;
+	width: 30%;
 	padding: 10px 10px;
 	margin-bottom: 10px;
 	border-radius: 3px;
@@ -76,4 +75,35 @@ div#notification-bar {
 
 .ActionControl {
   height: 20px;
+}
+
+div#TravisBuildStatus {
+		float: left;
+		margin: 2px 2px;
+}
+
+div#LoginButton a {
+    text-decoration: none;
+		cursor: pointer;
+    display: block;
+    padding: 10px 15px;
+}
+
+div#LoginButton {
+	float: right;
+	border: 2px solid #008CBA;
+	text-align: center;
+	margin: 2px 2px;
+	-webkit-transition-duration: 0.4s;
+	transition-duration: 0.4s;
+}
+
+div#LoginButton:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+div#Header {
+		text-align: center;
+		clear: both;
 }

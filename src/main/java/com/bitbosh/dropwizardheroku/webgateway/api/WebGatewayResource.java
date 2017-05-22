@@ -1,6 +1,5 @@
 package com.bitbosh.dropwizardheroku.webgateway.api;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -19,8 +18,10 @@ import javax.ws.rs.core.Response;
 
 import org.skife.jdbi.v2.DBI;
 
+import com.bitbosh.dropwizardheroku.webgateway.core.User;
 import com.bitbosh.dropwizardheroku.webgateway.repository.WebGatewayDao;
-import com.bitbosh.dropwizardheroku.webgateway.views.IndexView;
+import com.bitbosh.dropwizardheroku.webgateway.views.DashboardView;
+import com.bitbosh.dropwizardheroku.webgateway.views.LoginView;
 
 import io.dropwizard.jersey.params.LongParam;
 
@@ -28,11 +29,19 @@ import io.dropwizard.jersey.params.LongParam;
 public class WebGatewayResource {
 
 	private final WebGatewayDao webGatewayDao;
+
 	private final Client client;
+
 	private NashornController nashornController;
-	static final String kEventServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";	
+
+	private final String kServerRenderFunctionDashboard = "renderServerDashboard";
+	private final String kServerRenderFunctionLogin = "renderServerLogin";
+
+	static final String kUserServiceUrl = "https://dropwizardheroku-user-service.herokuapp.com";
+	static final String kUserServiceApiEndpointRegister = kUserServiceUrl + "/v1/api/users";
+
+	static final String kEventServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";
 	static final String kEventServiceApiEndpointEvents = kEventServiceUrl + "/v1/api/events";
-	static final String kServerRenderFunction = "renderServer";
 
 	public WebGatewayResource(DBI jdbi, Client client, NashornController nashornController) {
 		this.webGatewayDao = jdbi.onDemand(WebGatewayDao.class);
@@ -40,18 +49,36 @@ public class WebGatewayResource {
 		this.nashornController = nashornController;
 	}
 
-	@GET
+	@GET	
+	@Path("/login")
 	@Produces(MediaType.TEXT_HTML)
-	public IndexView index() throws IOException {
+	public LoginView login() {
+		String loginViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionLogin);
+		LoginView login = new LoginView(loginViewHtml);
+		return login;
+	}
+	
+	@POST
+	@Path("/auth")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response authenticate(User user) {	
+		// authenticate user with User service		
+		String username = user.getName();
+		String password = user.getPassword();
+		return Response.status(Response.Status.OK).build();
+	}
 
+	@GET	
+	@Produces(MediaType.TEXT_HTML)
+	public DashboardView dashboard() {		
 		// Get events json data from Events microservice
 		ApiResponse events = getEventsJsonData();
-		
+
 		@SuppressWarnings("unchecked")
 		List<Object> props = (List<Object>) events.getList();
-		String indexViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunction, props);
+		String indexViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionDashboard, props);
 
-		IndexView index = new IndexView(indexViewHtml);
+		DashboardView index = new DashboardView(indexViewHtml);
 		return index;
 	}
 
@@ -72,22 +99,22 @@ public class WebGatewayResource {
 		ApiResponse apiResponse = response.readEntity(ApiResponse.class);
 		return apiResponse;
 	}
-	
+
 	@POST
-	@Path("/events")	
+	@Path("/events")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ApiResponse createEvent(String jsonObject) {
 		WebTarget webTarget = this.client.target(kEventServiceApiEndpointEvents);
 		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
 		Response response = invocationBuilder.post(Entity.entity(jsonObject, MediaType.APPLICATION_JSON));
-		return response.readEntity(ApiResponse.class);		
+		return response.readEntity(ApiResponse.class);
 	}
-	
+
 	@DELETE
-	@Path("/events/{id}")		
+	@Path("/events/{id}")
 	public ApiResponse deleteEventById(@PathParam("id") LongParam id) {
-		WebTarget webTarget = this.client.target(kEventServiceApiEndpointEvents + "/" + id);		
+		WebTarget webTarget = this.client.target(kEventServiceApiEndpointEvents + "/" + id);
 		Response response = webTarget.request().delete();
-		return response.readEntity(ApiResponse.class); 
+		return response.readEntity(ApiResponse.class);
 	}
 }
