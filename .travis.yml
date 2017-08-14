@@ -8,9 +8,9 @@ deploy:
   provider: heroku
   api_key:
     secure: szI1YFcwHYafxY68KfAReDgDLSBEbazKarB91H0iF0y6erfuoi43FcrsGc/3rDR4lzL1ci6L7VnNFuMXzmEYNxgRjcPkN0HMNGPCaEWLB7TxFtpKqOJTA6chTeF2oylFLso6zCWiPKK4MsH0GS4WbMCIcvPSP3FI6Ww8yTcpfnXa7WNF3O4IjMRhlHz/64skAJHtBL+kT0kOMJ1212KHsrUfzYKKYajGffx+2B8uh1bGRwHSFxXMiBez9yv9cQIGpEWaHYZ3cu+WWsgfE1IsH/nOFHr5+TUW4RACvYAjYsqpkIvMbZcTh5mHJR3ZM0S7orG80L2wCXWyMDpSoF9hQmXlbHGXU/EKZ3al3vlD2oj8rka8KNoIbDK6TxxM1A4E6WjgO40/zp2RP2fYyOnxcyVTAMXiBq5K9/OR3S2RdC9s2CIOgTpiKuB6B7fGVjVe90QPDsXFnqXb5Q6I3yLtNMuoQmnV3GXMIg0aCWpVl1EafBHWyKrt5zHtuIkcMjwLLrrsGajDG/kbGbHBziufMLPxeQI4c23zGliku5oJa4RP9mKWZwmIdpXlM0qeTi3/nseOHREX4553Ot400zNwPgSaztLWYhgmhjvn4ewv1eJpqw9N3eFJujD+wj9Q+VSLw5GTjgk2IUKfL8/XfIwz1MtixW//BgWac66k9IQbdlM=
-  app: dropwizardheroku-webgateway
+  app: lovat
   on:
-    repo: damorton/dropwizardheroku-webgateway
+    repo: damorton/lovat
 notifications:
   email:
     on_success: never
