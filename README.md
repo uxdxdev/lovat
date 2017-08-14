@@ -15,7 +15,7 @@ https://lovat.herokuapp.com/
 - Heroku config
 
 ```
-heroku config:set DROPWIZARDHEROKU_WEBGATEWAY_OPTS='-Ddw.server.connector.port=$PORT'
+heroku config:set WEBGATEWAY_OPTS='-Ddw.server.connector.port=$PORT'
 heroku config:set DATABASE_URL='postgres://<database-url>'
 ```
 
