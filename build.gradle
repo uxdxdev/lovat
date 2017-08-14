@@ -8,12 +8,12 @@ repositories {
      maven { url "https://plugins.gradle.org/m2/" }
 }
 
-applicationName = "dropwizardheroku-webgateway"
-mainClassName = "com.bitbosh.dropwizardheroku.webgateway.Main"
+applicationName = "lovat"
+mainClassName = "com.bitbosh.lovat.webgateway.Main"
 group = 'com.bitbosh'
 version = '1.2'
 
-description = """Dropwizard Heroku Web API Gateway"""
+description = """Dropwizard web API gateway using React server side rendering"""
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

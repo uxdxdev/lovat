@@ -1,1 +1,1 @@
-web: ./build/install/dropwizardheroku-webgateway/bin/dropwizardheroku-webgateway server config.yml
+web: ./build/install/lovat/bin/lovat server config.yml

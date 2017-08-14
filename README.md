@@ -1,14 +1,12 @@
-# Dropwizard Heroku Web API Gateway Microservice
+# Dropwizard web API gateway using React server side rendering
 
-[![Build Status](https://travis-ci.org/damorton/dropwizardheroku-webgateway.svg?branch=master)](https://travis-ci.org/damorton/dropwizardheroku-webgateway) [![Coverage Status](https://coveralls.io/repos/github/damorton/dropwizardheroku-webgateway/badge.svg?branch=master)](https://coveralls.io/github/damorton/dropwizardheroku-webgateway?branch=master)
+[![Build Status](https://travis-ci.org/damorton/lovat.svg?branch=master)](https://travis-ci.org/damorton/lovat) [![Coverage Status](https://coveralls.io/repos/github/damorton/lovat/badge.svg?branch=master)](https://coveralls.io/github/damorton/lovat?branch=master)
 
 ## Event Microservice (Build and Run First)
 https://dropwizardheroku-event-service.herokuapp.com/
 
 ## Browser client API 
-https://dropwizardheroku-webgateway.herokuapp.com/
-
-A Dropwizard Heroku Web API Gateway Microservice deployed to Heroku.
+https://lovat.herokuapp.com/
 
 ## Build
 
@@ -23,11 +21,11 @@ heroku config:set DATABASE_URL='postgres://<database-url>'
 
 - Clone repo
 ```
-git clone https://github.com/damorton/dropwizardheroku-webgateway.git
+git clone https://github.com/damorton/lovat.git
 ```
 - Build
 ```
-cd dropwizardheroku-webgateway
+cd lovat
 ./gradlew stage
 ```
 - Run (Make sure the Events microservice is running https://github.com/damorton/dropwizardheroku-event-service)
@@ -38,7 +36,7 @@ heroku local
 ## API Endpoints for Web API Gateway
 
 ```
-curl https://dropwizardheroku-webgateway.herokuapp.com/
+curl https://lovat.herokuapp.com/
 ```
 
 ## Project Structure
@@ -46,12 +44,12 @@ curl https://dropwizardheroku-webgateway.herokuapp.com/
 ### Example package names:
 
 ```
-com.bitbosh.dropwizardheroku.webgateway.api (Resources & Representations. Communicates will all parts of the Microservice and contains Domain objects)
-com.bitbosh.dropwizardheroku.webgateway.service (Coordination across multiple Domain modules, multiple business transactions)
-com.bitbosh.dropwizardheroku.webgateway.domain (Domain Modules/Classes, this Microservices business logic)
-com.bitbosh.dropwizardheroku.webgateway.repositories (Dao, handles multiple Domain entities and has access to persistent storage)
-com.bitbosh.dropwizardheroku.webgateway.gateways (Encapsulates message passing and error handling with other Microservices)
-com.bitbosh.dropwizardheroku.webgateway.client (HTTP Client to communicate with other Microservices)
+com.bitbosh.lovat.webgateway.api (Resources & Representations. Communicates will all parts of the Microservice and contains Domain objects)
+com.bitbosh.lovat.webgateway.service (Coordination across multiple Domain modules, multiple business transactions)
+com.bitbosh.lovat.webgateway.domain (Domain Modules/Classes, this Microservices business logic)
+com.bitbosh.lovat.webgateway.repositories (Dao, handles multiple Domain entities and has access to persistent storage)
+com.bitbosh.lovat.webgateway.gateways (Encapsulates message passing and error handling with other Microservices)
+com.bitbosh.lovat.webgateway.client (HTTP Client to communicate with other Microservices)
 ...
 ```
 
@@ -66,7 +64,7 @@ com.bitbosh.dropwizardheroku.webgateway.client (HTTP Client to communicate with 
     ├── main
     │   ├── java
     │   │   └── com
-    │   │       └── dropwizardheroku
+    │   │       └── lovat
     │   │	       	└── webgateway    
     │   │          		├── api
     │   │           		├── service
@@ -83,7 +81,7 @@ com.bitbosh.dropwizardheroku.webgateway.client (HTTP Client to communicate with 
     └── test
         ├── java
         │   └── com
-        │       └── dropwizardheroku
+        │       └── lovat
         │       	└── webgateway
         │	           	├── api
         │   	       		├── service

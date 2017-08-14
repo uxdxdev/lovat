@@ -4,7 +4,7 @@ import axios from 'axios';
 import App from '../js/App';
 import Login from '../js/Login';
 
-const webApiGatewayUrl = 'https://dropwizardheroku-webgateway.herokuapp.com';
+const webApiGatewayUrl = 'https://lovat.herokuapp.com';
 //const webApiGatewayUrl = 'http://localhost:8080';
 
 // Server side
