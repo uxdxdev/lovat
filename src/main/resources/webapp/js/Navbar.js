@@ -7,7 +7,10 @@ class Navbar extends React.Component {
           <div id='TravisBuildStatus'>
             <img src="https://api.travis-ci.org/damorton/lovat.svg?branch=master" alt="Travis build status" />
           </div>
-          <div id='LoginButton'>
+          <div id='NavButton'>
+            <a href="/dashboard">Dashboard</a>
+          </div>
+          <div id='NavButton'>
             <a href="/login">Login</a>
           </div>
       </div>

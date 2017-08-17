@@ -1,9 +1,9 @@
 {
-  "name": "webpack-gradle",
+  "name": "Lovat",
   "version": "0.0.1",
   "description": "Example project using webpack and gradle",
   "scripts": {
-    "dev": "webpack -d --watch",
+    "dev": "webpack --progress --colors --watch",
     "build": "webpack -p"
   },
   "devDependencies": {

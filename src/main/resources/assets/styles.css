@@ -11,13 +11,12 @@ h2 {
 }
 
 button {
-  cursor: pointer;
+  	cursor: pointer;
 }
 
 form {
 	padding: 10px 10px;
 	margin: 10px auto;
-	text-align: center;
 }
 
 form input, form textarea {
@@ -74,36 +73,41 @@ div#notification-bar {
 }
 
 .ActionControl {
-  height: 20px;
+  	height: 20px;
 }
 
-div#TravisBuildStatus {
-		float: left;
-		margin: 2px 2px;
+div#TravisBuildStatus {	
+	margin: 2px 2px;
+	display: inline-block;
 }
 
 div#LoginButton a {
     text-decoration: none;
-		cursor: pointer;
+	cursor: pointer;
     display: block;
     padding: 10px 15px;
 }
 
-div#LoginButton {
+div#NavButton {
 	float: right;
-	border: 2px solid #008CBA;
+	border: 2px solid #00000;
 	text-align: center;
 	margin: 2px 2px;
 	-webkit-transition-duration: 0.4s;
 	transition-duration: 0.4s;
 }
 
-div#LoginButton:hover {
+div#NavButton:hover {
     background-color: #008CBA;
     color: white;
 }
 
 div#Header {
-		text-align: center;
-		clear: both;
+	text-align: center;
+	clear: both;
 }
+
+div#ButtonHolder {
+	text-align: center;
+}
+

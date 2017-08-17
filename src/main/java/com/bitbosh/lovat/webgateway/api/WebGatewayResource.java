@@ -21,6 +21,7 @@ import org.skife.jdbi.v2.DBI;
 import com.bitbosh.lovat.webgateway.core.User;
 import com.bitbosh.lovat.webgateway.repository.WebGatewayDao;
 import com.bitbosh.lovat.webgateway.views.DashboardView;
+import com.bitbosh.lovat.webgateway.views.IndexView;
 import com.bitbosh.lovat.webgateway.views.LoginView;
 
 import io.dropwizard.jersey.params.LongParam;
@@ -34,6 +35,7 @@ public class WebGatewayResource {
 
 	private NashornController nashornController;
 
+	private final String kServerRenderFunctionIndex = "renderServerIndex";
 	private final String kServerRenderFunctionDashboard = "renderServerDashboard";
 	private final String kServerRenderFunctionLogin = "renderServerLogin";
 
@@ -49,7 +51,16 @@ public class WebGatewayResource {
 		this.nashornController = nashornController;
 	}
 
-	@GET	
+	@GET
+	@Path("/")
+	@Produces(MediaType.TEXT_HTML)
+	public IndexView index() {
+		String indexViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionIndex);
+		IndexView index = new IndexView(indexViewHtml);
+		return index;
+	}
+
+	@GET
 	@Path("/login")
 	@Produces(MediaType.TEXT_HTML)
 	public LoginView login() {
@@ -57,20 +68,21 @@ public class WebGatewayResource {
 		LoginView login = new LoginView(loginViewHtml);
 		return login;
 	}
-	
+
 	@POST
 	@Path("/auth")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response authenticate(User user) {	
-		// authenticate user with User service		
+	public Response authenticate(User user) {
+		// authenticate user with User service
 		String username = user.getName();
 		String password = user.getPassword();
 		return Response.status(Response.Status.OK).build();
 	}
 
-	@GET	
+	@GET
+	@Path("/dashboard")
 	@Produces(MediaType.TEXT_HTML)
-	public DashboardView dashboard() {		
+	public DashboardView dashboard() {
 		// Get events json data from Events microservice
 		ApiResponse events = getEventsJsonData();
 

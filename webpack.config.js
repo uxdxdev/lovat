@@ -6,7 +6,7 @@ var DEST = path.resolve(ROOT, 'assets/');
 
 var config = {
 	devtool : 'source-map',
-	entry : SRC + '/index.js',
+	entry : SRC + '/App.js',
 	output : {
 		path : DEST,
 		filename : 'bundle.js'
