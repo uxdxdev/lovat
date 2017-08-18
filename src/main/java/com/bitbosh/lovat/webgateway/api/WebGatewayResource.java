@@ -94,12 +94,10 @@ public class WebGatewayResource {
 	@POST
 	@Path("/auth")
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response authenticate(User user) {
 		// authenticate user with User service
-		String username = user.getName();
-		String password = user.getPassword();
-		String json = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}";
-		return Response.ok(json, MediaType.APPLICATION_JSON).build();
+		return Response.ok(user, MediaType.APPLICATION_JSON).build();
 	}
 
 	@GET
