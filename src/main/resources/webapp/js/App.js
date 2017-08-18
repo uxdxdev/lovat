@@ -20,9 +20,10 @@ global.renderServerLogin = function () {
 };
 
 // Dashboard
-global.renderServerDashboard = function (propsFromServer) {
-  var props = Java.from(propsFromServer);
-  return ReactDOMServer.renderToString(buildDashboard(props));
+global.renderServerDashboard = function (eventsDataFromServer, tweetsDataFromServer) {
+  var eventsData = Java.from(eventsDataFromServer);
+  var tweetsData = Java.from(tweetsDataFromServer);
+  return ReactDOMServer.renderToString(buildDashboard(eventsData, tweetsData));
 };
 
 function buildIndex(){
@@ -33,30 +34,43 @@ function buildLogin(){
 	return React.createElement(Login, {url: webApiGatewayUrl});
 }
 
-function buildDashboard(props){
-	return React.createElement(Dashboard, {data: props, pollInterval: 2000, url: webApiGatewayUrl});
+function buildDashboard(eventsDataFromServer, tweetsDataFromServer){
+	return React.createElement(Dashboard, {eventsData: eventsDataFromServer, tweetsData: tweetsDataFromServer, eventsPollInterval: 2000, tweetsPollInterval: 10000, url: webApiGatewayUrl});
 }
 
 // Client Side
 if(typeof window !== "undefined"){
   window.onload = function () {
-	// Index
+    // Index
     if(document.getElementById('react-root-index')) {
       renderClientIndex();
     }
-    
-	// Login
+
+    // Login
     if(document.getElementById('react-root-login')) {
       renderClientLogin();
     }
 
     // Dashboard
     if(document.getElementById('react-root-dashboard')) {
-      const eventsEndpointUrl = webApiGatewayUrl + '/events'
-    	axios.get(eventsEndpointUrl).then(function(res) {
-    		var events = res.data.list;
-    		renderClientDashbaord(events);
-    	});
+      const eventsEndpointUrl = webApiGatewayUrl + '/events';
+      const tweetsEndpointUrl = webApiGatewayUrl + '/tweets';
+
+      var events;
+      var tweets;
+
+      axios.all([
+        axios.get(eventsEndpointUrl).then(function(res) {
+      		events = res.data.list;
+      	}),
+        axios.get(tweetsEndpointUrl).then(function(res) {
+          tweets = res.data.list;
+        })
+
+      ]).catch(error => console.log(error));
+
+      // render Dashboard
+      renderClientDashbaord(events, tweets);
     }
   }
 }
@@ -76,10 +90,11 @@ global.renderClientLogin = function () {
     );
 };
 
-global.renderClientDashbaord = function (propsFromClient) {
-    var props = propsFromClient || [];
+global.renderClientDashbaord = function (eventPropsFromClient, tweetPropsFromClient) {
+    var eventsData = eventPropsFromClient || [];
+    var tweetsData = tweetPropsFromClient || [];
     ReactDOM.render(
-    		buildDashboard(props),
+    		buildDashboard(eventsData, tweetsData),
     		document.getElementById("react-root-dashboard")
     );
 };

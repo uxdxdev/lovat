@@ -34,7 +34,7 @@ class EventList extends React.Component {
 	}
 
 	render(){
-		const eventsEndpointUrl = this.state.eventsEndpointUrl
+		const eventsEndpointUrl = this.state.eventsEndpointUrl;
 		const events = this.state.events.map(function(event) {
 			return <Event data={event} key={event.id} url={eventsEndpointUrl}/>
 		});

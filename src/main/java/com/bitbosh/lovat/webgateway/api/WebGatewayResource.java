@@ -1,5 +1,13 @@
 package com.bitbosh.lovat.webgateway.api;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -16,6 +24,13 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.skife.jdbi.v2.DBI;
 
 import com.bitbosh.lovat.webgateway.core.User;
@@ -23,9 +38,12 @@ import com.bitbosh.lovat.webgateway.repository.WebGatewayDao;
 import com.bitbosh.lovat.webgateway.views.DashboardView;
 import com.bitbosh.lovat.webgateway.views.IndexView;
 import com.bitbosh.lovat.webgateway.views.LoginView;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.dropwizard.jersey.params.LongParam;
 
+@SuppressWarnings("unchecked")
 @Path("/")
 public class WebGatewayResource {
 
@@ -44,6 +62,10 @@ public class WebGatewayResource {
 
 	static final String kEventServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";
 	static final String kEventServiceApiEndpointEvents = kEventServiceUrl + "/v1/api/events";
+
+	// TODO update Twitter Api service endpoint
+	static final String kTwitterApiServiceUrl = "https://twitterapi-service.herokuapp.com";
+	static final String kTwitterApiServiceApiEndpointTweets = kTwitterApiServiceUrl + "/v1/api/tweets";
 
 	public WebGatewayResource(DBI jdbi, Client client, NashornController nashornController) {
 		this.webGatewayDao = jdbi.onDemand(WebGatewayDao.class);
@@ -82,23 +104,17 @@ public class WebGatewayResource {
 	@GET
 	@Path("/dashboard")
 	@Produces(MediaType.TEXT_HTML)
-	public DashboardView dashboard() {
+	public DashboardView dashboard() throws UnsupportedOperationException, IOException, URISyntaxException {
 		// Get events json data from Events microservice
-		ApiResponse events = getEventsJsonData();
+		ApiResponse events = getEvents();
+		ApiResponse tweets = getTweets();
 
-		@SuppressWarnings("unchecked")
-		List<Object> props = (List<Object>) events.getList();
-		String dashboardViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionDashboard, props);
+		List<Object> eventsData = (List<Object>) events.getList();
+		List<Object> tweetsData = (List<Object>) tweets.getList();
+		String dashboardViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionDashboard, eventsData, tweetsData);
 
 		DashboardView dashboard = new DashboardView(dashboardViewHtml);
 		return dashboard;
-	}
-
-	private ApiResponse getEventsJsonData() {
-		WebTarget webTarget = this.client.target(kEventServiceApiEndpointEvents);
-		Invocation.Builder invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
-		Response response = invocationBuilder.get();
-		return response.readEntity(ApiResponse.class);
 	}
 
 	@GET
@@ -128,5 +144,55 @@ public class WebGatewayResource {
 		WebTarget webTarget = this.client.target(kEventServiceApiEndpointEvents + "/" + id);
 		Response response = webTarget.request().delete();
 		return response.readEntity(ApiResponse.class);
+	}
+
+	@GET
+	@Path("/tweets")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ApiResponse getTweets() throws UnsupportedOperationException, IOException, URISyntaxException {
+
+		// Call twitter api server
+		// WebTarget webTarget =
+		// this.client.target(kEventServiceApiEndpointEvents);
+		// Invocation.Builder invocationBuilder =
+		// webTarget.request(MediaType.APPLICATION_JSON);
+		// Response response = invocationBuilder.get();
+		// ApiResponse apiResponse = response.readEntity(ApiResponse.class);
+		// return apiResponse;
+
+		// TODO move this to a service of its own
+		final HttpClient client = HttpClientBuilder.create().build();
+
+		String bearerToken = System.getenv("TWITTERAPI_ACCESS_TOKEN");
+
+		// create GET
+		HttpGet httpGet = new HttpGet("https://api.twitter.com/1.1/search/tweets.json");
+		httpGet.setHeader("Authorization", "Bearer " + bearerToken);
+		httpGet.setHeader("Content-Type", "application/json");
+
+		// create params
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("q", "#GameDev"));
+		params.add(new BasicNameValuePair("src", "tyah"));
+
+		// create endpoint with params
+		URI uri = new URIBuilder(httpGet.getURI()).addParameters(params).build();
+		// set uri to GET request
+		httpGet.setURI(uri);
+
+		// call twitter api
+		HttpResponse response = client.execute(httpGet);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+		HashMap<String, Object> statuses = new HashMap<String, Object>();
+		ObjectMapper mapper = new ObjectMapper();
+		statuses = mapper.readValue(reader, new TypeReference<HashMap<String, Object>>() {
+		});
+
+		// get tweets from statues object
+		List<LinkedHashMap<String, Object>> tweets = new ArrayList<LinkedHashMap<String, Object>>();
+		tweets = (List<LinkedHashMap<String, Object>>) statuses.get("statuses");
+
+		ApiResponse apiResponse = new ApiResponse(tweets);
+		return apiResponse;
 	}
 }
