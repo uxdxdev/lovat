@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Example project using webpack and gradle",
   "scripts": {
-    "dev": "webpack --progress --colors --watch",
+    "devbuild": "gradle stage && heroku local",
     "build": "webpack -p"
   },
   "devDependencies": {

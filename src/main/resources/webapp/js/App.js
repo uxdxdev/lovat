@@ -35,7 +35,7 @@ function buildLogin(){
 }
 
 function buildDashboard(eventsDataFromServer, tweetsDataFromServer){
-	return React.createElement(Dashboard, {eventsData: eventsDataFromServer, tweetsData: tweetsDataFromServer, eventsPollInterval: 2000, tweetsPollInterval: 10000, url: webApiGatewayUrl});
+	return React.createElement(Dashboard, {eventsData: eventsDataFromServer, tweetsData: tweetsDataFromServer, eventsPollInterval: 2000, tweetsPollInterval: 5000, url: webApiGatewayUrl});
 }
 
 // Client Side

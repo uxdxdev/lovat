@@ -98,7 +98,8 @@ public class WebGatewayResource {
 		// authenticate user with User service
 		String username = user.getName();
 		String password = user.getPassword();
-		return Response.status(Response.Status.OK).build();
+		String json = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}";
+		return Response.ok(json, MediaType.APPLICATION_JSON).build();
 	}
 
 	@GET
