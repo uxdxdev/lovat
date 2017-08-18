@@ -15,7 +15,6 @@ class CryptoCurrencies extends React.Component {
 			webApiGatewayUrl: this.props.url,
 			dataEndpointUrl: props.url + '/kraken'
 		};
-
 		this.loadDataFromServer = this.loadDataFromServer.bind(this)
 	}
 
@@ -38,9 +37,11 @@ class CryptoCurrencies extends React.Component {
 		const dataItems = this.state.data.map(function(item) {
 			return <AssetPair data={item} key={item.id} url={dataEndpointUrl}/>
 		});
+
 		return (
 			<div>
-				<h1>Kraken Asset Pairs</h1>
+				<h1>CryptoCurrencies</h1>
+				<h2>Kraken Asset Pairs</h2>
 				<ul className='DataItemList-list'>
 					{dataItems}
 				</ul>

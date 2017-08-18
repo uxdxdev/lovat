@@ -222,7 +222,7 @@ public class WebGatewayResource {
 		// create params
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		// TODO set parameter to pair from client
-		params.add(new BasicNameValuePair("pair", "ETHEUR"));
+		params.add(new BasicNameValuePair("pair", "BTCEUR,ETHEUR,XRPEUR,LTCEUR,XMREUR"));
 
 		// create endpoint with params
 		URI uri = new URIBuilder(httpGet.getURI()).addParameters(params).build();
@@ -234,16 +234,23 @@ public class WebGatewayResource {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
 		// convert json object to hashmap
-		HashMap<String, Object> result = new HashMap<String, Object>();
+		HashMap<String, Object> krakenApiResponse = new HashMap<String, Object>();
 		ObjectMapper mapper = new ObjectMapper();
-		result = mapper.readValue(reader, new TypeReference<HashMap<String, Object>>() {
+		krakenApiResponse = mapper.readValue(reader, new TypeReference<HashMap<String, Object>>() {
 		});
 
-		// add json object to list for response
-		List<Object> marketDataList = new ArrayList<Object>();
-		marketDataList.add(result);
+		// get result object
+		HashMap<String, Object> result = (HashMap<String, Object>) krakenApiResponse.get("result");
 
-		ApiResponse apiResponse = new ApiResponse(marketDataList);
+		// store the key in the object and add to the assetPairs list
+		List<HashMap<String, Object>> assetPairs = new ArrayList<HashMap<String, Object>>();
+		result.forEach((key, value) -> {
+			HashMap<String, Object> jsonObject = (HashMap<String, Object>) value;
+			jsonObject.put("pair_name", key);
+			assetPairs.add(jsonObject);
+		});
+
+		ApiResponse apiResponse = new ApiResponse(assetPairs);
 		return apiResponse;
 	}
 }

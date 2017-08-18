@@ -23,8 +23,8 @@ global.renderServerLogin = function () {
 global.renderServerDashboard = function (eventsDataFromServer, tweetsDataFromServer, pairsDataFromServer) {
   var eventsData = Java.from(eventsDataFromServer);
   var tweetsData = Java.from(tweetsDataFromServer);
-  var pairsData = Java.from(pairsDataFromServer);
-  return ReactDOMServer.renderToString(buildDashboard(eventsData, tweetsData, pairsData));
+  var assetPairsData = Java.from(pairsDataFromServer);
+  return ReactDOMServer.renderToString(buildDashboard(eventsData, tweetsData, assetPairsData));
 };
 
 function buildIndex(){
