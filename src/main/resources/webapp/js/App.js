@@ -40,7 +40,12 @@ function buildDashboard(props){
 // Client Side
 if(typeof window !== "undefined"){
   window.onload = function () {
-    // Login
+	// Index
+    if(document.getElementById('react-root-index')) {
+      renderClientIndex();
+    }
+    
+	// Login
     if(document.getElementById('react-root-login')) {
       renderClientLogin();
     }

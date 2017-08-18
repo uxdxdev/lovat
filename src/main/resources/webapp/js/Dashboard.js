@@ -16,9 +16,24 @@ class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<Navbar/>
-				<Form url={this.state.webApiGatewayUrl} />
-				<EventList events={this.state.data} pollInterval={this.state.pollInterval} url={this.state.webApiGatewayUrl}/>
+				<Navbar/>				
+				<div className="Service">	
+					<h1>Events</h1>
+					<Form url={this.state.webApiGatewayUrl} />
+					<EventList events={this.state.data} pollInterval={this.state.pollInterval} url={this.state.webApiGatewayUrl}/>
+				</div>
+				<div className="Service">
+					<h1>Latex2Pdf</h1>
+					<p>Latex2Pdf Service description.</p>
+				</div>
+				<div className="Service">
+					<h1>Service#3</h1>
+					<p>Service#3 description.</p>
+				</div>
+				<div className="Service">
+					<h1>Service#4</h1>
+					<p>Service#4 description.</p>
+				</div>
 			</div>
 		)
 	}

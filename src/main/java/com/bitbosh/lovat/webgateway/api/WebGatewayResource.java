@@ -88,10 +88,10 @@ public class WebGatewayResource {
 
 		@SuppressWarnings("unchecked")
 		List<Object> props = (List<Object>) events.getList();
-		String indexViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionDashboard, props);
+		String dashboardViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionDashboard, props);
 
-		DashboardView index = new DashboardView(indexViewHtml);
-		return index;
+		DashboardView dashboard = new DashboardView(dashboardViewHtml);
+		return dashboard;
 	}
 
 	private ApiResponse getEventsJsonData() {
