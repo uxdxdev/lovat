@@ -117,3 +117,12 @@ div#ButtonHolder {
     text-align: center;
     vertical-align: top;
 }
+
+@media all and (max-width : 1080px) {
+	.Service {
+		display: block; 
+		width: auto;
+		text-align: center;
+		vertical-align: top;
+	}	
+}
