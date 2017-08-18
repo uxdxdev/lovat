@@ -144,3 +144,7 @@ div#ButtonHolder {
 		vertical-align: top;
 	}	
 }
+
+.LoginForm form {
+	width: 200px;
+}
