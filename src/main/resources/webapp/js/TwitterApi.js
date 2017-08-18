@@ -39,9 +39,9 @@ class TwitterApi extends React.Component {
 			return <Tweet data={tweet} key={tweet.id} url={tweetsEndpointUrl}/>
 		});
 		return (
-			<div className='TwitterApi'>
+			<div>
 				<h1>Latest Tweets for #GameDev</h1>
-				<ul className='TweetList-list'>
+				<ul className='DataItemList-list'>
 					{tweets}
 				</ul>
 			</div>

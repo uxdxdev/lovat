@@ -14,8 +14,6 @@ import javax.script.ScriptException;
 
 import org.junit.Test;
 
-import com.bitbosh.lovat.webgateway.api.NashornController;
-
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import mockit.Mock;
 import mockit.MockUp;
@@ -94,35 +92,36 @@ public class NashornControllerUnitTest {
 		react.renderReactJsComponent(null, props);
 	}
 
-	@Test(expected = IllegalStateException.class)
-	public void illegalStateExceptionThrownIfReactJsPropsNull() {
-
-		new MockUp<AbstractScriptEngine>() {
-
-			@Mock
-			public Object eval(String script) throws ScriptException {
-				return null;
-			}
-
-			@Mock
-			public Object eval(Reader reader) throws ScriptException {
-				return null;
-			}
-
-		};
-
-		new MockUp<InputStreamReader>() {
-
-			@Mock
-			public void $init(InputStream in) {
-			}
-		};
-
-		NashornScriptEngine engine = (NashornScriptEngine) new ScriptEngineManager().getEngineByName("nashorn");
-		NashornController react = new NashornController(engine);
-		List<Object> props = new ArrayList<Object>();
-		react.renderReactJsComponent("testFunction", null);
-	}
+	// @Test(expected = IllegalStateException.class)
+	// public void illegalStateExceptionThrownIfReactJsPropsNull() {
+	//
+	// new MockUp<AbstractScriptEngine>() {
+	//
+	// @Mock
+	// public Object eval(String script) throws ScriptException {
+	// return null;
+	// }
+	//
+	// @Mock
+	// public Object eval(Reader reader) throws ScriptException {
+	// return null;
+	// }
+	//
+	// };
+	//
+	// new MockUp<InputStreamReader>() {
+	//
+	// @Mock
+	// public void $init(InputStream in) {
+	// }
+	// };
+	//
+	// NashornScriptEngine engine = (NashornScriptEngine) new
+	// ScriptEngineManager().getEngineByName("nashorn");
+	// NashornController react = new NashornController(engine);
+	// List<Object> props = new ArrayList<Object>();
+	// react.renderReactJsComponent("testFunction", null);
+	// }
 
 	@Test(expected = RuntimeException.class)
 	public void runtimeExceptionThrownIfNashornEngineNull() {
@@ -131,7 +130,7 @@ public class NashornControllerUnitTest {
 
 	@Test(expected = RuntimeException.class)
 	public void scriptExceptionThrownIfJsScriptInvalid() {
-		
+
 		new MockUp<AbstractScriptEngine>() {
 
 			@Mock
@@ -145,10 +144,10 @@ public class NashornControllerUnitTest {
 			}
 
 		};
-		
+
 		new MockUp<InputStreamReader>() {
 			@Mock
-			public void $init(InputStream in) {				
+			public void $init(InputStream in) {
 			}
 		};
 

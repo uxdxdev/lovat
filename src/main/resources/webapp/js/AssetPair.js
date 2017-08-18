@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-class Tweet extends React.Component {
+class AssetPair extends React.Component {
 	constructor(props){
   	super(props);
   	this.state = {
@@ -12,15 +12,17 @@ class Tweet extends React.Component {
 	}
 
 	render(){
+		//var jsonObjectKeys = Object.keys(JSON.parse(this.state.data.result));
+		//console.log(jsonObjectKeys[0]);
 		return (
 			<li key={this.state.data.id}>
 				<div className='List-item'>
-					<h2 className='ListItem-name'>{this.state.data.name}</h2>
-					<div>{this.state.data.text}</div>
+					<h2 className='ListItem-name'>XETHZEUR</h2>
+					<div>{this.state.data.result.XETHZEUR.c[0]}</div>
 				</div>
 			</li>
 		)
 	}
 }
 
-export default Tweet;
+export default AssetPair;

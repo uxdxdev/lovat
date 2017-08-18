@@ -61,4 +61,13 @@ public class NashornController {
 			System.out.println("InputString in is null with path " + path);
 		return new InputStreamReader(in);
 	}
+
+	public String renderReactJsComponent(String functionName, List<Object>... props) {
+		try {
+			Object html = nashorn.invokeFunction(functionName, props);
+			return String.valueOf(html);
+		} catch (Exception e) {
+			throw new IllegalStateException("failed to render react component", e);
+		}
+	}
 }

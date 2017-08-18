@@ -3,6 +3,7 @@ import Navbar from '../js/Navbar'
 import Form from '../js/Form';
 import EventList from '../js/EventList';
 import TwitterApi from '../js/TwitterApi';
+import CryptoCurrencies from '../js/CryptoCurrencies';
 
 class App extends React.Component {
 	constructor(props) {
@@ -10,9 +11,11 @@ class App extends React.Component {
   	this.state = {
 			eventsData : props.eventsData,
 			tweetsData : props.tweetsData,
+			pairsData : props.pairsData,
 			webApiGatewayUrl: props.url,
 			eventsPollInterval: props.eventsPollInterval,
-			tweetsPollInterval: props.tweetsPollInterval
+			tweetsPollInterval: props.tweetsPollInterval,
+			pairsPollInterval: props.pairsPollInterval
 		};
 	}
 
@@ -33,8 +36,7 @@ class App extends React.Component {
 					<p>Latex2Pdf Service description.</p>
 				</div>
 				<div className="Service">
-					<h1>Service#4</h1>
-					<p>Service#4 description.</p>
+					<CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval} url={this.state.webApiGatewayUrl}/>
 				</div>
 			</div>
 		)

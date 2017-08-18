@@ -107,10 +107,13 @@ public class WebGatewayResource {
 		// Get events json data from Events microservice
 		ApiResponse events = getEvents();
 		ApiResponse tweets = getTweets();
+		ApiResponse assetPair = getKrakenTickerData();
 
 		List<Object> eventsData = (List<Object>) events.getList();
 		List<Object> tweetsData = (List<Object>) tweets.getList();
-		String dashboardViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionDashboard, eventsData, tweetsData);
+		List<Object> assetPairData = (List<Object>) assetPair.getList();
+
+		String dashboardViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionDashboard, eventsData, tweetsData, assetPairData);
 
 		DashboardView dashboard = new DashboardView(dashboardViewHtml);
 		return dashboard;
@@ -192,6 +195,55 @@ public class WebGatewayResource {
 		tweets = (List<LinkedHashMap<String, Object>>) statuses.get("statuses");
 
 		ApiResponse apiResponse = new ApiResponse(tweets);
+		return apiResponse;
+	}
+
+	@GET
+	@Path("/kraken")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ApiResponse getKrakenTickerData() throws UnsupportedOperationException, IOException, URISyntaxException {
+
+		// Call kraken api server
+		// WebTarget webTarget =
+		// this.client.target(kEventServiceApiEndpointEvents);
+		// Invocation.Builder invocationBuilder =
+		// webTarget.request(MediaType.APPLICATION_JSON);
+		// Response response = invocationBuilder.get();
+		// ApiResponse apiResponse = response.readEntity(ApiResponse.class);
+		// return apiResponse;
+
+		// TODO move this to a service of its own
+		final HttpClient client = HttpClientBuilder.create().build();
+
+		// create GET
+		HttpGet httpGet = new HttpGet("https://api.kraken.com/0/public/Ticker");
+		httpGet.setHeader("Content-Type", "application/json");
+
+		// create params
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		// TODO set parameter to pair from client
+		params.add(new BasicNameValuePair("pair", "ETHEUR"));
+
+		// create endpoint with params
+		URI uri = new URIBuilder(httpGet.getURI()).addParameters(params).build();
+		// set uri to GET request
+		httpGet.setURI(uri);
+
+		// call twitter api
+		HttpResponse response = client.execute(httpGet);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+		// convert json object to hashmap
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		ObjectMapper mapper = new ObjectMapper();
+		result = mapper.readValue(reader, new TypeReference<HashMap<String, Object>>() {
+		});
+
+		// add json object to list for response
+		List<Object> marketDataList = new ArrayList<Object>();
+		marketDataList.add(result);
+
+		ApiResponse apiResponse = new ApiResponse(marketDataList);
 		return apiResponse;
 	}
 }
