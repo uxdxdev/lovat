@@ -63,7 +63,7 @@ public class WebGatewayResource {
 	static final String kEventServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";
 	static final String kEventServiceApiEndpointEvents = kEventServiceUrl + "/v1/api/events";
 
-	// TODO update Twitter Api service endpoint
+	// TODO implement Twitter Api service
 	static final String kTwitterApiServiceUrl = "https://twitterapi-service.herokuapp.com";
 	static final String kTwitterApiServiceApiEndpointTweets = kTwitterApiServiceUrl + "/v1/api/tweets";
 
