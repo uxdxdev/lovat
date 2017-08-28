@@ -4,6 +4,7 @@ import Form from '../js/Form';
 import EventList from '../js/EventList';
 import TwitterApi from '../js/TwitterApi';
 import CryptoCurrencies from '../js/CryptoCurrencies';
+import WebsocketChat from '../js/WebsocketChat';
 
 class App extends React.Component {
 	constructor(props) {
@@ -32,8 +33,7 @@ class App extends React.Component {
 					<TwitterApi tweets={this.state.tweetsData} pollInterval={this.state.tweetsPollInterval} url={this.state.webApiGatewayUrl}/>
 				</div>
 				<div className="Service">
-					<h1>Latex2Pdf</h1>
-					<p>Latex2Pdf Service description.</p>
+					<WebsocketChat />
 				</div>
 				<div className="Service">
 					<CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval} url={this.state.webApiGatewayUrl}/>

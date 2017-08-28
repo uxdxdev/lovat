@@ -11,7 +11,20 @@ h2 {
 }
 
 button {
-  	cursor: pointer;
+	cursor: pointer;
+	-webkit-border-radius: 10;
+	-moz-border-radius: 10;
+	border-radius: 10px;
+	color: #ffffff;
+	background: #3498db;
+	text-decoration: none;
+	border-style: none;
+	margin: 0px 5px 0px 5px;
+}
+
+button:hover {
+	background: #3cb0fd;
+	text-decoration: none;
 }
 
 form {
@@ -29,17 +42,31 @@ form input, form textarea {
 	border: 1px solid #888;
 }
 
+textarea#msg {
+	resize: none;
+	width: 250px;
+	height: 50px;
+}
+
+input#username {
+	margin: 0px 5px 0px 5px;
+}
+
 .LandingPage {
 	text-align: center;
 }
 
 .EventList {
 	padding: 10px 10px;
-	text-align: center;
-	width: 70%;
+	text-align: center;	
 	margin: 0 auto;
 	overflow-y: scroll;
-    height: 300px;
+	height: 300px;
+}
+
+.EventList::-webkit-scrollbar {
+	width: 0px; /* remove scrollbar space */
+	background: transparent; /* optional: just make scrollbar invisible */
 }
 
 .EventList-list {
@@ -51,7 +78,8 @@ form input, form textarea {
 .EventList-item {
 	margin: 10px;
 	padding: 10px 10px;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px
+		rgba(0, 0, 0, 0.08);
 }
 
 .EventListItem-name {
@@ -64,14 +92,15 @@ form input, form textarea {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	height: 600px;
-    overflow-y: scroll;
+	height: 570px;
+	overflow-y: auto;
 }
 
 .List-item {
 	margin: 10px;
 	padding: 10px 10px;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px
+		rgba(0, 0, 0, 0.08);
 }
 
 .ListItem-name {
@@ -80,13 +109,17 @@ form input, form textarea {
 }
 
 div#notification-bar {
-	width: 50%;
-	background-color: #2980B9;
-	padding: 2px;
+	width: 100%;
+	background-color: #04c11b;
+	padding: 5px;
 	color: #fff;
-	font-size: 10px;
+	font-size: 15px;
 	text-align: center;
 	margin: 5px auto;
+}
+
+div#connectUser {
+    margin: 5px;
 }
 
 .ActionControl-edit {
@@ -98,19 +131,19 @@ div#notification-bar {
 }
 
 .ActionControl {
-  	height: 20px;
+	height: 20px;
 }
 
-div#TravisBuildStatus {	
+div#TravisBuildStatus {
 	margin: 2px 2px;
 	display: inline-block;
 }
 
 div#LoginButton a {
-    text-decoration: none;
+	text-decoration: none;
 	cursor: pointer;
-    display: block;
-    padding: 10px 15px;
+	display: block;
+	padding: 10px 15px;
 }
 
 div#NavButton {
@@ -123,8 +156,8 @@ div#NavButton {
 }
 
 div#NavButton:hover {
-    background-color: #008CBA;
-    color: white;
+	background-color: #008CBA;
+	color: white;
 }
 
 div#Header {
@@ -138,18 +171,18 @@ div#ButtonHolder {
 
 .Service {
 	display: inline-block;
-    width: 25%;
-    text-align: center;
-    vertical-align: top;
+	width: 25%;
+	text-align: center;
+	vertical-align: top;
 }
 
 @media all and (max-width : 1080px) {
 	.Service {
-		display: block; 
+		display: block;
 		width: auto;
 		text-align: center;
 		vertical-align: top;
-	}	
+	}
 }
 
 .LoginForm form {

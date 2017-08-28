@@ -6,7 +6,7 @@ import Login from '../js/Login';
 import Index from '../js/Index';
 
 const webApiGatewayUrl = 'https://lovat.herokuapp.com';
-//const webApiGatewayUrl = 'http://localhost:8080';
+// const webApiGatewayUrl = 'http://localhost:8080';
 
 // Server side
 
@@ -41,7 +41,9 @@ function buildDashboard(eventsDataFromServer, tweetsDataFromServer, pairsDataFro
 
 // Client Side
 if(typeof window !== "undefined"){
+	
   window.onload = function () {
+
     // Index
     if(document.getElementById('react-root-index')) {
       renderClientIndex();
@@ -105,4 +107,17 @@ global.renderClientDashbaord = function (eventPropsFromClient, tweetPropsFromCli
     		buildDashboard(eventsData, tweetsData, pairsData),
     		document.getElementById("react-root-dashboard")
     );
+};
+
+// websocket ui
+global.connect = function() {
+	createNewSocketConnection();
+};
+
+global.close = function(){
+	closeSocketConnection();
+};
+
+global.send = function(){
+	sendMessageOverSocket();
 };

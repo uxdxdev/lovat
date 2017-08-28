@@ -8,7 +8,7 @@ repositories {
      maven { url "https://plugins.gradle.org/m2/" }
 }
 
-applicationName = "lovat"
+applicationName = "Lovat"
 mainClassName = "com.bitbosh.lovat.webgateway.Main"
 group = 'com.bitbosh'
 version = '1.2'
@@ -28,6 +28,7 @@ dependencies {
     compile group: 'io.dropwizard', name: 'dropwizard-client', version:'1.0.7'
     compile group: 'io.dropwizard', name: 'dropwizard-views-mustache', version:'1.0.7'
     compile group: 'postgresql', name: 'postgresql', version:'9.1-901.jdbc4'
+    compile group: 'com.liveperson', name: 'dropwizard-websockets', version: '1.1.0'
 }
 
 jacocoTestReport {

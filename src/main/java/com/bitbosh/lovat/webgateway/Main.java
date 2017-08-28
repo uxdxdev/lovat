@@ -20,6 +20,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.skife.jdbi.v2.DBI;
 
+import com.bitbosh.lovat.webgateway.api.ChatResource;
 import com.bitbosh.lovat.webgateway.api.NashornController;
 import com.bitbosh.lovat.webgateway.api.WebGatewayResource;
 import com.bitbosh.lovat.webgateway.auth.CustomAuthenticator;
@@ -36,11 +37,12 @@ import io.dropwizard.jersey.setup.JerseyEnvironment;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
+import io.dropwizard.websockets.WebsocketBundle;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 
 @SuppressWarnings("restriction")
 public class Main extends Application<ApplicationConfiguration> {
-
+	
 	public static void main(String[] args) throws Exception {
 		new Main().run(args);
 	}
@@ -64,7 +66,7 @@ public class Main extends Application<ApplicationConfiguration> {
 		// Register each Resource with jersey and pass in the Dao so that it can
 		// interact with the database.
 		JerseyEnvironment jerseyEnvironment = environment.jersey();
-		jerseyEnvironment.register(new WebGatewayResource(jdbi, client, react));
+		jerseyEnvironment.register(new WebGatewayResource(jdbi, client, react));				
 		jerseyEnvironment.register(NotAuthorizedExceptionHandler.class);
 
 		// Authenticator
@@ -106,7 +108,7 @@ public class Main extends Application<ApplicationConfiguration> {
 				System.out.println("GET " + healthCheckEndpoint);
 			}
 
-		}, 0, 300000);
+		}, 0, 300000);		
 	}
 
 	private DBIFactory createDbiFactory() {
@@ -117,6 +119,7 @@ public class Main extends Application<ApplicationConfiguration> {
 	@Override
 	public void initialize(Bootstrap<ApplicationConfiguration> configuration) {
 		configuration.addBundle(new AssetsBundle("/assets", "/assets"));
-		configuration.addBundle(new ViewBundle());
+		configuration.addBundle(new ViewBundle());		
+		configuration.addBundle(new WebsocketBundle(ChatResource.class));
 	}
 }
