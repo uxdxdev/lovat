@@ -19,7 +19,7 @@ function createNewSocketConnection() {
 		var usernameHeader = document.getElementById("usernameHeader");
 		usernameHeader.innerHTML = username;
 
-		socket = new WebSocket('ws://localhost:8080/chat/' + username);
+		socket = new WebSocket('ws://lovat.herokuapp.com/chat' + username);
 		socket.onopen = function(event) {
 			console.log(username + ' connected 🎉');
 		}
