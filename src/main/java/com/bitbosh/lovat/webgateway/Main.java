@@ -22,10 +22,10 @@ import org.skife.jdbi.v2.DBI;
 
 import com.bitbosh.lovat.webgateway.api.ChatResource;
 import com.bitbosh.lovat.webgateway.api.NashornController;
-import com.bitbosh.lovat.webgateway.api.WebGatewayResource;
 import com.bitbosh.lovat.webgateway.auth.CustomAuthenticator;
 import com.bitbosh.lovat.webgateway.core.NotAuthorizedExceptionHandler;
 import com.bitbosh.lovat.webgateway.core.User;
+import com.bitbosh.lovat.webgateway.resources.WebGatewayResource;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;

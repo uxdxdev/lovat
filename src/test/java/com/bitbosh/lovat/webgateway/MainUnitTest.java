@@ -2,31 +2,12 @@ package com.bitbosh.lovat.webgateway;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.script.ScriptEngine;
-import javax.servlet.Filter;
-import javax.servlet.FilterRegistration;
-import javax.ws.rs.client.Client;
-
 import org.junit.Test;
-import org.skife.jdbi.v2.DBI;
-
-import com.bitbosh.lovat.webgateway.ApplicationConfiguration;
-import com.bitbosh.lovat.webgateway.Main;
-import com.bitbosh.lovat.webgateway.api.NashornController;
-import com.bitbosh.lovat.webgateway.api.WebGatewayResource;
 
 import io.dropwizard.Application;
 import io.dropwizard.Bundle;
 import io.dropwizard.assets.AssetsBundle;
-import io.dropwizard.client.JerseyClientBuilder;
-import io.dropwizard.client.JerseyClientConfiguration;
-import io.dropwizard.db.PooledDataSourceFactory;
-import io.dropwizard.jdbi.DBIFactory;
-import io.dropwizard.jersey.setup.JerseyEnvironment;
-import io.dropwizard.jetty.setup.ServletEnvironment;
 import io.dropwizard.setup.Bootstrap;
-import io.dropwizard.setup.Environment;
-import jdk.nashorn.api.scripting.NashornScriptEngine;
 import mockit.Expectations;
 import mockit.Mock;
 import mockit.MockUp;

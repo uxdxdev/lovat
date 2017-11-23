@@ -1,4 +1,4 @@
-package com.bitbosh.lovat.webgateway.api;
+package com.bitbosh.lovat.webgateway.resources;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,6 +33,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.skife.jdbi.v2.DBI;
 
+import com.bitbosh.lovat.webgateway.api.ApiResponse;
+import com.bitbosh.lovat.webgateway.api.NashornController;
 import com.bitbosh.lovat.webgateway.core.User;
 import com.bitbosh.lovat.webgateway.repository.WebGatewayDao;
 import com.bitbosh.lovat.webgateway.views.DashboardView;

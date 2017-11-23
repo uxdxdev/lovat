@@ -1,4 +1,4 @@
-package com.bitbosh.lovat.webgateway.api;
+package com.bitbosh.lovat.webgateway.resources;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,7 +13,6 @@ import org.skife.jdbi.v2.DBI;
 
 import com.bitbosh.lovat.webgateway.api.ApiResponse;
 import com.bitbosh.lovat.webgateway.api.NashornController;
-import com.bitbosh.lovat.webgateway.api.WebGatewayResource;
 import com.bitbosh.lovat.webgateway.core.User;
 import com.bitbosh.lovat.webgateway.repository.WebGatewayDao;
 
