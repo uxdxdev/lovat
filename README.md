@@ -95,7 +95,3 @@ com.bitbosh.lovat.webgateway.client (HTTP Client to communicate with other Micro
         └── resources
             └── fixtures
 ```
-
-# Tutorial
-
-http://www.bitbosh.com/2017/04/microservices-with-dropwizard-on-heroku.html
