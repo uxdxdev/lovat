@@ -1,1 +1,1 @@
-web: ./build/install/lovat/bin/lovat server config.yml
+web: ./build/install/Lovat/bin/Lovat server config.yml

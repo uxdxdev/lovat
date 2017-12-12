@@ -8,6 +8,9 @@ class Index extends React.Component {
 			<div>
 				<Navbar/>
 				<Header/>
+				<div className="LandingPage">
+					<p>PLEASE ALLOW TIME FOR SERVICES TO SPIN UP WHEN ACCESSING THE DASHBOARD</p>
+				</div>
 			</div>
 		)
 	}

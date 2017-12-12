@@ -16,13 +16,13 @@ public class NashornController {
 	public NashornController(NashornScriptEngine nashorn) {
 		this.nashorn = nashorn;
 		try {
-			nashorn.eval(read("webapp/js/react.min.js"));
-			nashorn.eval(read("webapp/js/react-dom.min.js"));
-			nashorn.eval(read("webapp/js/react-dom-server.min.js"));
-			nashorn.eval(read("webapp/js/babel.min.js"));
-			nashorn.eval(read("webapp/js/axios.min.js"));
-			nashorn.eval(read("webapp/js/nashorn-polyfill.js"));
-			nashorn.eval(read("assets/bundle.js"));
+			nashorn.eval(read("assets/js/react.min.js"));
+			nashorn.eval(read("assets/js/react-dom.min.js"));
+			nashorn.eval(read("assets/js/react-dom-server.min.js"));
+			nashorn.eval(read("assets/js/babel.min.js"));
+			nashorn.eval(read("assets/js/axios.min.js"));
+			nashorn.eval(read("assets/js/nashorn-polyfill.js"));
+			nashorn.eval(read("assets/js/bundle.js"));
 		} catch (ScriptException e) {
 			throw new RuntimeException(e);
 		}
@@ -60,5 +60,14 @@ public class NashornController {
 		if (in == null)
 			System.out.println("InputString in is null with path " + path);
 		return new InputStreamReader(in);
+	}
+
+	public String renderReactJsComponent(String functionName, List<Object>... props) {
+		try {
+			Object html = nashorn.invokeFunction(functionName, props);
+			return String.valueOf(html);
+		} catch (Exception e) {
+			throw new IllegalStateException("failed to render react component", e);
+		}
 	}
 }

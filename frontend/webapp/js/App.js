@@ -6,7 +6,7 @@ import Login from '../js/Login';
 import Index from '../js/Index';
 
 const webApiGatewayUrl = 'https://lovat.herokuapp.com';
-//const webApiGatewayUrl = 'http://localhost:8080';
+// const webApiGatewayUrl = 'http://localhost:8080';
 
 // Server side
 
@@ -20,10 +20,11 @@ global.renderServerLogin = function () {
 };
 
 // Dashboard
-global.renderServerDashboard = function (eventsDataFromServer, tweetsDataFromServer) {
+global.renderServerDashboard = function (eventsDataFromServer, tweetsDataFromServer, pairsDataFromServer) {
   var eventsData = Java.from(eventsDataFromServer);
   var tweetsData = Java.from(tweetsDataFromServer);
-  return ReactDOMServer.renderToString(buildDashboard(eventsData, tweetsData));
+  var assetPairsData = Java.from(pairsDataFromServer);
+  return ReactDOMServer.renderToString(buildDashboard(eventsData, tweetsData, assetPairsData));
 };
 
 function buildIndex(){
@@ -34,13 +35,15 @@ function buildLogin(){
 	return React.createElement(Login, {url: webApiGatewayUrl});
 }
 
-function buildDashboard(eventsDataFromServer, tweetsDataFromServer){
-	return React.createElement(Dashboard, {eventsData: eventsDataFromServer, tweetsData: tweetsDataFromServer, eventsPollInterval: 2000, tweetsPollInterval: 10000, url: webApiGatewayUrl});
+function buildDashboard(eventsDataFromServer, tweetsDataFromServer, pairsDataFromServer){
+	return React.createElement(Dashboard, {eventsData: eventsDataFromServer, tweetsData: tweetsDataFromServer, pairsData: pairsDataFromServer, eventsPollInterval: 2000, tweetsPollInterval: 5000, pairsPollInterval: 10000, url: webApiGatewayUrl});
 }
 
 // Client Side
 if(typeof window !== "undefined"){
+	
   window.onload = function () {
+
     // Index
     if(document.getElementById('react-root-index')) {
       renderClientIndex();
@@ -55,9 +58,12 @@ if(typeof window !== "undefined"){
     if(document.getElementById('react-root-dashboard')) {
       const eventsEndpointUrl = webApiGatewayUrl + '/events';
       const tweetsEndpointUrl = webApiGatewayUrl + '/tweets';
+      // TODO take pair parameter from client
+      const pairsEndpointUrl = webApiGatewayUrl + '/kraken';
 
       var events;
       var tweets;
+      var pairData;
 
       axios.all([
         axios.get(eventsEndpointUrl).then(function(res) {
@@ -65,12 +71,15 @@ if(typeof window !== "undefined"){
       	}),
         axios.get(tweetsEndpointUrl).then(function(res) {
           tweets = res.data.list;
+        }),
+        axios.get(pairsEndpointUrl).then(function(res) {
+          pairData = res.data.list;
         })
 
       ]).catch(error => console.log(error));
 
       // render Dashboard
-      renderClientDashbaord(events, tweets);
+      renderClientDashbaord(events, tweets, pairData);
     }
   }
 }
@@ -90,11 +99,25 @@ global.renderClientLogin = function () {
     );
 };
 
-global.renderClientDashbaord = function (eventPropsFromClient, tweetPropsFromClient) {
+global.renderClientDashbaord = function (eventPropsFromClient, tweetPropsFromClient, pairDataFromClient) {
     var eventsData = eventPropsFromClient || [];
     var tweetsData = tweetPropsFromClient || [];
+    var pairsData = pairDataFromClient || [];
     ReactDOM.render(
-    		buildDashboard(eventsData, tweetsData),
+    		buildDashboard(eventsData, tweetsData, pairsData),
     		document.getElementById("react-root-dashboard")
     );
+};
+
+// websocket ui
+global.connect = function() {
+	createNewSocketConnection();
+};
+
+global.close = function(){
+	closeSocketConnection();
+};
+
+global.send = function(){
+	sendMessageOverSocket();
 };

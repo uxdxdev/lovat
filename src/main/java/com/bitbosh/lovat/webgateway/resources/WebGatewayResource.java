@@ -1,4 +1,4 @@
-package com.bitbosh.lovat.webgateway.api;
+package com.bitbosh.lovat.webgateway.resources;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,6 +33,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.skife.jdbi.v2.DBI;
 
+import com.bitbosh.lovat.webgateway.api.ApiResponse;
+import com.bitbosh.lovat.webgateway.api.NashornController;
 import com.bitbosh.lovat.webgateway.core.User;
 import com.bitbosh.lovat.webgateway.repository.WebGatewayDao;
 import com.bitbosh.lovat.webgateway.views.DashboardView;
@@ -63,7 +65,7 @@ public class WebGatewayResource {
 	static final String kEventServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";
 	static final String kEventServiceApiEndpointEvents = kEventServiceUrl + "/v1/api/events";
 
-	// TODO update Twitter Api service endpoint
+	// TODO implement Twitter Api service
 	static final String kTwitterApiServiceUrl = "https://twitterapi-service.herokuapp.com";
 	static final String kTwitterApiServiceApiEndpointTweets = kTwitterApiServiceUrl + "/v1/api/tweets";
 
@@ -94,11 +96,10 @@ public class WebGatewayResource {
 	@POST
 	@Path("/auth")
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response authenticate(User user) {
 		// authenticate user with User service
-		String username = user.getName();
-		String password = user.getPassword();
-		return Response.status(Response.Status.OK).build();
+		return Response.ok(user, MediaType.APPLICATION_JSON).build();
 	}
 
 	@GET
@@ -108,10 +109,13 @@ public class WebGatewayResource {
 		// Get events json data from Events microservice
 		ApiResponse events = getEvents();
 		ApiResponse tweets = getTweets();
+		ApiResponse assetPair = getKrakenTickerData();
 
 		List<Object> eventsData = (List<Object>) events.getList();
 		List<Object> tweetsData = (List<Object>) tweets.getList();
-		String dashboardViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionDashboard, eventsData, tweetsData);
+		List<Object> assetPairData = (List<Object>) assetPair.getList();
+
+		String dashboardViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionDashboard, eventsData, tweetsData, assetPairData);
 
 		DashboardView dashboard = new DashboardView(dashboardViewHtml);
 		return dashboard;
@@ -193,6 +197,62 @@ public class WebGatewayResource {
 		tweets = (List<LinkedHashMap<String, Object>>) statuses.get("statuses");
 
 		ApiResponse apiResponse = new ApiResponse(tweets);
+		return apiResponse;
+	}
+
+	@GET
+	@Path("/kraken")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ApiResponse getKrakenTickerData() throws UnsupportedOperationException, IOException, URISyntaxException {
+
+		// Call kraken api server
+		// WebTarget webTarget =
+		// this.client.target(kEventServiceApiEndpointEvents);
+		// Invocation.Builder invocationBuilder =
+		// webTarget.request(MediaType.APPLICATION_JSON);
+		// Response response = invocationBuilder.get();
+		// ApiResponse apiResponse = response.readEntity(ApiResponse.class);
+		// return apiResponse;
+
+		// TODO move this to a service of its own
+		final HttpClient client = HttpClientBuilder.create().build();
+
+		// create GET
+		HttpGet httpGet = new HttpGet("https://api.kraken.com/0/public/Ticker");
+		httpGet.setHeader("Content-Type", "application/json");
+
+		// create params
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		// TODO set parameter to pair from client
+		params.add(new BasicNameValuePair("pair", "BTCEUR,ETHEUR,XRPEUR,LTCEUR,XMREUR"));
+
+		// create endpoint with params
+		URI uri = new URIBuilder(httpGet.getURI()).addParameters(params).build();
+		// set uri to GET request
+		httpGet.setURI(uri);
+
+		// call twitter api
+		HttpResponse response = client.execute(httpGet);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+		// convert json object to hashmap
+		HashMap<String, Object> krakenApiResponse = new HashMap<String, Object>();
+		ObjectMapper mapper = new ObjectMapper();
+		krakenApiResponse = mapper.readValue(reader, new TypeReference<HashMap<String, Object>>() {
+		});
+
+		// get result object
+		HashMap<String, Object> result = (HashMap<String, Object>) krakenApiResponse.get("result");
+
+		// store the key in the object and add to the assetPairs list
+		List<HashMap<String, Object>> assetPairs = new ArrayList<HashMap<String, Object>>();
+		result.forEach((key, value) -> {
+			HashMap<String, Object> jsonObject = (HashMap<String, Object>) value;
+			jsonObject.put("pair_name", key);
+			assetPairs.add(jsonObject);
+		});
+
+		ApiResponse apiResponse = new ApiResponse(assetPairs);
 		return apiResponse;
 	}
 }
