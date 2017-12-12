@@ -1,190 +1,145 @@
 body {
-	font-family: Roboto;
-	font-weight: 100;
-	font-size: 16px;
-	margin: 0 auto;
-	word-wrap: break-word;
+    font-family: Roboto;
+    font-weight: 100;
+    font-size: 12px;
+    margin: 0 auto;
+    word-wrap: break-word;
 }
 
 h2 {
-	text-align: center;
+    text-align: center;
 }
 
 button {
-	cursor: pointer;
-	-webkit-border-radius: 10;
-	-moz-border-radius: 10;
-	border-radius: 10px;
-	color: #ffffff;
-	background: #3498db;
-	text-decoration: none;
-	border-style: none;
-	margin: 0px 5px 0px 5px;
-}
-
-button:hover {
-	background: #3cb0fd;
-	text-decoration: none;
+    cursor: pointer;
 }
 
 form {
-	padding: 10px 10px;
-	margin: 10px auto;
+    padding: 10px 10px;
+    margin: 10px auto;
 }
 
 form input, form textarea {
-	display: block;
-	margin: 0px auto;
-	width: 70%;
-	padding: 10px 10px;
-	margin-bottom: 10px;
-	border-radius: 3px;
-	border: 1px solid #888;
-}
-
-textarea#msg {
-	resize: none;
-	width: 250px;
-	height: 50px;
-}
-
-input#username {
-	margin: 0px 5px 0px 5px;
-}
-
-.LandingPage {
-	text-align: center;
-}
-
-.EventList {
-	padding: 10px 10px;
-	text-align: center;	
-	margin: 0 auto;
-	overflow-y: scroll;
-	height: 300px;
-}
-
-.EventList::-webkit-scrollbar {
-	width: 0px; /* remove scrollbar space */
-	background: transparent; /* optional: just make scrollbar invisible */
-}
-
-.EventList-list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.EventList-item {
-	margin: 10px;
-	padding: 10px 10px;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px
-		rgba(0, 0, 0, 0.08);
-}
-
-.EventListItem-name {
-	font-size: 14px;
-	font-weight: bold;
-	margin: 0;
+    display: block;
+    margin: 0px auto;
+    width: 70%;
+    padding: 10px 10px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #888;
 }
 
 .DataItemList-list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	height: 570px;
-	overflow-y: auto;
+    margin: 0 auto;
+    text-align: center;
+    width: 90%;
+    list-style: none;
+    padding: 10px 10px;
 }
 
 .List-item {
-	margin: 10px;
-	padding: 10px 10px;
-	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px
-		rgba(0, 0, 0, 0.08);
+    margin: 10px;
+    padding: 10px 10px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
 .ListItem-name {
-	font-weight: bold;
-	margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.TweetList-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.TweetList-item {
+    margin: 10px;
+    padding: 10px 10px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.TweetListItem-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
 }
 
 div#notification-bar {
-	width: 100%;
-	background-color: #04c11b;
-	padding: 5px;
-	color: #fff;
-	font-size: 15px;
-	text-align: center;
-	margin: 5px auto;
-}
-
-div#connectUser {
-    margin: 5px;
+    width: 50%;
+    background-color: #2980B9;
+    padding: 2px;
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+    margin: 5px auto;
 }
 
 .ActionControl-edit {
-	float: left;
+    float: left;
 }
 
 .ActionControl-remove {
-	float: right;
+    float: right;
 }
 
 .ActionControl {
-	height: 20px;
+    height: 20px;
 }
 
 div#TravisBuildStatus {
-	margin: 2px 2px;
-	display: inline-block;
+    margin: 2px 2px;
+    display: inline-block;
 }
 
 div#LoginButton a {
-	text-decoration: none;
-	cursor: pointer;
-	display: block;
-	padding: 10px 15px;
+    text-decoration: none;
+    cursor: pointer;
+    display: block;
+    padding: 10px 15px;
 }
 
 div#NavButton {
-	float: right;
-	border: 2px solid #00000;
-	text-align: center;
-	margin: 2px 2px;
-	-webkit-transition-duration: 0.4s;
-	transition-duration: 0.4s;
+    float: right;
+    border: 2px solid #00000;
+    text-align: center;
+    margin: 2px 2px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 
 div#NavButton:hover {
-	background-color: #008CBA;
-	color: white;
+    background-color: #008CBA;
+    color: white;
 }
 
 div#Header {
-	text-align: center;
-	clear: both;
+    text-align: center;
+    clear: both;
 }
 
 div#ButtonHolder {
-	text-align: center;
+    text-align: center;
 }
 
 .Service {
-	display: inline-block;
-	width: 25%;
-	text-align: center;
-	vertical-align: top;
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+    vertical-align: top;
 }
 
-@media all and (max-width : 1080px) {
-	.Service {
-		display: block;
-		width: auto;
-		text-align: center;
-		vertical-align: top;
-	}
+@media all and (max-width: 1080px) {
+    .Service {
+        display: block;
+        width: auto;
+        text-align: center;
+        vertical-align: top;
+    }
 }
 
 .LoginForm form {
-	width: 200px;
+    width: 200px;
 }
