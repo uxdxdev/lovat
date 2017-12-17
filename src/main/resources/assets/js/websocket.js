@@ -75,5 +75,7 @@ function log(text) {
 }
 
 window.addEventListener("beforeunload", function() {
-	socket.close();
+	if(socket) {
+        socket.close();
+    }
 });
