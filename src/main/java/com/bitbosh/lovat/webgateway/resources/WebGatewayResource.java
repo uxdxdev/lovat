@@ -98,7 +98,10 @@ public class WebGatewayResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response authenticate(User user) throws URISyntaxException {
 		// authenticate user with User service
-		return Response.ok().build();
+		if(user.getUsername() == "admin" && user.getPassword() == "password") {
+			return Response.status(303).build();
+		}
+		return Response.status(401).build();
 	}
 
 	@GET
