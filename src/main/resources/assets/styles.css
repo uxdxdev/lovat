@@ -143,3 +143,7 @@ div#ButtonHolder {
 .LoginForm form {
     width: 200px;
 }
+
+.LandingPage {
+    text-align: center;
+}
