@@ -25,7 +25,10 @@ class Login extends React.Component {
 				password: this.state.password
 			})
 			.then(function(response){
-				console.log(response)
+                if( response.status === 200 ){
+                    window.location.href = this.state.webApiGatewayUrl + '/dashboard';
+                }else {
+                }
 			})
 			.catch(function (error) {
 			});
@@ -37,31 +40,34 @@ class Login extends React.Component {
 			});
 		}
 
-		onUsernameChange(e){
-			this.setState({username: e.target.value})
-		}
-
-		onPasswordChange(e){
-			this.setState({password: e.target.value})
-		}
-
-		render() {
-			return (
-				<div>
-					<Navbar/>
-					<Header/>
-					<div className='LoginForm'>
-						<form onSubmit={this.onSubmit}>
-							<input type='text' placeholder='Username' required='true' value={this.state.username} onChange={this.onUsernameChange} />
-							<input type='password' placeholder='Password' required='true' value={this.state.password} onChange={this.onPasswordChange} />
-							<div id="ButtonHolder">
-								<button type='submit'>Sign In</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			)
-		}
+	onUsernameChange(e){
+		this.setState({username: e.target.value})
 	}
 
-	export default Login;
+	onPasswordChange(e){
+		this.setState({password: e.target.value})
+	}
+
+	render() {
+		return (
+			<div>
+				<Navbar/>
+				<Header/>
+
+
+				<div className='LoginForm'>
+					<form onSubmit={this.onSubmit}>
+						<input type='text' placeholder='Username' required='true' value={this.state.username} onChange={this.onUsernameChange} />
+						<input type='password' placeholder='Password' required='true' value={this.state.password} onChange={this.onPasswordChange} />
+						<div id="ButtonHolder">
+							<button type='submit'>Sign In</button>
+						</div>
+					</form>
+				</div>
+
+			</div>
+        )
+	}
+}
+
+export default Login;

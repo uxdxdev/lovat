@@ -6,7 +6,7 @@ import Login from '../js/Login';
 import Index from '../js/Index';
 
 const webApiGatewayUrl = 'https://lovat.herokuapp.com';
-// const webApiGatewayUrl = 'http://localhost:8080';
+//const webApiGatewayUrl = 'http://localhost:8080';
 
 // Server side
 

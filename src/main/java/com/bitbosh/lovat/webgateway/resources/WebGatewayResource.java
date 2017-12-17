@@ -96,10 +96,9 @@ public class WebGatewayResource {
 	@POST
 	@Path("/auth")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response authenticate(User user) {
+	public Response authenticate(User user) throws URISyntaxException {
 		// authenticate user with User service
-		return Response.ok(user, MediaType.APPLICATION_JSON).build();
+		return Response.ok().build();
 	}
 
 	@GET
