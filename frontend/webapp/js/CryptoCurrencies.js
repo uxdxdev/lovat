@@ -4,16 +4,15 @@ import AssetPair from '../js/AssetPair';
 
 class CryptoCurrencies extends React.Component {
 	propTypes: {
-    data: React.PropTypes.array.isRequired
-  }
+    	data: React.PropTypes.array.isRequired
+  	}
 
 	constructor(props) {
   	super(props);
   	this.state = {
 			data : this.props.data,
 			pollInterval: this.props.pollInterval,
-			webApiGatewayUrl: this.props.url,
-			dataEndpointUrl: props.url + '/kraken'
+			dataEndpointUrl: '/kraken'
 		};
 		this.loadDataFromServer = this.loadDataFromServer.bind(this)
 	}

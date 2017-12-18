@@ -9,8 +9,7 @@ class Form extends React.Component {
 			eventLocation: '',
 			eventDescription: '',
 			eventDate: '',
-			webApiGatewayUrl: props.url,
-			eventsEndpointUrl: props.url + '/events'
+			eventsEndpointUrl: '/events'
 		};
 
 		// allow access to 'this' from within defined functions

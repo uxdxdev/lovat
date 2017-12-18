@@ -5,9 +5,6 @@ import Dashboard from '../js/Dashboard';
 import Login from '../js/Login';
 import Index from '../js/Index';
 
-const webApiGatewayUrl = 'https://lovat.herokuapp.com';
-//const webApiGatewayUrl = 'http://localhost:8080';
-
 // Server side
 
 global.renderServerIndex = function () {
@@ -28,15 +25,15 @@ global.renderServerDashboard = function (eventsDataFromServer, tweetsDataFromSer
 };
 
 function buildIndex(){
-	return React.createElement(Index, {url: webApiGatewayUrl});
+	return React.createElement(Index);
 }
 
 function buildLogin(){
-	return React.createElement(Login, {url: webApiGatewayUrl});
+	return React.createElement(Login);
 }
 
 function buildDashboard(eventsDataFromServer, tweetsDataFromServer, pairsDataFromServer){
-	return React.createElement(Dashboard, {eventsData: eventsDataFromServer, tweetsData: tweetsDataFromServer, pairsData: pairsDataFromServer, eventsPollInterval: 2000, tweetsPollInterval: 5000, pairsPollInterval: 10000, url: webApiGatewayUrl});
+	return React.createElement(Dashboard, {eventsData: eventsDataFromServer, tweetsData: tweetsDataFromServer, pairsData: pairsDataFromServer, eventsPollInterval: 2000, tweetsPollInterval: 5000, pairsPollInterval: 10000});
 }
 
 // Client Side
@@ -56,10 +53,10 @@ if(typeof window !== "undefined"){
 
     // Dashboard
     if(document.getElementById('react-root-dashboard')) {
-      const eventsEndpointUrl = webApiGatewayUrl + '/events';
-      const tweetsEndpointUrl = webApiGatewayUrl + '/tweets';
+      const eventsEndpointUrl = '/events';
+      const tweetsEndpointUrl = '/tweets';
       // TODO take pair parameter from client
-      const pairsEndpointUrl = webApiGatewayUrl + '/kraken';
+      const pairsEndpointUrl = '/kraken';
 
       var events;
       var tweets;

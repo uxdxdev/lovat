@@ -12,8 +12,7 @@ class TwitterApi extends React.Component {
   	this.state = {
 			tweets : this.props.tweets,
 			pollInterval: this.props.pollInterval,
-			webApiGatewayUrl: this.props.url,
-			tweetsEndpointUrl: props.url + '/tweets'
+			tweetsEndpointUrl: '/tweets'
 		};
 
 		this.loadTweetsFromServer = this.loadTweetsFromServer.bind(this)

@@ -4,16 +4,15 @@ import Event from '../js/Event'
 
 class EventList extends React.Component {
 	propTypes: {
-    events: React.PropTypes.array.isRequired
-  }
+		events: React.PropTypes.array.isRequired
+  	}
 
 	constructor(props) {
   	super(props);
   	this.state = {
 			events : this.props.events,
 			pollInterval: this.props.pollInterval,
-			webApiGatewayUrl: this.props.url,
-			eventsEndpointUrl: props.url + '/events'
+			eventsEndpointUrl: '/events'
 		};
 
 		this.loadEventsFromServer = this.loadEventsFromServer.bind(this)

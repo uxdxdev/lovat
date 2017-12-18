@@ -13,7 +13,6 @@ class App extends React.Component {
 			eventsData : props.eventsData,
 			tweetsData : props.tweetsData,
 			pairsData : props.pairsData,
-			webApiGatewayUrl: props.url,
 			eventsPollInterval: props.eventsPollInterval,
 			tweetsPollInterval: props.tweetsPollInterval,
 			pairsPollInterval: props.pairsPollInterval
@@ -26,17 +25,17 @@ class App extends React.Component {
 				<Navbar/>
 				<div className="Service">
 					<h1>Events</h1>
-					<Form url={this.state.webApiGatewayUrl} />
-					<EventList events={this.state.eventsData} pollInterval={this.state.eventsPollInterval} url={this.state.webApiGatewayUrl}/>
+					<Form/>
+					<EventList events={this.state.eventsData} pollInterval={this.state.eventsPollInterval}/>
 				</div>
 				<div className="Service">
-					<TwitterApi tweets={this.state.tweetsData} pollInterval={this.state.tweetsPollInterval} url={this.state.webApiGatewayUrl}/>
+					<TwitterApi tweets={this.state.tweetsData} pollInterval={this.state.tweetsPollInterval}/>
 				</div>
 				<div className="Service">
 					<WebsocketChat />
 				</div>
 				<div className="Service">
-					<CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval} url={this.state.webApiGatewayUrl}/>
+					<CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval}/>
 				</div>
 			</div>
 		)

@@ -8,8 +8,7 @@ class Login extends React.Component {
 		super(props);
 		this.state = {
 			username: '',
-			password: '',
-			webApiGatewayUrl: props.url
+			password: ''
 		};
 
 		this.onSubmit = this.onSubmit.bind(this)
@@ -19,8 +18,7 @@ class Login extends React.Component {
 
 	onSubmit(e){
 		e.preventDefault();
-		const authEndpointUrl = this.state.webApiGatewayUrl + '/auth';
-		axios.post(authEndpointUrl, {
+		axios.post('/auth', {
 				username: this.state.username,
 				password: this.state.password
 			})
