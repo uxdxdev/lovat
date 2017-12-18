@@ -101,7 +101,7 @@ public class WebGatewayResource {
 	    // TODO authenticate user with User service
 
 		if(user.getUsername().equals("admin") && user.getPassword().equals("password")) {
-			return Response.status(Response.Status.SEE_OTHER).build();
+			return Response.ok().build();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).build();
 	}

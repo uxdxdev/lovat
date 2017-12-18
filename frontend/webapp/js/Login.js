@@ -25,10 +25,9 @@ class Login extends React.Component {
 				password: this.state.password
 			})
 			.then(function(response){
-                if( response.status === 303 ){
+                if( response.status === 200 ){
                     console.log('Redirecting.');
-                    const dashboardUri = '/dashboard';
-                    window.location.href = dashboardUri;
+                    window.location.href = '/dashboard';
                 } else if (response.status === 403){
                     console.log('User authentication failed.');
                 }
