@@ -26,6 +26,7 @@ class Login extends React.Component {
 			})
 			.then(function(response){
                 if( response.status === 303 ){
+                    console.log('Redirecting.');
                     const dashboardUri = '/dashboard';
                     window.location.href = dashboardUri;
                 } else if (response.status === 403){
