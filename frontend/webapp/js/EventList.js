@@ -40,7 +40,7 @@ class EventList extends React.Component {
 		return (
 			<div className='EventList'>
 				<h2>Events List</h2>
-				<ul className='EventList-list'>
+				<ul className='DataItemList-list'>
 					{events}
 				</ul>
 			</div>
