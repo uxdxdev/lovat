@@ -147,3 +147,8 @@ div#ButtonHolder {
 .LandingPage {
     text-align: center;
 }
+
+#credentials {
+    text-align: center;
+    padding-top: 5px;
+}

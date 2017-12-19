@@ -62,7 +62,9 @@ class Login extends React.Component {
 						<div id="ButtonHolder">
 							<button type='submit'>Sign In</button>
 						</div>
-                        <em>admin:password</em>
+                        <div id='credentials'>
+                            <em>admin:password</em>
+                        </div>
 					</form>
 				</div>
 
