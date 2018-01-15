@@ -71,7 +71,7 @@ public class Main extends Application<ApplicationConfiguration> {
 		jerseyEnvironment.register(NotAuthorizedExceptionHandler.class);
 
 		// Authenticator
-		jerseyEnvironment.register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>().setAuthenticator(new CustomAuthenticator(jdbi)).setRealm("SECURITY REALM").buildAuthFilter()));
+		jerseyEnvironment.register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>().setAuthenticator(new CustomAuthenticator(jdbi)).setRealm("BASIC-AUTH-REALM").buildAuthFilter()));
         jerseyEnvironment.register(new AuthValueFactoryProvider.Binder<>(User.class));
 
 		// Enable CORS headers
