@@ -113,10 +113,11 @@ public class WebGatewayResource {
 	@Produces(MediaType.TEXT_HTML)
 	public DashboardView dashboard(@Auth User user) {
 		// Get events json data from Events microservice
-		ApiResponse events = getEvents();
+		ApiResponse events = null;
         ApiResponse tweets = null;
         ApiResponse assetPair = null;
         try {
+            events = getEvents();
             tweets = getTweets();
             assetPair = getKrakenTickerData();
             List<Object> eventsData = (List<Object>) events.getList();
