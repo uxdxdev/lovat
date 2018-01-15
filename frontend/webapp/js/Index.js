@@ -9,7 +9,7 @@ class Index extends React.Component {
 				<Navbar/>
 				<Header/>
 				<div className="LandingPage">
-					<p>PLEASE ALLOW TIME FOR SERVICES TO SPIN UP WHEN ACCESSING THE DASHBOARD</p>
+					<p>Services spinning up, please wait...</p>
 				</div>
 			</div>
 		)

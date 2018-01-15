@@ -11,6 +11,7 @@ import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import javax.ws.rs.client.Client;
 
+import io.dropwizard.auth.AuthValueFactoryProvider;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -70,7 +71,8 @@ public class Main extends Application<ApplicationConfiguration> {
 		jerseyEnvironment.register(NotAuthorizedExceptionHandler.class);
 
 		// Authenticator
-		jerseyEnvironment.register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>().setAuthenticator(new CustomAuthenticator()).setRealm("SECURITY REALM").buildAuthFilter()));
+		jerseyEnvironment.register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>().setAuthenticator(new CustomAuthenticator(jdbi)).setRealm("SECURITY REALM").buildAuthFilter()));
+        jerseyEnvironment.register(new AuthValueFactoryProvider.Binder<>(User.class));
 
 		// Enable CORS headers
 		final FilterRegistration.Dynamic cors = environment.servlets().addFilter("CORS", CrossOriginFilter.class);

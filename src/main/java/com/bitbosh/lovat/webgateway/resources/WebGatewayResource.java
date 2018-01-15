@@ -24,6 +24,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import io.dropwizard.auth.Auth;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -36,7 +37,7 @@ import org.skife.jdbi.v2.DBI;
 import com.bitbosh.lovat.webgateway.api.ApiResponse;
 import com.bitbosh.lovat.webgateway.api.NashornController;
 import com.bitbosh.lovat.webgateway.core.User;
-import com.bitbosh.lovat.webgateway.repository.WebGatewayDao;
+import com.bitbosh.lovat.webgateway.repository.AccountsDao;
 import com.bitbosh.lovat.webgateway.views.DashboardView;
 import com.bitbosh.lovat.webgateway.views.IndexView;
 import com.bitbosh.lovat.webgateway.views.LoginView;
@@ -49,7 +50,7 @@ import io.dropwizard.jersey.params.LongParam;
 @Path("/")
 public class WebGatewayResource {
 
-	private final WebGatewayDao webGatewayDao;
+	private final AccountsDao accountsDao;
 
 	private final Client client;
 
@@ -70,7 +71,7 @@ public class WebGatewayResource {
 	static final String kTwitterApiServiceApiEndpointTweets = kTwitterApiServiceUrl + "/v1/api/tweets";
 
 	public WebGatewayResource(DBI jdbi, Client client, NashornController nashornController) {
-		this.webGatewayDao = jdbi.onDemand(WebGatewayDao.class);
+		this.accountsDao = jdbi.onDemand(AccountsDao.class);
 		this.client = client;
 		this.nashornController = nashornController;
 	}
@@ -96,33 +97,40 @@ public class WebGatewayResource {
 	@POST
 	@Path("/auth")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response authenticate(User user) throws URISyntaxException {
+	public Response authenticate(User user) {
 
-	    // TODO authenticate user with User service
+		String password = this.accountsDao.getPasswordByEmail(user.getUsername());
 
-		if(user.getUsername().equals("admin") && user.getPassword().equals("password")) {
+		if(user.getPassword().equals(password)) {
 			return Response.ok().build();
 		}
+
 		return Response.status(Response.Status.UNAUTHORIZED).build();
 	}
 
 	@GET
 	@Path("/dashboard")
 	@Produces(MediaType.TEXT_HTML)
-	public DashboardView dashboard() throws UnsupportedOperationException, IOException, URISyntaxException {
+	public DashboardView dashboard(@Auth User user) {
 		// Get events json data from Events microservice
 		ApiResponse events = getEvents();
-		ApiResponse tweets = getTweets();
-		ApiResponse assetPair = getKrakenTickerData();
+        ApiResponse tweets = null;
+        ApiResponse assetPair = null;
+        try {
+            tweets = getTweets();
+            assetPair = getKrakenTickerData();
+            List<Object> eventsData = (List<Object>) events.getList();
+            List<Object> tweetsData = (List<Object>) tweets.getList();
+            List<Object> assetPairData = (List<Object>) assetPair.getList();
+            String dashboardViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionDashboard, eventsData, tweetsData, assetPairData);
 
-		List<Object> eventsData = (List<Object>) events.getList();
-		List<Object> tweetsData = (List<Object>) tweets.getList();
-		List<Object> assetPairData = (List<Object>) assetPair.getList();
 
-		String dashboardViewHtml = this.nashornController.renderReactJsComponent(kServerRenderFunctionDashboard, eventsData, tweetsData, assetPairData);
+            return new DashboardView(dashboardViewHtml);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		DashboardView dashboard = new DashboardView(dashboardViewHtml);
-		return dashboard;
+        return new DashboardView("Services are spinning up, please wait");
 	}
 
 	@GET

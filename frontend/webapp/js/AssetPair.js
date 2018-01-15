@@ -16,7 +16,7 @@ class AssetPair extends React.Component {
 		//console.log(jsonObjectKeys[0]);
 		return (
 			<li key={this.state.data.id}>
-				<div className='List-item'>
+				<div className='card'>
 					<h3 className='ListItem-name'>{this.state.data.pair_name}</h3>
 					<div>24hr High 	{this.state.data.h[0]}</div>
 					<div>Last Trade {this.state.data.c[0]}</div>

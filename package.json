@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "description": "Example project using webpack and gradle",
   "scripts": {
-    "devbuild": "gradle stage && heroku local",
-    "build": "webpack -p"
+    "devbuild": "gradle stage && npm run restart-server",
+    "build": "webpack -p",
+    "restart-server": "pkill -f heroku; heroku local",
+    "watch": "npm run restart-server & onchange 'src/main/java/**/*' 'frontend/**/*' -- npm run devbuild"
   },
   "devDependencies": {
     "axios": "^0.16.1",
@@ -14,12 +16,14 @@
     "babel-preset-react": "^6.24.1",
     "bufferutil": "^3.0.2",
     "material-ui": "^0.18.0",
+    "onchange": "^3.3.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.6",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.2",
     "utf-8-validate": "^3.0.3",
+    "watch": "^1.0.2",
     "webpack": "^2.5.0",
     "ws": "^3.1.0"
   },

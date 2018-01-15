@@ -8,7 +8,8 @@ class Login extends React.Component {
 		super(props);
 		this.state = {
 			username: '',
-			password: ''
+			password: '',
+            loginStatus: 'test'
 		};
 
 		this.onSubmit = this.onSubmit.bind(this)
@@ -24,13 +25,11 @@ class Login extends React.Component {
 			})
 			.then(function(response){
                 if( response.status === 200 ){
-                    console.log('Redirecting.');
                     window.location.href = '/dashboard';
-                } else if (response.status === 403){
-                    console.log('User authentication failed.');
                 }
 			})
-			.catch(function (error) {
+			.catch((error) => {
+                this.updateNotification('Email or password invalid.');
 			});
 
 			// reset the values in the form
@@ -38,7 +37,11 @@ class Login extends React.Component {
 				username: '',
 				password: ''
 			});
-		}
+	}
+
+	updateNotification(notification) {
+        this.setState({loginStatus: notification});
+    }
 
 	onUsernameChange(e){
 		this.setState({username: e.target.value})
@@ -53,8 +56,6 @@ class Login extends React.Component {
 			<div>
 				<Navbar/>
 				<Header/>
-
-
 				<div className='LoginForm'>
 					<form onSubmit={this.onSubmit}>
 						<input type='text' placeholder='Username' required='true' value={this.state.username} onChange={this.onUsernameChange} />
@@ -62,10 +63,10 @@ class Login extends React.Component {
 						<div id="ButtonHolder">
 							<button type='submit'>Sign In</button>
 						</div>
-                        <div id='credentials'>
-                            <em>admin:password</em>
-                        </div>
 					</form>
+                    <div class="alert alert-warning" role="alert">
+                        {this.state.loginStatus}
+                    </div>
 				</div>
 
 			</div>
