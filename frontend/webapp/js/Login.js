@@ -19,16 +19,21 @@ class Login extends React.Component {
 
 	onSubmit(e){
 		e.preventDefault();
-		axios.post('/auth', {
-				username: this.state.username,
-				password: this.state.password
-			})
-			.then(function(response){
-                if( response.status === 200 ){
-                    window.location.href = '/dashboard';
-                }
-			})
-			.catch((error) => {
+
+        var hash = btoa(this.state.username + ":" + this.state.password);
+        axios.defaults.headers.common['Authorization'] = 'Basic ' + hash;
+
+        axios({
+            method: 'post',
+            url: '/auth',
+            auth: {
+                username: this.state.username,
+                password: this.state.password
+            }
+        }).catch((error) => {
+
+			    // stay on login screen
+                // display failed auth notification to the user
                 this.updateNotification('Email or password invalid.');
 			});
 

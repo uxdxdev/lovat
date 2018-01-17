@@ -6,7 +6,7 @@
     "devbuild": "gradle stage && npm run restart-server",
     "build": "webpack -p",
     "restart-server": "pkill -f heroku; heroku local",
-    "watch": "npm run restart-server & onchange 'src/main/java/**/*' 'frontend/**/*' -- npm run devbuild"
+    "watch": "npm run restart-server & onchange 'src/main/java/**/*' 'src/main/resources/assets/styles.css' 'src/main/resources/com/**/*' 'frontend/**/*' -- npm run devbuild"
   },
   "devDependencies": {
     "axios": "^0.16.1",

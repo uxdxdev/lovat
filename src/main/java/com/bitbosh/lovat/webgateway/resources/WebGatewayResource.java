@@ -5,11 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -21,6 +19,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -37,7 +36,7 @@ import org.skife.jdbi.v2.DBI;
 import com.bitbosh.lovat.webgateway.api.ApiResponse;
 import com.bitbosh.lovat.webgateway.api.NashornController;
 import com.bitbosh.lovat.webgateway.core.User;
-import com.bitbosh.lovat.webgateway.repository.AccountsDao;
+import com.bitbosh.lovat.webgateway.repository.UserDao;
 import com.bitbosh.lovat.webgateway.views.DashboardView;
 import com.bitbosh.lovat.webgateway.views.IndexView;
 import com.bitbosh.lovat.webgateway.views.LoginView;
@@ -50,7 +49,7 @@ import io.dropwizard.jersey.params.LongParam;
 @Path("/")
 public class WebGatewayResource {
 
-	private final AccountsDao accountsDao;
+	private final UserDao userDao;
 
 	private final Client client;
 
@@ -71,7 +70,7 @@ public class WebGatewayResource {
 	static final String kTwitterApiServiceApiEndpointTweets = kTwitterApiServiceUrl + "/v1/api/tweets";
 
 	public WebGatewayResource(DBI jdbi, Client client, NashornController nashornController) {
-		this.accountsDao = jdbi.onDemand(AccountsDao.class);
+		this.userDao = jdbi.onDemand(UserDao.class);
 		this.client = client;
 		this.nashornController = nashornController;
 	}
@@ -97,22 +96,16 @@ public class WebGatewayResource {
 	@POST
 	@Path("/auth")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response authenticate(User user) {
+	public Response authenticate(@Auth User user) {
 
-		String password = this.accountsDao.getPasswordByEmail(user.getUsername());
-
-		if(user.getPassword().equals(password)) {
-			return Response.ok().build();
-		}
-
-		return Response.status(Response.Status.UNAUTHORIZED).build();
+        return Response.status(Response.Status.SEE_OTHER).header("Location", "/dashboard").build();
 	}
 
 	@GET
 	@Path("/dashboard")
 	@Produces(MediaType.TEXT_HTML)
 	public DashboardView dashboard(@Auth User user) {
-		// Get events json data from Events microservice
+
 		ApiResponse events = null;
         ApiResponse tweets = null;
         ApiResponse assetPair = null;

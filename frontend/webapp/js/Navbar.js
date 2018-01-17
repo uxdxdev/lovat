@@ -10,9 +10,6 @@ class Navbar extends React.Component {
           <div id='NavButton'>
               <a href="/login">Login</a>
           </div>
-          <div id='NavButton'>
-            <a href="/">Home</a>
-          </div>
       </div>
 		)
 	}

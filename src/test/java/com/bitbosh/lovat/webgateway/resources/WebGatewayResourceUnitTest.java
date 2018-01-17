@@ -14,7 +14,7 @@ import org.skife.jdbi.v2.DBI;
 import com.bitbosh.lovat.webgateway.api.ApiResponse;
 import com.bitbosh.lovat.webgateway.api.NashornController;
 import com.bitbosh.lovat.webgateway.core.User;
-import com.bitbosh.lovat.webgateway.repository.AccountsDao;
+import com.bitbosh.lovat.webgateway.repository.UserDao;
 
 import io.dropwizard.auth.Auth;
 import mockit.Expectations;
@@ -23,12 +23,12 @@ import mockit.Mocked;
 public class WebGatewayResourceUnitTest {
 
 	@Test
-	public void EventResource_constructsSuccessfully_IfEventDaoNotNull(@Mocked DBI jdbi, @Mocked AccountsDao eventDao,
+	public void EventResource_constructsSuccessfully_IfEventDaoNotNull(@Mocked DBI jdbi, @Mocked UserDao eventDao,
 			@Mocked Client client, @Mocked NashornController react) {
 
 		new Expectations() {
 			{
-				jdbi.onDemand(withAny(AccountsDao.class));
+				jdbi.onDemand(withAny(UserDao.class));
 				result = eventDao; // return valid EventDao
 			}
 		};

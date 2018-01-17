@@ -12,9 +12,9 @@ public class User implements Principal {
 		this.password = null;
 	}
 
-	public User(String username, String password) {
+	public User(String username, String passhash) {
 		this.username = username;
-		this.password = password;
+		this.password = passhash;
 	}
 
 	public String getUsername() {
@@ -34,7 +34,7 @@ public class User implements Principal {
 		this.username = username;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String passhash) {
+		this.password = passhash;
 	}
 }

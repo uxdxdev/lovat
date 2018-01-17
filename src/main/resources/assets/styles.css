@@ -22,7 +22,6 @@ form {
 form input, form textarea {
     display: block;
     margin: 0px auto;
-    width: 70%;
     padding: 10px 10px;
     margin-bottom: 10px;
     border-radius: 3px;

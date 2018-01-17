@@ -11,6 +11,7 @@ import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import javax.ws.rs.client.Client;
 
+import com.bitbosh.lovat.webgateway.auth.PreAuthFilter;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,6 +19,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.skife.jdbi.v2.DBI;
 
@@ -71,6 +73,7 @@ public class Main extends Application<ApplicationConfiguration> {
 		jerseyEnvironment.register(NotAuthorizedExceptionHandler.class);
 
 		// Authenticator
+        jerseyEnvironment.register(PreAuthFilter.class);
 		jerseyEnvironment.register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>().setAuthenticator(new CustomAuthenticator(jdbi)).setRealm("BASIC-AUTH-REALM").buildAuthFilter()));
         jerseyEnvironment.register(new AuthValueFactoryProvider.Binder<>(User.class));
 
@@ -105,12 +108,10 @@ public class Main extends Application<ApplicationConfiguration> {
 					e.printStackTrace();
 				}
 
-				HttpEntity entity = response.getEntity();
-				String result = entity.toString();
-				System.out.println("GET " + healthCheckEndpoint);
 			}
 
-		}, 0, 300000);		
+		}, 0, 300000);
+		System.out.println("run END");
 	}
 
 	private DBIFactory createDbiFactory() {

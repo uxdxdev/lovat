@@ -45,17 +45,15 @@ public class ApplicationConfiguration extends Configuration {
 		// When running the app locally using `heroku local` the remote postgres
 		// db url needs to be added to the IDE or to
 		// your environment. Run `heroku config` to get the environment variable
-		// and its value. For local dev with Eclipse
-		// add DATABASE_URL and its value as a parameter in the Environment tab.
-		// For running the application with Heroku cli
-		// add DATABASE_URL and its value to the .bash_profile file and either
-		// restart your terminal or source it, i.e.
-		// source ~/.bash_profile
+		// and its value. For local dev add DATABASE_URL and its value as a parameter in the Environment tab.
+		// For running the application with Heroku cli add DATABASE_URL and its value to the .bash_profile file and either
+		// restart your terminal or source it, i.e. source ~/.bash_profile
 		//
 		// For reference:
 		// https://devcenter.heroku.com/articles/connecting-to-relational-databases-on-heroku-with-java#connecting-to-a-database-remotely
 		URI dbUri = null;
 		final String databaseUrl = System.getenv("DATABASE_URL");
+		final Boolean ssl = new Boolean(System.getenv("SSL"));
 		if (databaseUrl != null) {
 			dbUri = new URI(databaseUrl);
 		}
@@ -64,7 +62,7 @@ public class ApplicationConfiguration extends Configuration {
 			String username = dbUri.getUserInfo().split(":")[0];
 			String password = dbUri.getUserInfo().split(":")[1];
 			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
-					+ "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+					+ "?sslMode=" + ssl + "&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
 			this.database.setUser(username);
 			this.database.setPassword(password);
