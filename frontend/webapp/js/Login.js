@@ -20,9 +20,6 @@ class Login extends React.Component {
 	onSubmit(e){
 		e.preventDefault();
 
-        var hash = btoa(this.state.username + ":" + this.state.password);
-        axios.defaults.headers.common['Authorization'] = 'Basic ' + hash;
-
         axios({
             method: 'post',
             url: '/auth',
@@ -31,17 +28,14 @@ class Login extends React.Component {
                 password: this.state.password
             }
         }).catch((error) => {
+            this.updateNotification('Email or password invalid.');
+        });
 
-			    // stay on login screen
-                // display failed auth notification to the user
-                this.updateNotification('Email or password invalid.');
-			});
-
-			// reset the values in the form
-			this.setState({
-				username: '',
-				password: ''
-			});
+        // reset the values in the form
+        this.setState({
+            username: '',
+            password: ''
+        });
 	}
 
 	updateNotification(notification) {

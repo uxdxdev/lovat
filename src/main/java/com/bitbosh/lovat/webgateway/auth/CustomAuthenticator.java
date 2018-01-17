@@ -12,7 +12,6 @@ import java.util.Optional;
 
 public class CustomAuthenticator implements Authenticator<BasicCredentials, User> {
 
-
     private final UserDao userDao;
 
     public CustomAuthenticator(DBI jdbi) {
@@ -24,9 +23,9 @@ public class CustomAuthenticator implements Authenticator<BasicCredentials, User
 	public Optional<User> authenticate(BasicCredentials credentials) {
 
         User user = this.userDao.getUserByUsername(credentials.getUsername());
-		if(user == null || user.getPassword().isEmpty() || !user.getPassword().equals(credentials.getPassword())) {
+		if(user == null) {
             throwNotAuthorizedException();
-        } else {
+        } else if(!user.getPassword().isEmpty() && user.getPassword().equals(credentials.getPassword())){
             return Optional.of(user);
         }
 

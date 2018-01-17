@@ -7,14 +7,14 @@ public class User implements Principal {
 	private String username;
 	private String password;
 
-	public User() {
+    public User() {
 		this.username = null;
 		this.password = null;
 	}
 
-	public User(String username, String passhash) {
+	public User(String username, String password) {
 		this.username = username;
-		this.password = passhash;
+		this.password = password;
 	}
 
 	public String getUsername() {

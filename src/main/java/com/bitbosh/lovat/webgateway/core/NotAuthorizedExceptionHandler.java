@@ -15,7 +15,8 @@ public class NotAuthorizedExceptionHandler implements ExceptionMapper<NotAuthori
 
 	@Override
 	public Response toResponse(NotAuthorizedException exception) {
-        return Response.temporaryRedirect(URI.create("/login")).build();
+	    // redirect to login instead of returing 401 and causing the browser sign-in pop-up to be displayed.
+        return Response.seeOther(URI.create("/login")).build();
 	}
 
 }

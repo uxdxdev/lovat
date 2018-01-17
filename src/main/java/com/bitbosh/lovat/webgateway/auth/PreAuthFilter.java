@@ -14,6 +14,7 @@ public class PreAuthFilter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext request) throws IOException {
 
+        System.out.println("PreAuthFilter.filter()");
         boolean hasValidHeader = false;
         if (request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
             final String header = request.getHeaderString(HttpHeaders.AUTHORIZATION);
