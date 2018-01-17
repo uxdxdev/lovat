@@ -91,7 +91,7 @@ public class WebGatewayResource {
     @Path("/logout")
     public Response logout(@Context HttpServletRequest request) {
 	    if(request.getCookies() != null && request.getCookies().length > 0) {
-	        System.out.println("Loggin out... deleting cookies... " + request.getCookies().length);
+	        System.out.println("Logging out... deleting cookies... " + request.getCookies().length);
             for (Cookie cookie : request.getCookies()) {
                 cookie.setValue("");
                 cookie.setMaxAge(0);

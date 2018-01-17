@@ -30,8 +30,7 @@ class Login extends React.Component {
             }
         }).then(function (response) {
             if(response.status === 201) {
-                window.location = '/dashboard';
-
+                window.location.replace('/dashboard');
             } else {
                 // reset the values in the form
                 this.updateNotification('Email or password invalid.');
