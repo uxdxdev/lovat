@@ -21,6 +21,7 @@ public class ApplicationConfigurationUnitTest {
   public void getDataSourceFactory_returnsCorrectDataSourceFactory_IfCorrectDataSupplied(@Mocked final System unused)
       throws URISyntaxException {
 
+      final Boolean ssl = new Boolean(System.getenv("SSL"));
     String expectedUser = "testUser";
     String expectedPassword = "testPassword";
     String host = "host";
@@ -28,7 +29,7 @@ public class ApplicationConfigurationUnitTest {
     String path = "/testPath";
     String hostPortString = host + ":" + port + path;
     String expectedDbUrl = "jdbc:postgresql://" + host + ':' + port + path
-        + "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+        + "?sslMode=" + ssl + "&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
     new Expectations() {
       {
@@ -48,24 +49,25 @@ public class ApplicationConfigurationUnitTest {
   }
 
   @Test(expected = URISyntaxException.class)
-  public void getDataSourceFactory_throwsURISyntaxException_IfUriCreationFails(@Mocked final System unused)
-      throws URISyntaxException {
-    String expectedUser = "testUser";
-    String expectedPassword = "testPassword";
-    String host = "host";
-    String port = "1234";
-    String path = "/testPath";
-    String hostPortString = host + ":" + port + path;
+  public void getDataSourceFactory_throwsURISyntaxException_IfUriCreationFails(@Mocked final System unused) throws URISyntaxException {
 
-    new Expectations() {
-      {
-        System.getenv(anyString);
-        result = "incorrect,username://" + expectedUser + ":" + expectedPassword + "@" + hostPortString;
-      }
-    };
+      final Boolean ssl = new Boolean(System.getenv("SSL"));
+        String expectedUser = "testUser";
+        String expectedPassword = "testPassword";
+        String host = "host";
+        String port = "1234";
+        String path = "/testPath";
+        String hostPortString = host + ":" + port + path;
 
-    // Uri creation fails when parsing db url
-    DataSourceFactory returnedDataSourceFactory = applicationConfig.getDataSourceFactory();
+        new Expectations() {
+          {
+            System.getenv(anyString);
+            result = "incorrect,username://" + expectedUser + ":" + expectedPassword + "@" + hostPortString;
+          }
+        };
+
+        // Uri creation fails when parsing db url
+        DataSourceFactory returnedDataSourceFactory = applicationConfig.getDataSourceFactory();
   }
 
   @Test
@@ -73,6 +75,7 @@ public class ApplicationConfigurationUnitTest {
       throws URISyntaxException {
     DataSourceFactory dataSourceFactory = new DataSourceFactory();
 
+      final Boolean ssl = new Boolean(System.getenv("SSL"));
     String expectedUser = "testUser";
 
     new Expectations() {
