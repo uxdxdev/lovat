@@ -23,9 +23,9 @@ public class CustomAuthenticator implements Authenticator<BasicCredentials, User
 	public Optional<User> authenticate(BasicCredentials credentials) {
 
         User user = this.userDao.getUserByUsername(credentials.getUsername());
-		if(user == null) {
+		if(user == null || user.getPassword().isEmpty() || !user.getPassword().equals(credentials.getPassword())) {
             throwNotAuthorizedException();
-        } else if(!user.getPassword().isEmpty() && user.getPassword().equals(credentials.getPassword())){
+        } else {
             return Optional.of(user);
         }
 

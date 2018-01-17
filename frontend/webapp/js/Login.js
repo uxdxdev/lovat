@@ -12,13 +12,14 @@ class Login extends React.Component {
             loginStatus: 'test'
 		};
 
-		this.onSubmit = this.onSubmit.bind(this)
-		this.onUsernameChange = this.onUsernameChange.bind(this)
-		this.onPasswordChange = this.onPasswordChange.bind(this)
+		this.onSubmit = this.onSubmit.bind(this);
+        this.onUsernameChange = this.onUsernameChange.bind(this);
+		this.onPasswordChange = this.onPasswordChange.bind(this);
 	}
 
 	onSubmit(e){
 		e.preventDefault();
+        this.updateNotification('Please wait...');
 
         axios({
             method: 'post',
@@ -27,11 +28,18 @@ class Login extends React.Component {
                 username: this.state.username,
                 password: this.state.password
             }
+        }).then(function (response) {
+            if(response.status === 201) {
+                window.location = '/dashboard';
+
+            } else {
+                // reset the values in the form
+                this.updateNotification('Email or password invalid.');
+            }
         }).catch((error) => {
             this.updateNotification('Email or password invalid.');
         });
 
-        // reset the values in the form
         this.setState({
             username: '',
             password: ''

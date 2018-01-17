@@ -1,38 +1,5 @@
 package com.bitbosh.lovat.webgateway.resources;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import io.dropwizard.auth.Auth;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
-import org.skife.jdbi.v2.DBI;
-
 import com.bitbosh.lovat.webgateway.api.ApiResponse;
 import com.bitbosh.lovat.webgateway.api.NashornController;
 import com.bitbosh.lovat.webgateway.core.User;
@@ -42,8 +9,35 @@ import com.bitbosh.lovat.webgateway.views.IndexView;
 import com.bitbosh.lovat.webgateway.views.LoginView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import io.dropwizard.auth.Auth;
 import io.dropwizard.jersey.params.LongParam;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
+import org.glassfish.jersey.internal.util.Base64;
+import org.skife.jdbi.v2.DBI;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @SuppressWarnings("unchecked")
 @Path("/")
@@ -93,12 +87,29 @@ public class WebGatewayResource {
 		return login;
 	}
 
+    @GET
+    @Path("/logout")
+    public Response logout(@Context HttpServletRequest request) {
+	    if(request.getCookies() != null && request.getCookies().length > 0) {
+	        System.out.println("Loggin out... deleting cookies... " + request.getCookies().length);
+            for (Cookie cookie : request.getCookies()) {
+                cookie.setValue("");
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+            }
+        }
+
+        // respond and reset the authorization header details
+        return Response.seeOther(URI.create("/login")).cookie(new NewCookie(HttpHeaders.AUTHORIZATION, "")).header(HttpHeaders.AUTHORIZATION, "").build();
+    }
+
 	@POST
 	@Path("/auth")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response authenticate(@Auth User user) {
+	public Response authenticate(@Context HttpServletRequest request, @Auth User user) {
 
-        return Response.status(Response.Status.SEE_OTHER).header("Location", "/dashboard").build();
+        //return Response.status(Response.Status.SEE_OTHER).header("Location", "/dashboard").build();
+        final String base64 = Base64.encodeAsString(user.getUsername() + ":" + user.getPassword());
+        return Response.status(Response.Status.CREATED).cookie(new NewCookie(HttpHeaders.AUTHORIZATION, "Basic " + base64)).build();
 	}
 
 	@GET
