@@ -8,6 +8,8 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Priority(Priorities.AUTHENTICATION - 1)
 public class PreAuthFilter implements ContainerRequestFilter {
@@ -23,11 +25,8 @@ public class PreAuthFilter implements ContainerRequestFilter {
             }
         }
 
-        // add a default set of credentials to the request so that the server does not
-        // automatically respond with a 401 causing the browser to display the sign-in popup.
         if (!hasValidHeader) {
 
-            // check cookies for authorization details
             String hashedValue = "";
             if(request.getCookies().containsKey(HttpHeaders.AUTHORIZATION)){
                 hashedValue = request.getCookies().get(HttpHeaders.AUTHORIZATION).getValue();

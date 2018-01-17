@@ -100,16 +100,20 @@ public class WebGatewayResource {
         }
 
         // respond and reset the authorization header details
-        return Response.seeOther(URI.create("/login")).cookie(new NewCookie(HttpHeaders.AUTHORIZATION, "")).header(HttpHeaders.AUTHORIZATION, "").build();
+        return Response.seeOther(URI.create("/login"))
+                .cookie(new NewCookie(HttpHeaders.AUTHORIZATION, ""))
+                .header(HttpHeaders.AUTHORIZATION, "")
+                .build();
     }
 
 	@POST
 	@Path("/auth")
 	public Response authenticate(@Context HttpServletRequest request, @Auth User user) {
 
-        //return Response.status(Response.Status.SEE_OTHER).header("Location", "/dashboard").build();
         final String base64 = Base64.encodeAsString(user.getUsername() + ":" + user.getPassword());
-        return Response.status(Response.Status.CREATED).cookie(new NewCookie(HttpHeaders.AUTHORIZATION, "Basic " + base64)).build();
+        return Response.status(Response.Status.CREATED)
+                .cookie(new NewCookie(HttpHeaders.AUTHORIZATION, "Basic " + base64))
+                .build();
 	}
 
 	@GET
