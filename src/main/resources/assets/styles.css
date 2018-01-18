@@ -1,17 +1,8 @@
-.alert {
-    margin-top: 16px;
-}
-
 ul {
     list-style-type: none;
     padding: 0px;
 }
 
-.card {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.card-body {
-    padding: 10px;
+p.card-text {
+    font-size: 14px;
 }

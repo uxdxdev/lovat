@@ -21,22 +21,27 @@ class TwitterApi extends React.Component {
 			component.setState({
 				tweets : tweetList
 			});
+
+			if(tweetList !== null){
+                setInterval(this.loadTweetsFromServer.bind(null, this, this.state.tweetsEndpointUrl), this.state.pollInterval);
+            }
 		});
 	}
 
 	componentDidMount() {
 		this.loadTweetsFromServer(this, this.state.tweetsEndpointUrl);
-		setInterval(this.loadTweetsFromServer.bind(null, this, this.state.tweetsEndpointUrl), this.state.pollInterval);
 	}
 
 	render(){
-		const tweetsEndpointUrl = this.state.tweetsEndpointUrl;
-		const tweets = this.state.tweets.map(function(tweet) {
-			return <Tweet data={tweet} key={tweet.id} url={tweetsEndpointUrl}/>
-		});
+	    let tweets = "Error loading tweets...";
+	    if(this.state.tweets !== null) {
+	        tweets = this.state.tweets.map(function (tweet) {
+                return <Tweet data={tweet} key={tweet.id} url={this.state.tweetsEndpointUrl}/>
+            });
+        }
 		return (
 			<div>
-				<h2>#GameDev</h2>
+				<h2 className="text-center">Twitter</h2>
 				<ul>
 					{tweets}
 				</ul>

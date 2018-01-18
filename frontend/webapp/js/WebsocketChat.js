@@ -5,17 +5,20 @@ class WebsocketChat extends React.Component {
 	render(){
 		return (
 			<div>
-				<h2>Websockets</h2>
-				<div id="notification-bar">Signed in: <span id="usernameHeader"></span></div>
-				<div id="connectUser">
-			 		<input type="text" id="username" placeholder="Username"/>
-			 		<button type="button" onClick={connect}>Connect</button>
-			 		<button onClick={close}>Close</button>
-				</div>
-				<div id="messageContainer">
-				 	<textarea rows="4" cols="30" maxLength="140" id="msg" placeholder="Message"/>
-				</div>
-				<button onClick={send}>Send Message</button>
+				<h2 className="text-center">Websockets</h2>
+                <div id="notification-bar">Signed in: <span id="usernameHeader"></span></div>
+                <form class="form-inline">
+                    <label className="sr-only" for="username">Username</label>
+                    <input type="text" className="form-control mb-2" id="username" placeholder="Username"/>
+
+                    <button type="button" className="btn btn-primary mb-2" onClick={connect}>Connect</button>
+                    <button type="button" className="btn btn-primary mb-2" onClick={close}>Close</button>
+
+                    <div id="messageContainer">
+                        <textarea className="form-control mb-2" maxLength="140" id="msg" placeholder="Message"/>
+                    </div>
+                    <button type="button" className="btn btn-primary mb-2" onClick={send}>Send Message</button>
+                </form>
 				<ul className='DataItemList-list' id="log"></ul>
 			</div>
 		)

@@ -47,12 +47,11 @@ class Event extends React.Component {
 	render(){
 		return (
 			<li key={this.state.data.id}>
-				<div className="card">
-                    <div className="card-body">
-                        <h4 className="card-title">{this.state.data.name}</h4>
-                        <h6 className="card-subtitle mb-2 text-muted">{this.state.data.location}</h6>
-                        <h6 className="card-subtitle mb-2 text-muted">{this.state.data.date}</h6>
-                        <div className="card-text" >{this.state.data.description}</div>
+				<div className="card mt-2 mb-2">
+                    <div className="card-body p-2">
+                        <h6 className="card-title">{this.state.data.name}</h6>
+                        <h7 className="card-subtitle text-muted">{this.state.data.location} - {this.state.data.date}</h7>
+                        <p className="card-text" >{this.state.data.description}</p>
                         <ActionControl url={this.state.url} id={this.state.data.id}/>
                     </div>
 				</div>

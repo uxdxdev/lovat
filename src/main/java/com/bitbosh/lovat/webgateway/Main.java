@@ -69,7 +69,7 @@ public class Main extends Application<ApplicationConfiguration> {
 		// Register each Resource with jersey and pass in the Dao so that it can
 		// interact with the database.
 		JerseyEnvironment jerseyEnvironment = environment.jersey();
-		jerseyEnvironment.register(new WebGatewayResource(jdbi, client, react));				
+		jerseyEnvironment.register(new WebGatewayResource(client, react));
 		jerseyEnvironment.register(NotAuthorizedExceptionHandler.class);
 
 		// Authenticator

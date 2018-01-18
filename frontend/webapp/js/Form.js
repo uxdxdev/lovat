@@ -29,13 +29,6 @@ class Form extends React.Component {
 					location: this.state.eventLocation,
 					description: this.state.eventDescription,
 					date: this.state.eventDate
-				})
-				.then(function(response){
-					document.getElementById("notification-bar").innerHTML = 'Create event successful';
-					// refresh the events list
-				})
-				.catch(function (error) {
-					document.getElementById("notification-bar").innerHTML = 'Error creating event';
 				});
 
 		// reset the values in the form

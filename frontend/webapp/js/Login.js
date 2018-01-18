@@ -9,7 +9,7 @@ class Login extends React.Component {
 		this.state = {
 			username: '',
 			password: '',
-            loginStatus: ''
+            loginStatus: 'Welcome'
 		};
 
 		this.onSubmit = this.onSubmit.bind(this);
@@ -19,7 +19,7 @@ class Login extends React.Component {
 
 	onSubmit(e){
 		e.preventDefault();
-        this.updateNotification('Please wait...');
+        this.updateNotification('Please wait...Redirecting');
 
         axios({
             method: 'post',
@@ -77,7 +77,7 @@ class Login extends React.Component {
                         </form>
                     </div>
                     <div className="container col-md-4 col-md-offset-4">
-                        <div className="alert alert-warning" role="alert">
+                        <div className="alert alert-warning mt-3" role="alert">
                             {this.state.loginStatus}
                         </div>
                     </div>

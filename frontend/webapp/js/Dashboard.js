@@ -32,10 +32,10 @@ class App extends React.Component {
                             <TwitterApi tweets={this.state.tweetsData} pollInterval={this.state.tweetsPollInterval}/>
                         </div>
                         <div className="col">
-                            <WebsocketChat />
+                            <CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval}/>
                         </div>
                         <div className="col">
-                            <CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval}/>
+                            <WebsocketChat />
                         </div>
                     </div>
                 </div>

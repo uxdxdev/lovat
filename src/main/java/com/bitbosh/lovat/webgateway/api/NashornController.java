@@ -28,12 +28,20 @@ public class NashornController {
 		}
 	}
 
+    private Reader read(String path) {
+        InputStream in = getClass().getClassLoader().getResourceAsStream(path);
+        if (in == null) {
+            System.out.println("InputString in is null with path " + path);
+        }
+        return new InputStreamReader(in);
+    }
+
 	public String renderReactJsComponent(String functionName) {
 		try {
 			Object html = nashorn.invokeFunction(functionName);
 			return String.valueOf(html);
 		} catch (Exception e) {
-			throw new IllegalStateException("failed to render react component", e);
+            return "";
 		}
 	}
 
@@ -42,7 +50,7 @@ public class NashornController {
 			Object html = nashorn.invokeFunction(functionName, props);
 			return String.valueOf(html);
 		} catch (Exception e) {
-			throw new IllegalStateException("failed to render react component", e);
+            return "";
 		}
 	}
 
@@ -51,15 +59,8 @@ public class NashornController {
 			Object html = nashorn.invokeFunction(functionName, propsOne, propsTwo);
 			return String.valueOf(html);
 		} catch (Exception e) {
-			throw new IllegalStateException("failed to render react component", e);
+            return "";
 		}
-	}
-
-	private Reader read(String path) {
-		InputStream in = getClass().getClassLoader().getResourceAsStream(path);
-		if (in == null)
-			System.out.println("InputString in is null with path " + path);
-		return new InputStreamReader(in);
 	}
 
 	public String renderReactJsComponent(String functionName, List<Object>... props) {
@@ -67,7 +68,7 @@ public class NashornController {
 			Object html = nashorn.invokeFunction(functionName, props);
 			return String.valueOf(html);
 		} catch (Exception e) {
-			throw new IllegalStateException("failed to render react component", e);
+            return "";
 		}
 	}
 }

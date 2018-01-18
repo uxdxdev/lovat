@@ -17,27 +17,36 @@ class EventList extends React.Component {
 	}
 
 	loadEventsFromServer(component, eventsUrl) {
-		axios.get(eventsUrl).then(function(res) {
-			var eventList = res.data.list;
-			component.setState({
-				events : eventList
-			});
-		});
+		axios.get(eventsUrl)
+            .then(function(res) {
+                var eventList = res.data.list;
+                component.setState({
+                    events : eventList
+                });
+
+                if(eventList !== null) {
+                    setInterval(this.loadEventsFromServer.bind(null, this, this.state.eventsEndpointUrl), this.state.pollInterval);
+                }
+		    });
 	}
 
 	componentDidMount() {
 		this.loadEventsFromServer(this, this.state.eventsEndpointUrl);
-		setInterval(this.loadEventsFromServer.bind(null, this, this.state.eventsEndpointUrl), this.state.pollInterval);
-	}
+    }
 
 	render(){
-		const eventsEndpointUrl = this.state.eventsEndpointUrl;
-		const events = this.state.events.map(function(event) {
-			return <Event data={event} key={event.id} url={eventsEndpointUrl}/>
-		});
+
+	    // Check the component state for the list of events and only render the list if it exists.
+        let events = "Error reading events list...";
+		if(this.state.events !== null) {
+            events = this.state.events.map(function (event) {
+                return <Event data={event} key={event.id} url={this.state.eventsEndpointUrl}/>
+            });
+        }
+
 		return (
 			<div>
-                <h2>Events</h2>
+                <h2 className="text-center">Events</h2>
                 <Form/>
 				<ul>
 					{events}
