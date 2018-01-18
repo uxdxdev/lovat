@@ -90,25 +90,13 @@ public class WebGatewayResource {
     @GET
     @Path("/logout")
     public Response logout(@Context HttpServletRequest request) {
-	    if(request.getCookies() != null && request.getCookies().length > 0) {
-	        System.out.println("Logging out... deleting cookies... " + request.getCookies().length);
-            for (Cookie cookie : request.getCookies()) {
-                cookie.setValue("");
-                cookie.setMaxAge(0);
-                cookie.setPath("/");
-            }
-        }
 
-        // respond and reset the authorization header details
-        return Response.seeOther(URI.create("/login"))
-                .cookie(new NewCookie(HttpHeaders.AUTHORIZATION, ""))
-                .header(HttpHeaders.AUTHORIZATION, "")
-                .build();
+        return Response.seeOther(URI.create("/")).cookie(new NewCookie(HttpHeaders.AUTHORIZATION, "")).header(HttpHeaders.AUTHORIZATION, "").build();
     }
 
 	@POST
 	@Path("/auth")
-	public Response authenticate(@Context HttpServletRequest request, @Auth User user) {
+	public Response authenticate(@Auth User user) {
 
         final String base64 = Base64.encodeAsString(user.getUsername() + ":" + user.getPassword());
         return Response.status(Response.Status.CREATED)
