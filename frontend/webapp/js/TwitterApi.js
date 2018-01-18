@@ -3,9 +3,6 @@ import axios from 'axios';
 import Tweet from '../js/Tweet'
 
 class TwitterApi extends React.Component {
-	propTypes: {
-    tweets: React.PropTypes.array.isRequired
-  }
 
 	constructor(props) {
   	super(props);
@@ -39,8 +36,8 @@ class TwitterApi extends React.Component {
 		});
 		return (
 			<div>
-				<h1>Latest Tweets for #GameDev</h1>
-				<ul className='DataItemList-list'>
+				<h2>#GameDev</h2>
+				<ul>
 					{tweets}
 				</ul>
 			</div>

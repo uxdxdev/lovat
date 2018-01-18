@@ -1,16 +1,16 @@
 import React from 'react';
-import Navbar from '../js/Navbar'
-import Header from '../js/Header'
+import Header from './Header'
+import Footer from "../js/Footer";
 
 class Index extends React.Component {
 	render(){
 		return (
 			<div>
-				<Navbar/>
-				<Header/>
-				<div className="LandingPage">
-					<p>Services spinning up, please wait...</p>
-				</div>
+                <Header/>
+                <div className="container-fluid text-center">
+                    <p>Server side ReactJS using Java 8 Nashorn</p>
+                </div>
+                <Footer/>
 			</div>
 		)
 	}

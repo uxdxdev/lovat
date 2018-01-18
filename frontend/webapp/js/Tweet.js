@@ -15,7 +15,7 @@ class Tweet extends React.Component {
 		return (
 			<li key={this.state.data.id}>
 				<div className='card'>
-					<h2 className='ListItem-name'>{this.state.data.name}</h2>
+					<h2>{this.state.data.name}</h2>
 					<div>@{this.state.data.user.screen_name} - {this.state.data.user.location}</div>					
 					<div>{this.state.data.text}</div>
 					<div>{this.state.data.created_at}</div>

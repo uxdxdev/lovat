@@ -26,9 +26,9 @@ class ActionControl extends React.Component {
 
 	render(){
 		return (
-			<div className='ActionControl'>
-				<button className='ActionControl-edit' onClick={this.edit}>EDIT</button>
-				<button className='ActionControl-remove' onClick={this.remove}>X</button>
+			<div className="d-flex mt-2">
+				<button className="btn btn-outline-primary btn-sm" onClick={this.edit}>Edit</button>
+				<button className="btn btn-outline-primary btn-sm ml-auto" onClick={this.remove}>X</button>
 			</div>
 		)
 	}
@@ -47,12 +47,14 @@ class Event extends React.Component {
 	render(){
 		return (
 			<li key={this.state.data.id}>
-				<div className='card'>
-					<h2 className='ListItem-name'>{this.state.data.name}</h2>
-					<div>{this.state.data.description}</div>
-					<div>{this.state.data.location}</div>
-					<div>{this.state.data.date}</div>
-					<ActionControl url={this.state.url} id={this.state.data.id}/>
+				<div className="card">
+                    <div className="card-body">
+                        <h4 className="card-title">{this.state.data.name}</h4>
+                        <h6 className="card-subtitle mb-2 text-muted">{this.state.data.location}</h6>
+                        <h6 className="card-subtitle mb-2 text-muted">{this.state.data.date}</h6>
+                        <div className="card-text" >{this.state.data.description}</div>
+                        <ActionControl url={this.state.url} id={this.state.data.id}/>
+                    </div>
 				</div>
 			</li>
 		)

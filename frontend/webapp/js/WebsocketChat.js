@@ -5,7 +5,7 @@ class WebsocketChat extends React.Component {
 	render(){
 		return (
 			<div>
-				<h1>Websockets</h1>
+				<h2>Websockets</h2>
 				<div id="notification-bar">Signed in: <span id="usernameHeader"></span></div>
 				<div id="connectUser">
 			 		<input type="text" id="username" placeholder="Username"/>

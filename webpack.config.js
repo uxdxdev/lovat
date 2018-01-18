@@ -1,7 +1,7 @@
 var path = require('path');
-var webpack = require('webpack');
 var SRC = path.resolve(__dirname, 'frontend/webapp/js');
 var DEST = path.resolve(__dirname, 'src/main/resources/assets/js');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var config = {
 	devtool : 'source-map',
@@ -20,7 +20,14 @@ var config = {
 				presets : [ 'es2015', 'react' ]
 			}
 		} ]
-	}
+	},
+    plugins: [
+        new CopyWebpackPlugin([
+            {
+                from: './src/main/resources/assets/styles.css',
+                to: path.resolve(__dirname, 'build/resources/main/assets/styles.css')
+            }
+        ])]
 }
 
 module.exports = config;

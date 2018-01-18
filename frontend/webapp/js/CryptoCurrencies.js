@@ -3,9 +3,6 @@ import axios from 'axios';
 import AssetPair from '../js/AssetPair';
 
 class CryptoCurrencies extends React.Component {
-	propTypes: {
-    	data: React.PropTypes.array.isRequired
-  	}
 
 	constructor(props) {
   	super(props);
@@ -39,8 +36,7 @@ class CryptoCurrencies extends React.Component {
 
 		return (
 			<div>
-				<h1>CryptoCurrencies</h1>
-				<h2>Kraken Asset Pairs</h2>
+				<h2>Crypto</h2>
 				<ul className='DataItemList-list'>
 					{dataItems}
 				</ul>

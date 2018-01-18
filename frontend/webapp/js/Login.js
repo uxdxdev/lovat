@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import Navbar from '../js/Navbar'
-import Header from '../js/Header'
+import Header from './Header'
+import Footer from '../js/Footer'
 
 class Login extends React.Component {
 	constructor(props) {
@@ -9,7 +9,7 @@ class Login extends React.Component {
 		this.state = {
 			username: '',
 			password: '',
-            loginStatus: 'test'
+            loginStatus: ''
 		};
 
 		this.onSubmit = this.onSubmit.bind(this);
@@ -60,21 +60,29 @@ class Login extends React.Component {
 	render() {
 		return (
 			<div>
-				<Navbar/>
-				<Header/>
-				<div className='LoginForm'>
-					<form onSubmit={this.onSubmit}>
-						<input type='text' placeholder='Username' required='true' value={this.state.username} onChange={this.onUsernameChange} />
-						<input type='password' placeholder='Password' required='true' value={this.state.password} onChange={this.onPasswordChange} />
-						<div id="ButtonHolder">
-							<button type='submit'>Sign In</button>
-						</div>
-					</form>
-                    <div class="alert alert-warning" role="alert">
-                        {this.state.loginStatus}
+                <Header/>
+                <div className="container-fluid">
+                    <div className="container col-md-4 col-md-offset-4">
+                        <form onSubmit={this.onSubmit}>
+                            <div className="form-group">
+                                <label for="username">Username</label>
+                                <input id="username" className="form-control" type='text' placeholder='Username' required='true' value={this.state.username} onChange={this.onUsernameChange} />
+                                <small id="usernameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div className="form-group">
+                                <label for="password">Password</label>
+                                <input id="password" className="form-control" type='password' placeholder='Password' required='true' value={this.state.password} onChange={this.onPasswordChange} />
+                            </div>
+                            <button className="btn btn-primary" type='submit'>Sign In</button>
+                        </form>
                     </div>
-				</div>
-
+                    <div className="container col-md-4 col-md-offset-4">
+                        <div className="alert alert-warning" role="alert">
+                            {this.state.loginStatus}
+                        </div>
+                    </div>
+                </div>
+                <Footer/>
 			</div>
         )
 	}

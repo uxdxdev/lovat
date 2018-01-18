@@ -25,7 +25,8 @@
     "utf-8-validate": "^3.0.3",
     "watch": "^1.0.2",
     "webpack": "^2.5.0",
-    "ws": "^3.1.0"
+    "ws": "^3.1.0",
+    "copy-webpack-plugin": "^4.0.1"
   },
   "repository": {
     "type": "git",

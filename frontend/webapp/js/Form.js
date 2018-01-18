@@ -65,18 +65,25 @@ class Form extends React.Component {
 
 	render(){
 		return (
-			<div className='CreateEventForm'>
 			<form onSubmit={this.onSubmit}>
-				<input type='text' placeholder='Event Name (required)' required='true' value={this.state.eventName} onChange={this.onNameChange} />
-				<textarea placeholder='Description' required='false' value={this.state.eventDescription} onChange={this.onDescriptionChange} />
-				<input type='text' placeholder='Location (required)' required='true' value={this.state.eventLocation} onChange={this.onLocationChange} />
-				<input type='date' placeholder='Date (required)' required='true' value={this.state.eventDate} onChange={this.onDateChange} />
-				<div id="ButtonHolder">
-					<button type='submit'>Create Event</button>
-				</div>
-				<div id='notification-bar'>Notifications</div>
+                <div className="form-group">
+                    <label for="event-name">Event Name</label>
+				    <input id="event-name" className="form-control" type='text' placeholder='Event Name' required='true' value={this.state.eventName} onChange={this.onNameChange} />
+                </div>
+                <div className="form-group">
+                    <label for="description">Description</label>
+				    <textarea id="description" className="form-control" placeholder='Description' required='false' value={this.state.eventDescription} onChange={this.onDescriptionChange} />
+                </div>
+                <div className="form-group">
+                    <label for="location">Location</label>
+				    <input id="location" className="form-control" type='text' placeholder='Location' required='true' value={this.state.eventLocation} onChange={this.onLocationChange} />
+                </div>
+                <div className="form-group">
+                    <label for="date">Date</label>
+				    <input id="date" className="form-control" type='date' placeholder='Date' required='true' value={this.state.eventDate} onChange={this.onDateChange} />
+                </div>
+                <button className="btn btn-primary" type='submit'>Create Event</button>
 			</form>
-			</div>
 		)
 	}
 }

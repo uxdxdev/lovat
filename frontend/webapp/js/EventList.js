@@ -1,11 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import Event from '../js/Event'
+import Form from '../js/Form';
 
 class EventList extends React.Component {
-	propTypes: {
-		events: React.PropTypes.array.isRequired
-  	}
 
 	constructor(props) {
   	super(props);
@@ -38,9 +36,10 @@ class EventList extends React.Component {
 			return <Event data={event} key={event.id} url={eventsEndpointUrl}/>
 		});
 		return (
-			<div className='EventList'>
-				<h2>Events List</h2>
-				<ul className='DataItemList-list'>
+			<div>
+                <h2>Events</h2>
+                <Form/>
+				<ul>
 					{events}
 				</ul>
 			</div>

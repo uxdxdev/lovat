@@ -1,10 +1,10 @@
 import React from 'react';
-import Navbar from '../js/Navbar'
-import Form from '../js/Form';
+import Header from './Header'
 import EventList from '../js/EventList';
 import TwitterApi from '../js/TwitterApi';
 import CryptoCurrencies from '../js/CryptoCurrencies';
 import WebsocketChat from '../js/WebsocketChat';
+import Footer from "../js/Footer";
 
 class App extends React.Component {
 	constructor(props) {
@@ -22,21 +22,24 @@ class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<Navbar/>
-				<div className="Service">
-					<h1>Events</h1>
-					<Form/>
-					<EventList events={this.state.eventsData} pollInterval={this.state.eventsPollInterval}/>
-				</div>
-				<div className="Service">
-					<TwitterApi tweets={this.state.tweetsData} pollInterval={this.state.tweetsPollInterval}/>
-				</div>
-				<div className="Service">
-					<WebsocketChat />
-				</div>
-				<div className="Service">
-					<CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval}/>
-				</div>
+				<Header/>
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col">
+                            <EventList events={this.state.eventsData} pollInterval={this.state.eventsPollInterval}/>
+                        </div>
+                        <div className="col">
+                            <TwitterApi tweets={this.state.tweetsData} pollInterval={this.state.tweetsPollInterval}/>
+                        </div>
+                        <div className="col">
+                            <WebsocketChat />
+                        </div>
+                        <div className="col">
+                            <CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval}/>
+                        </div>
+                    </div>
+                </div>
+                <Footer/>
 			</div>
 		)
 	}
