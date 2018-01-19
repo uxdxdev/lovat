@@ -62,67 +62,6 @@ public class NashornControllerUnitTest {
 		assertEquals(expectedHtml, actualHtml);
 	}
 
-	@Test(expected = IllegalStateException.class)
-	public void illegalStateExceptionThrownIfReactJsFunctionNull() {
-
-		new MockUp<AbstractScriptEngine>() {
-
-			@Mock
-			public Object eval(String script) throws ScriptException {
-				return null;
-			}
-
-			@Mock
-			public Object eval(Reader reader) throws ScriptException {
-				return null;
-			}
-
-		};
-
-		new MockUp<InputStreamReader>() {
-
-			@Mock
-			public void $init(InputStream in) {
-			}
-		};
-
-		NashornScriptEngine engine = (NashornScriptEngine) new ScriptEngineManager().getEngineByName("nashorn");
-		NashornController react = new NashornController(engine);
-		List<Object> props = new ArrayList<Object>();
-		react.renderReactJsComponent(null, props);
-	}
-
-	// @Test(expected = IllegalStateException.class)
-	// public void illegalStateExceptionThrownIfReactJsPropsNull() {
-	//
-	// new MockUp<AbstractScriptEngine>() {
-	//
-	// @Mock
-	// public Object eval(String script) throws ScriptException {
-	// return null;
-	// }
-	//
-	// @Mock
-	// public Object eval(Reader reader) throws ScriptException {
-	// return null;
-	// }
-	//
-	// };
-	//
-	// new MockUp<InputStreamReader>() {
-	//
-	// @Mock
-	// public void $init(InputStream in) {
-	// }
-	// };
-	//
-	// NashornScriptEngine engine = (NashornScriptEngine) new
-	// ScriptEngineManager().getEngineByName("nashorn");
-	// NashornController react = new NashornController(engine);
-	// List<Object> props = new ArrayList<Object>();
-	// react.renderReactJsComponent("testFunction", null);
-	// }
-
 	@Test(expected = RuntimeException.class)
 	public void runtimeExceptionThrownIfNashornEngineNull() {
 		NashornController react = new NashornController(null);
