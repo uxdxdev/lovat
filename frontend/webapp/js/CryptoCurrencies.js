@@ -20,24 +20,23 @@ class CryptoCurrencies extends React.Component {
 			component.setState({
 				data : dataList
 			});
-
-			if(dataList !== null){
-                setInterval(this.loadDataFromServer.bind(null, this, this.state.dataEndpointUrl), this.state.pollInterval);
-            }
 		});
 	}
 
 	componentDidMount() {
 		this.loadDataFromServer(this, this.state.dataEndpointUrl);
+        setInterval(this.loadDataFromServer.bind(null, this, this.state.dataEndpointUrl), this.state.pollInterval);
 	}
 
 	render(){
-	    let dataItems = "Error loading crypto tickers...";
-	    if(this.state.data !== null) {
-            const dataItems = this.state.data.map(function (item) {
-                return <AssetPair data={item} key={item.id} url={this.state.dataEndpointUrl}/>
+	    let dataItems = "";
+	    if(this.state.data !== null && this.state.data.length > 0) {
+            let self = this;
+            dataItems = this.state.data.map(function (item) {
+                return <AssetPair data={item} key={item.id} url={self.state.dataEndpointUrl}/>
             });
         }
+
 		return (
 			<div>
 				<h2 className="text-center">Crypto</h2>

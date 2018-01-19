@@ -37,7 +37,7 @@ class EventList extends React.Component {
 	render(){
 
 	    // Check the component state for the list of events and only render the list if it exists.
-        let events = "Error reading events list...";
+        let events = "";
 		if(this.state.events !== null) {
             events = this.state.events.map(function (event) {
                 return <Event data={event} key={event.id} url={this.state.eventsEndpointUrl}/>
