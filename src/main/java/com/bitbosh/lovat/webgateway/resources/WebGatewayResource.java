@@ -191,7 +191,7 @@ public class WebGatewayResource {
 		HttpGet httpGet = new HttpGet("https://api.kraken.com/0/public/Ticker");
 		httpGet.setHeader("Content-Type", "application/json");
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("pair", "BTCEUR,ETHEUR,XRPEUR,LTCEUR,XMREUR"));
+		params.add(new BasicNameValuePair("pair", "BTCEUR,ETHEUR,XRPEUR,LTCEUR,XLMXBT,XMREUR"));
         HashMap<String, Object> krakenApiResponse = makeRequest(httpGet, params);
 		HashMap<String, Object> result = (HashMap<String, Object>) krakenApiResponse.get("result");
 		List<HashMap<String, Object>> assetPairs = new ArrayList<HashMap<String, Object>>();

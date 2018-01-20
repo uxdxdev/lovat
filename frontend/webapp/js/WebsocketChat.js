@@ -11,7 +11,7 @@ class WebsocketChat extends React.Component {
                     <label className="sr-only" for="username">Username</label>
                     <input type="text" className="form-control mb-2" id="username" placeholder="Username"/>
 
-                    <button type="button" className="btn btn-primary mb-2" onClick={connect}>Connect</button>
+                    <button type="button" className="btn btn-primary mb-2 mr-2" onClick={connect}>Connect</button>
                     <button type="button" className="btn btn-primary mb-2" onClick={close}>Close</button>
 
                     <div id="messageContainer">

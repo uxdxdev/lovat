@@ -23,15 +23,12 @@ class EventList extends React.Component {
                 component.setState({
                     events : eventList
                 });
-
-                if(eventList !== null) {
-                    setInterval(this.loadEventsFromServer.bind(null, this, this.state.eventsEndpointUrl), this.state.pollInterval);
-                }
 		    });
 	}
 
 	componentDidMount() {
 		this.loadEventsFromServer(this, this.state.eventsEndpointUrl);
+        setInterval(this.loadEventsFromServer.bind(null, this, this.state.eventsEndpointUrl), this.state.pollInterval);
     }
 
 	render(){
@@ -39,8 +36,9 @@ class EventList extends React.Component {
 	    // Check the component state for the list of events and only render the list if it exists.
         let events = "";
 		if(this.state.events !== null) {
+            let self = this;
             events = this.state.events.map(function (event) {
-                return <Event data={event} key={event.id} url={this.state.eventsEndpointUrl}/>
+                return <Event data={event} key={event.id} url={self.state.eventsEndpointUrl}/>
             });
         }
 

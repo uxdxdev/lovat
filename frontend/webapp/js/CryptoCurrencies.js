@@ -8,6 +8,7 @@ class CryptoCurrencies extends React.Component {
   	super(props);
   	this.state = {
 			data : this.props.data,
+            btceurPrice : 0,
 			pollInterval: this.props.pollInterval,
 			dataEndpointUrl: '/kraken'
 		};
@@ -17,9 +18,16 @@ class CryptoCurrencies extends React.Component {
 	loadDataFromServer(component, apiUrl) {
 		axios.get(apiUrl).then(function(res) {
 			var dataList = res.data.list;
-			component.setState({
-				data : dataList
-			});
+            let btceur = dataList.map(function (item) {
+                if(item.pair_name === "XXBTZEUR"){
+                    return item.c[0];
+                }
+            });
+
+            component.setState({
+                data : dataList,
+                btceurPrice : btceur[2]
+            });
 		});
 	}
 
@@ -33,13 +41,13 @@ class CryptoCurrencies extends React.Component {
 	    if(this.state.data !== null && this.state.data.length > 0) {
             let self = this;
             dataItems = this.state.data.map(function (item) {
-                return <AssetPair data={item} key={item.id} url={self.state.dataEndpointUrl}/>
+                return <AssetPair btceur={self.state.btceurPrice} data={item} key={item.id} url={self.state.dataEndpointUrl}/>
             });
         }
 
 		return (
 			<div>
-				<h2 className="text-center">Crypto</h2>
+				<h2 className="text-center">Kraken</h2>
 				<ul>
 					{dataItems}
 				</ul>
