@@ -7,6 +7,7 @@ ul#log {
     height: 30vh;
     overflow: auto;
     min-height: 30vh;
+    font-size: 12px;
 }
 
 .right-side-bar {

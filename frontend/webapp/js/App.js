@@ -80,10 +80,12 @@ if(typeof window !== "undefined"){
       // render Dashboard
       renderClientDashbaord(events, tweets, pairData);
 
+        var logList = document.getElementById('log');
         document.getElementById('msg').addEventListener('keypress', function(event) {
             if (event.keyCode === 13) {
                 event.preventDefault();
                 send();
+                logList.scrollTop = 0;
                 return true;
             }
         });

@@ -16,7 +16,7 @@ public class CustomAuthenticator implements Authenticator<BasicCredentials, User
     public static String loggedInUsername;
 
     public CustomAuthenticator(DBI jdbi) {
-        loggedInUsername = "customAuthenticator";
+        loggedInUsername = "Anon";
         this.userDao = jdbi.onDemand(UserDao.class);
     }
 

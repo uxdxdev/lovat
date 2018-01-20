@@ -52,21 +52,21 @@ function log(from, text) {
     li.className = "row";
 
 	var usernameDiv = document.createElement('div');
-	var classParams = "col-sm-2 ";
+	var classParams = "col-12";
 
 	// give the admin a special username color
 	if(from === "admin"){
-        classParams += "text-success";
+        classParams += " text-success";
     } else {
-        classParams += "text-primary";
+        classParams += " text-primary";
     }
 
     usernameDiv.className = classParams;
-    usernameDiv.innerHTML = from + ": ";
+    usernameDiv.innerHTML = from;
 
     var messageDiv = document.createElement('div');
-    messageDiv.className = "log-entry col-sm-10";
-    messageDiv.innerHTML =  text;
+    messageDiv.className = "log-entry col-12";
+    messageDiv.innerHTML = text;
 
 	li.appendChild(usernameDiv);
 	li.appendChild(messageDiv);

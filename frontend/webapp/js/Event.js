@@ -49,8 +49,8 @@ class Event extends React.Component {
 			<li key={this.state.data.id}>
 				<div className="card mt-2 mb-2">
                     <div className="card-body p-2">
-                        <h6 className="card-title">{this.state.data.name}</h6>
-                        <h7 className="card-subtitle text-muted">{this.state.data.location} - {this.state.data.date}</h7>
+                        <h6 className="card-title">{this.state.data.name} {this.state.data.date}</h6>
+                        <h7 className="card-subtitle text-muted">{this.state.data.location}</h7>
                         <p className="card-text" >{this.state.data.description}</p>
                         <ActionControl url={this.state.url} id={this.state.data.id}/>
                     </div>
