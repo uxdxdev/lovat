@@ -75,6 +75,7 @@ class Login extends React.Component {
                         <div className="btn-sm alert-warning mt-2" role="alert">
                             {this.state.loginStatus}
                         </div>
+                        <p className="m-0">anon : password</p>
                     </div>
                 </div>
                 <Footer/>

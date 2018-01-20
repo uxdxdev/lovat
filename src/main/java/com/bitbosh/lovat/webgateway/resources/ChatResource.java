@@ -1,23 +1,17 @@
 package com.bitbosh.lovat.webgateway.resources;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-
-import javax.websocket.EncodeException;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
-
 import com.bitbosh.lovat.webgateway.auth.CustomAuthenticator;
 import com.bitbosh.lovat.webgateway.core.Message;
 import com.bitbosh.lovat.webgateway.core.MessageDecoder;
 import com.bitbosh.lovat.webgateway.core.MessageEncoder;
+
+import javax.websocket.*;
+import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 @ServerEndpoint(value = "/chat",
 		decoders = MessageDecoder.class, 
@@ -31,10 +25,15 @@ public class ChatResource {
 	@OnOpen
 	public void onOpen(Session session) {
 
-	    String loggedInUsername = CustomAuthenticator.getLoggedInUsername();
-		this.session = session;
-		chatConnections.add(this);
-		users.put(session.getId(), loggedInUsername);
+        String loggedInUsername = CustomAuthenticator.getLoggedInUsername();
+        Random rand = new Random();
+        int pickedNumber = rand.nextInt(1000) + 1;
+        if (loggedInUsername.equals("anon")) {
+            loggedInUsername += "#" + pickedNumber;
+        }
+        users.put(session.getId(), loggedInUsername);
+        this.session = session;
+        chatConnections.add(this);
 	}
 	
 	@OnMessage
@@ -48,6 +47,7 @@ public class ChatResource {
 		chatConnections.remove(this);
 		Message message = new Message();
 		message.setFrom(users.get(session.getId()));
+        users.remove(session.getId());
 		message.setContent("Disconnected!");
 		broadcast(message);
 	}
