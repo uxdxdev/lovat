@@ -33,8 +33,6 @@ class App extends React.Component {
                         </div>
                         <div className="col">
                             <CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval}/>
-                        </div>
-                        <div className="col">
                             <WebsocketChat />
                         </div>
                     </div>

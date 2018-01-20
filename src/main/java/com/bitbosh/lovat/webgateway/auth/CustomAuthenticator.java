@@ -13,10 +13,15 @@ import java.util.Optional;
 public class CustomAuthenticator implements Authenticator<BasicCredentials, User> {
 
     private final UserDao userDao;
+    public static String loggedInUsername;
 
     public CustomAuthenticator(DBI jdbi) {
-
+        loggedInUsername = "customAuthenticator";
         this.userDao = jdbi.onDemand(UserDao.class);
+    }
+
+    public static String getLoggedInUsername(){
+        return loggedInUsername;
     }
 
     @Override
@@ -26,6 +31,7 @@ public class CustomAuthenticator implements Authenticator<BasicCredentials, User
 		if(user == null || user.getPassword().isEmpty() || !user.getPassword().equals(credentials.getPassword())) {
             throwNotAuthorizedException();
         } else {
+		    loggedInUsername = user.getUsername();
             return Optional.of(user);
         }
 

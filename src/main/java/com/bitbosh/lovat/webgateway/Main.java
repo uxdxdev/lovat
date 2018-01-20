@@ -13,17 +13,15 @@ import javax.ws.rs.client.Client;
 
 import com.bitbosh.lovat.webgateway.auth.PreAuthFilter;
 import io.dropwizard.auth.AuthValueFactoryProvider;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.skife.jdbi.v2.DBI;
 
-import com.bitbosh.lovat.webgateway.api.ChatResource;
+import com.bitbosh.lovat.webgateway.resources.ChatResource;
 import com.bitbosh.lovat.webgateway.api.NashornController;
 import com.bitbosh.lovat.webgateway.auth.CustomAuthenticator;
 import com.bitbosh.lovat.webgateway.core.NotAuthorizedExceptionHandler;

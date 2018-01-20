@@ -75,6 +75,8 @@ if(typeof window !== "undefined"){
 
       ]).catch(error => console.log(error));
 
+      createNewSocketConnection();
+
       // render Dashboard
       renderClientDashbaord(events, tweets, pairData);
     }

@@ -1,4 +1,4 @@
-package com.bitbosh.lovat.webgateway.api;
+package com.bitbosh.lovat.webgateway.resources;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,11 +14,12 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import com.bitbosh.lovat.webgateway.auth.CustomAuthenticator;
 import com.bitbosh.lovat.webgateway.core.Message;
 import com.bitbosh.lovat.webgateway.core.MessageDecoder;
 import com.bitbosh.lovat.webgateway.core.MessageEncoder;
 
-@ServerEndpoint(value = "/chat/{username}",
+@ServerEndpoint(value = "/chat",
 		decoders = MessageDecoder.class, 
 		encoders = MessageEncoder.class)
 public class ChatResource {
@@ -28,13 +29,15 @@ public class ChatResource {
 	private static HashMap<String, String> users = new HashMap<>();
 	
 	@OnOpen
-	public void onOpen(Session session, @PathParam("username") String username) {	
+	public void onOpen(Session session) {
+
+	    String loggedInUsername = CustomAuthenticator.getLoggedInUsername();
 		this.session = session;
 		chatConnections.add(this);
-		users.put(session.getId(), username);
+		users.put(session.getId(), loggedInUsername);
 		
 		Message message = new Message();
-		message.setFrom(username);
+		message.setFrom(loggedInUsername);
 		message.setContent("Connected!");
 		broadcast(message);
 	}

@@ -35,7 +35,7 @@ class AssetPair extends React.Component {
 
 		return (
 			<li key={this.state.data.id}>
-				<div className='card mt-2 mb-2'>
+				<div className='asset-pair card mt-2 mb-2'>
                     <div className='row card-body p-2'>
                         <div className='col text-center'>{firstAsset + "/" + secondAsset}</div>
                         <div className='col'>฿{btc}</div>

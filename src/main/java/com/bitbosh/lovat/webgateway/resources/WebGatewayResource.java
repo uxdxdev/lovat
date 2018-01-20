@@ -55,6 +55,10 @@ public class WebGatewayResource {
 		this.nashornController = nashornController;
 	}
 
+	public String getLoggedInUsername(@Auth User user){
+	    return user.getUsername();
+    }
+
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
@@ -81,6 +85,7 @@ public class WebGatewayResource {
 	@POST
 	@Path("/auth")
 	public Response authenticate(@Auth User user) {
+
         final String base64 = Base64.encodeAsString(user.getUsername() + ":" + user.getPassword());
         return Response.status(Response.Status.CREATED)
                 .cookie(new NewCookie(HttpHeaders.AUTHORIZATION, "Basic " + base64))

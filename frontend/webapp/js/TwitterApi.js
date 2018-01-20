@@ -39,7 +39,7 @@ class TwitterApi extends React.Component {
         }
 		return (
 			<div>
-				<h2 className="text-center">Twitter</h2>
+				<h5 className="text-center text-muted">Twitter</h5>
 				<ul>
 					{tweets}
 				</ul>

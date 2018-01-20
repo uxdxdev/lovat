@@ -26,6 +26,10 @@ var config = {
             {
                 from: './src/main/resources/assets/styles.css',
                 to: path.resolve(__dirname, 'build/resources/main/assets/styles.css')
+            },
+            {
+                from: './frontend/webapp/js/websocket.js',
+                to: path.resolve(__dirname, 'src/main/resources/assets/js/websocket.js')
             }
         ])]
 }
