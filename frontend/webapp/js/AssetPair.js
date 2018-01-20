@@ -22,7 +22,7 @@ class AssetPair extends React.Component {
         switch (secondAsset) {
             case "XBT":
                 btc = this.state.data.c[0];
-                euro = btcEuroPrice;
+                euro = btcEuroPrice * btc;
                 break;
             case "EUR":
                 euro = this.state.data.c[0];
