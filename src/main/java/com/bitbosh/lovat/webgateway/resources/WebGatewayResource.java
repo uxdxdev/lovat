@@ -47,7 +47,7 @@ public class WebGatewayResource {
 	private final String kServerRenderFunctionDashboard = "renderServerDashboard";
 	private final String kServerRenderFunctionLogin = "renderServerLogin";
 
-    private final String kEventServiceUrl = "https://dropwizardheroku-event-service.herokuapp.c";
+    private final String kEventServiceUrl = "https://dropwizardheroku-event-service.herokuapp.com";
     private final String kEventServiceApiEndpointEvents = kEventServiceUrl + "/v1/api/events";
 
 	public WebGatewayResource(Client client, NashornController nashornController) {
