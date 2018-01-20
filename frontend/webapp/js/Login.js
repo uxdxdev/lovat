@@ -61,8 +61,8 @@ class Login extends React.Component {
 		return (
 			<div>
                 <Header/>
-                <div className="container-fluid">
-                    <div className="container col-md-4 col-md-offset-4 mt-5 text-center">
+                <div className="login container-fluid text-center">
+                    <div>
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <input id="username" className="form-control" type='text' placeholder='Username' required='true' value={this.state.username} onChange={this.onUsernameChange} />
@@ -72,9 +72,7 @@ class Login extends React.Component {
                             </div>
                             <button className="btn btn-sm btn-primary col-12" type='submit'>Sign In</button>
                         </form>
-                    </div>
-                    <div className="container col-md-4 col-md-offset-4">
-                        <div className="alert alert-warning mt-3" role="alert">
+                        <div className="btn-sm alert-warning mt-2" role="alert">
                             {this.state.loginStatus}
                         </div>
                     </div>

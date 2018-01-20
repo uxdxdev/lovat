@@ -21,7 +21,7 @@ ul.event-list {
     overflow: auto;
 }
 
-.log-entry{
+li.log-entry{
     word-wrap: break-word;
 }
 
@@ -36,4 +36,12 @@ p.card-text {
 
 .asset-pair {
     font-size: 12px;
+}
+
+.login.container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    width: 100%;
 }
