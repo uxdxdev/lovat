@@ -13,12 +13,12 @@ function createNewSocketConnection() {
     }
 
     socket.onerror = function(event) {
-        log('Error: ' + JSON.stringify(event));
+        log('', 'Error: ' + JSON.stringify(event));
     }
 
     socket.onmessage = function(event) {
         var message = JSON.parse(event.data);
-        log(message.from + ": " + message.content);
+        log(message.from, message.content);
     }
 
     socket.onclose = function(event) {
@@ -40,7 +40,7 @@ function sendMessageOverSocket() {
 	content.value = "";
 	if (socket && message) {
 		var json = JSON.stringify({
-			from : username,
+			from : "",
 			to : "",
 			content : message
 		});
@@ -49,10 +49,27 @@ function sendMessageOverSocket() {
 	}
 }
 
-function log(text) {
+function log(from, text) {
 	var li = document.createElement('li');
-	li.className = "List-item";
-	li.innerHTML = text;
+    li.className = "row col";
+
+	var usernameDiv = document.createElement('div');
+	var highlight = "text-primary";
+
+	// give the admin a special username color
+	if(from === "admin"){
+        highlight = "text-success";
+    }
+
+    usernameDiv.className = highlight;
+    usernameDiv.innerHTML = from;
+
+    var messageDiv = document.createElement('div');
+    messageDiv.innerHTML =  ": " + text;
+
+	li.appendChild(usernameDiv);
+	li.appendChild(messageDiv);
+
 	var list = document.getElementById("log");
 	if (list !== null) {
 		list.prepend(li);
