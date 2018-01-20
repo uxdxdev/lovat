@@ -62,18 +62,15 @@ class Login extends React.Component {
 			<div>
                 <Header/>
                 <div className="container-fluid">
-                    <div className="container col-md-4 col-md-offset-4">
+                    <div className="container col-md-4 col-md-offset-4 mt-5 text-center">
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
-                                <label for="username">Username</label>
                                 <input id="username" className="form-control" type='text' placeholder='Username' required='true' value={this.state.username} onChange={this.onUsernameChange} />
-                                <small id="usernameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
                             <div className="form-group">
-                                <label for="password">Password</label>
                                 <input id="password" className="form-control" type='password' placeholder='Password' required='true' value={this.state.password} onChange={this.onPasswordChange} />
                             </div>
-                            <button className="btn btn-primary" type='submit'>Sign In</button>
+                            <button className="btn btn-sm btn-primary col-12" type='submit'>Sign In</button>
                         </form>
                     </div>
                     <div className="container col-md-4 col-md-offset-4">
