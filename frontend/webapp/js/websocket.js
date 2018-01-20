@@ -7,8 +7,8 @@ function createNewSocketConnection() {
 		closeSocketConnection();
 	}
 
-    //socket = new WebSocket('wss://lovat.herokuapp.com/chat');
-    socket = new WebSocket('ws://localhost:8080/chat');
+    socket = new WebSocket('wss://lovat.herokuapp.com/chat');
+    //socket = new WebSocket('ws://localhost:8080/chat');
     socket.onopen = function(event) {
     }
 
