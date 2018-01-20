@@ -61,7 +61,7 @@ class Login extends React.Component {
 		return (
 			<div>
                 <Header/>
-                <div className="login container-fluid text-center">
+                <div className="container-fluid container-fluid-center text-center">
                     <div>
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">

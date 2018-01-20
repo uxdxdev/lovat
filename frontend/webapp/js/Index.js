@@ -7,7 +7,7 @@ class Index extends React.Component {
 		return (
 			<div>
                 <Header/>
-                <div className="container-fluid text-center">
+                <div className="container-fluid container-fluid-center text-center">
                     <p>Server side ReactJS using Java 8 Nashorn</p>
                 </div>
                 <Footer/>

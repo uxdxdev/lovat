@@ -38,7 +38,7 @@ p.card-text {
     font-size: 12px;
 }
 
-.login.container-fluid {
+.container-fluid.container-fluid-center {
     display: flex;
     align-items: center;
     justify-content: center;
