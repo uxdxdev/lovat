@@ -46,7 +46,7 @@ class EventList extends React.Component {
 			<div>
                 <h5 className="text-center text-muted">Events</h5>
                 <Form/>
-				<ul>
+				<ul className="event-list">
 					{events}
 				</ul>
 			</div>

@@ -79,6 +79,14 @@ if(typeof window !== "undefined"){
 
       // render Dashboard
       renderClientDashbaord(events, tweets, pairData);
+
+        document.getElementById('msg').addEventListener('keypress', function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                send();
+                return true;
+            }
+        });
     }
   }
 }

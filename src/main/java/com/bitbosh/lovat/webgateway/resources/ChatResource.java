@@ -35,11 +35,6 @@ public class ChatResource {
 		this.session = session;
 		chatConnections.add(this);
 		users.put(session.getId(), loggedInUsername);
-		
-		Message message = new Message();
-		message.setFrom(loggedInUsername);
-		message.setContent("Connected!");
-		broadcast(message);
 	}
 	
 	@OnMessage

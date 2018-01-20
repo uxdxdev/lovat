@@ -25,15 +25,13 @@ class App extends React.Component {
 				<Header/>
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col">
-                            <EventList events={this.state.eventsData} pollInterval={this.state.eventsPollInterval}/>
-                        </div>
-                        <div className="col">
+                        <div className="col-lg-9">
                             <TwitterApi tweets={this.state.tweetsData} pollInterval={this.state.tweetsPollInterval}/>
                         </div>
-                        <div className="col">
-                            <CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval}/>
+                        <div className="col-lg-3 right-side-bar">
                             <WebsocketChat />
+                            <CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval}/>
+                            <EventList events={this.state.eventsData} pollInterval={this.state.eventsPollInterval}/>
                         </div>
                     </div>
                 </div>

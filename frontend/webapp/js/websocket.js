@@ -27,8 +27,6 @@ function createNewSocketConnection() {
 
 function closeSocketConnection() {
 	if (socket) {
-		var usernameHeader = document.getElementById("usernameHeader");
-		usernameHeader.innerHTML = "";
 		socket.close();
 		socket = null;
 	}
@@ -51,21 +49,24 @@ function sendMessageOverSocket() {
 
 function log(from, text) {
 	var li = document.createElement('li');
-    li.className = "row col";
+    li.className = "row";
 
 	var usernameDiv = document.createElement('div');
-	var highlight = "text-primary";
+	var classParams = "col-sm-2 ";
 
 	// give the admin a special username color
 	if(from === "admin"){
-        highlight = "text-success";
+        classParams += "text-success";
+    } else {
+        classParams += "text-primary";
     }
 
-    usernameDiv.className = highlight;
-    usernameDiv.innerHTML = from;
+    usernameDiv.className = classParams;
+    usernameDiv.innerHTML = from + ": ";
 
     var messageDiv = document.createElement('div');
-    messageDiv.innerHTML =  ": " + text;
+    messageDiv.className = "log-entry col-sm-10";
+    messageDiv.innerHTML =  text;
 
 	li.appendChild(usernameDiv);
 	li.appendChild(messageDiv);

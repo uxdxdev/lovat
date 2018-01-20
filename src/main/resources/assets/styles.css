@@ -3,6 +3,32 @@ ul {
     padding: 0px;
 }
 
+ul#log {
+    height: 30vh;
+    overflow: auto;
+    min-height: 30vh;
+}
+
+.right-side-bar {
+    overflow: auto;
+    height: 86vh;
+}
+
+
+ul.event-list {
+    height: 46vh;
+    overflow: auto;
+}
+
+.log-entry{
+    word-wrap: break-word;
+}
+
+ul#tweet-list {
+    max-height: 82vh;
+    overflow: auto;
+}
+
 p.card-text {
     font-size: 14px;
 }
