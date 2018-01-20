@@ -19,7 +19,7 @@ class Login extends React.Component {
 
 	onSubmit(e){
 		e.preventDefault();
-        this.updateNotification('Please wait...Redirecting');
+        this.updateNotification('Please wait...');
 
         axios({
             method: 'post',
