@@ -49,7 +49,6 @@ function sendMessageOverSocket() {
 
 function log(from, text) {
 	var li = document.createElement('li');
-	li.className = "log-entry";
 
 	var usernameDiv = document.createElement('div');
 	var classParams = "col-12 p-0";
@@ -75,8 +74,9 @@ function log(from, text) {
 	if (list !== null) {
 		list.append(li);
 	}
-
-	list.scrollTop = $('#log').last().offset().top;
+	
+	var chatLog = document.getElementById("conversation");
+	chatLog.scrollTop = chatLog.scrollHeight;
 }
 
 window.addEventListener("beforeunload", function() {

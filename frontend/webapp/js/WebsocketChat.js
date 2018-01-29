@@ -5,7 +5,7 @@ class WebsocketChat extends React.Component {
 	render(){
 		return (
 			<div className="chat-container col-12 p-0">
-				<div className="chat-log" > 
+				<div className="chat-log" id="conversation"> 
                 	<ul id="log"></ul>
 				</div>
                 <form className="chat-input" onSubmit={this.send}>

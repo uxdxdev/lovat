@@ -46,6 +46,7 @@ p.card-text, .asset-pair {
     font-size: 12px;
     word-wrap: break-word;
     height: calc(100% - 81px);
+    max-height: 1000px;
     margin-bottom: 0px;    
 }
 
@@ -58,10 +59,4 @@ p.card-text, .asset-pair {
 
 ul#log {
     display: inline-block;
-    vertical-align: bottom;
 }
-
-li.log-entry {
-    
-}
-
