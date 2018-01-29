@@ -7,8 +7,8 @@ function createNewSocketConnection() {
 		closeSocketConnection();
 	}
 
-    //socket = new WebSocket('wss://lovat.herokuapp.com/chat');
-    socket = new WebSocket('ws://localhost:8080/chat');
+    socket = new WebSocket('wss://lovat.herokuapp.com/chat');
+    //socket = new WebSocket('ws://localhost:8080/chat');
     socket.onopen = function(event) {
     }
 
@@ -49,10 +49,10 @@ function sendMessageOverSocket() {
 
 function log(from, text) {
 	var li = document.createElement('li');
-    li.className = "row";
+	li.className = "log-entry";
 
 	var usernameDiv = document.createElement('div');
-	var classParams = "col-12";
+	var classParams = "col-12 p-0";
 
 	// give the admin a special username color
 	if(from === "admin"){
@@ -65,7 +65,7 @@ function log(from, text) {
     usernameDiv.innerHTML = from;
 
     var messageDiv = document.createElement('div');
-    messageDiv.className = "log-entry col-12";
+    messageDiv.className = "col-12 p-0";
     messageDiv.innerHTML = text;
 
 	li.appendChild(usernameDiv);
@@ -73,8 +73,10 @@ function log(from, text) {
 
 	var list = document.getElementById("log");
 	if (list !== null) {
-		list.prepend(li);
+		list.append(li);
 	}
+
+	list.scrollTop = $('#log').last().offset().top;
 }
 
 window.addEventListener("beforeunload", function() {

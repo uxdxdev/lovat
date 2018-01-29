@@ -85,7 +85,6 @@ if(typeof window !== "undefined"){
             if (event.keyCode === 13) {
                 event.preventDefault();
                 send();
-                logList.scrollTop = 0;
                 return true;
             }
         });

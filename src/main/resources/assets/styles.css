@@ -1,47 +1,67 @@
-ul {
-    list-style-type: none;
-    padding: 0px;
+html, body, .wrapper {
+    height: 100%;
+    min-width: 400px;
 }
 
-ul#log {
-    height: 30vh;
-    overflow: auto;
-    min-height: 30vh;
-    font-size: 12px;
+header {
+    height: 56px;
 }
 
-.right-side-bar {
-    overflow: auto;
-    height: 86vh;
+.footer {
+    height: 40px;
 }
 
-
-ul.event-list {
-    height: 46vh;
-    overflow: auto;
+.landing-page, .login-page, .main {
+    height: calc(100% - 56px - 40px);
+    overflow: hidden;
+    display: flex;
 }
 
-li.log-entry{
-    word-wrap: break-word;
-}
-
-ul#tweet-list {
-    max-height: 82vh;
+.left-side-bar, .dashboard, .row {
     overflow: auto;
 }
 
-p.card-text {
-    font-size: 14px;
-}
-
-.asset-pair {
-    font-size: 12px;
-}
-
-.container-fluid.container-fluid-center {
+.landing-page, .footer, .login-page {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 500px;
-    width: 100%;
 }
+
+ul {
+    list-style-type: none;
+    padding: 0px;     
+}
+
+p.card-text, .asset-pair {
+    font-size: 10px;
+}
+
+
+.chat-container {
+    height: 100%;       
+}
+
+.chat-log {
+    overflow: auto;
+    font-size: 12px;
+    word-wrap: break-word;
+    height: calc(100% - 81px);
+    margin-bottom: 0px;    
+}
+
+.chat-log::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: bottom;
+}
+
+ul#log {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+li.log-entry {
+    
+}
+

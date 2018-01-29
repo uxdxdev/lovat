@@ -38,12 +38,11 @@ class TwitterApi extends React.Component {
             });
         }
 		return (
-			<div>
-				<h5 className="text-center text-muted">Twitter</h5>
-				<ul id="tweet-list">
-					{tweets}
-				</ul>
-			</div>
+		    <div>
+                <ul className="tweets-list">
+                    {tweets}
+                </ul>
+            </div>
 		)
 	}
 }

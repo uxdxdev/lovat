@@ -21,20 +21,22 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="wrapper">
 				<Header/>
-                <div className="container-fluid">
+                <section className="container main">
                     <div className="row">
-                        <div className="col-lg-9">
+                        <div className="col-lg-3 left-side-bar">
+                            <CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval}/>
+                            <EventList events={this.state.eventsData} pollInterval={this.state.eventsPollInterval}/>
+                        </div>
+                        <div className="col-lg-6 dashboard">
                             <TwitterApi tweets={this.state.tweetsData} pollInterval={this.state.tweetsPollInterval}/>
                         </div>
                         <div className="col-lg-3 right-side-bar">
                             <WebsocketChat />
-                            <CryptoCurrencies data={this.state.pairsData} pollInterval={this.state.pairsPollInterval}/>
-                            <EventList events={this.state.eventsData} pollInterval={this.state.eventsPollInterval}/>
                         </div>
                     </div>
-                </div>
+                </section>
                 <Footer/>
 			</div>
 		)

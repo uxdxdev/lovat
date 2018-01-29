@@ -71,7 +71,7 @@ class Form extends React.Component {
                 <div className="form-group">
 				    <input id="date" className="form-control" type='date' placeholder='Date' required='true' value={this.state.eventDate} onChange={this.onDateChange} />
                 </div>
-                <button className="btn btn-primary btn-sm" type='submit'>Create Event</button>
+                <button className="btn btn-primary btn-sm col-12" type='submit'>Create Event</button>
 			</form>
 		)
 	}

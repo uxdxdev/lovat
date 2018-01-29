@@ -5,11 +5,11 @@ import Footer from "../js/Footer";
 class Index extends React.Component {
 	render(){
 		return (
-			<div>
+			<div className="wrapper">
                 <Header/>
-                <div className="container-fluid container-fluid-center text-center">
+                <section className="container landing-page text-center">
                     <p>Server side ReactJS using Java 8 Nashorn</p>
-                </div>
+                </section>
                 <Footer/>
 			</div>
 		)

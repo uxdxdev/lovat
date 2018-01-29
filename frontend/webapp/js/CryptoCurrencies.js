@@ -47,7 +47,7 @@ class CryptoCurrencies extends React.Component {
 
 		return (
 			<div>
-				<h5 className="text-center text-muted">Kraken</h5>
+				<h5 className="text-center text-muted">Kraken.com</h5>
 				<ul>
 					{dataItems}
 				</ul>
