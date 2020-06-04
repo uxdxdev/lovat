@@ -21,7 +21,7 @@
     "redux": "^3.7.2",
     "utf-8-validate": "^3.0.3",
     "webpack": "^2.5.0",
-    "ws": "^3.1.0"
+    "ws": "^3.3.1"
   },
   "repository": {
     "type": "git",
